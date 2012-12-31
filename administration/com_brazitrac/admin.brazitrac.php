@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: admin.waticketsystem.php 201 2009-11-29 08:37:36Z webamoeba $
+ * @version $Id: admin.brazitec.php 201 2009-11-29 08:37:36Z webamoeba $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL, see LICENSE.php
  * @package wats
@@ -9,21 +9,21 @@
 // Don't allow direct linking
 defined('_JEXEC') or die('Restricted Access');
 
-echo "<script language=\"javascript\" type=\"text/javascript\" src=\"components/com_waticketsystem/admin.wats.js\"></script>";
+echo "<script language=\"javascript\" type=\"text/javascript\" src=\"components/com_brazitec/admin.wats.js\"></script>";
 echo '<div class="wats">';
 
 //add custom classes and functions
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "config.php");
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "dbhelper.php");
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "factory.php");
-require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "admin.waticketsystem.html.php");
+require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "admin.brazitec.html.php");
 
 // add javaScript
 $document =& JFactory::getDocument();
-$document->addScript("../components/com_waticketsystem/wats.js");
+$document->addScript("../components/com_brazitec/wats.js");
 
 // add CSS
-$document->addStyleDeclaration(".icon-48-wats { background-image:url(components/com_waticketsystem/images/icon-48-watshead.png );}");
+$document->addStyleDeclaration(".icon-48-wats { background-image:url(components/com_brazitec/images/icon-48-watshead.png );}");
 
 // set heading
 JToolBarHelper::title("Webamoeba Ticket System", "wats");
@@ -32,7 +32,7 @@ JToolBarHelper::title("Webamoeba Ticket System", "wats");
 $wats = WFactory::getConfig();
 
 $act = JRequest::getCmd("act");
-require_once("toolbar.waticketsystem.php");
+require_once("toolbar.brazitec.php");
 
 // perform selected operation
 watsOption($task, $act);
@@ -125,7 +125,7 @@ function watsOption( &$task, &$act )
 								{
 									// delete category
 									$editCategory->delete( );
-									watsredirect( "index.php?option=com_waticketsystem&act=category", "Category Removed" );
+									watsredirect( "index.php?option=com_brazitec&act=category", "Category Removed" );
 								}
 								else
 								{
@@ -140,18 +140,18 @@ function watsOption( &$task, &$act )
 									// save changes
 									$editCategory->updateCategory();
 									// success
-									watsredirect( "index.php?option=com_waticketsystem&act=category", "Category Updated" );
+									watsredirect( "index.php?option=com_brazitec&act=category", "Category Updated" );
 								}
 								break;
 							}
 							// end check is numeric
 						} else {
-							watsredirect( "index.php?option=com_waticketsystem&act=category&task=new", "Please fill in the form correctly" );
+							watsredirect( "index.php?option=com_brazitec&act=category&task=new", "Please fill in the form correctly" );
 						}
 					}
 					// end check input
 					// redirect input error
-					watsredirect( "index.php?option=com_waticketsystem&act=category", "Error updating category" );
+					watsredirect( "index.php?option=com_brazitec&act=category", "Error updating category" );
 					break;
 				/**
 				 * new
@@ -173,18 +173,18 @@ function watsOption( &$task, &$act )
 							if ( watsCategory::newCategory($name, $description, $image, $emails) )
 							{
 								// success
-								watsredirect( "index.php?option=com_waticketsystem&act=category", "Category Added" );
+								watsredirect( "index.php?option=com_brazitec&act=category", "Category Added" );
 							}
 							else
 							{
 								// already exists
-								watsredirect( "index.php?option=com_waticketsystem&act=category&task=new&", "The specified name already exists" );
+								watsredirect( "index.php?option=com_brazitec&act=category&task=new&", "The specified name already exists" );
 							}
 						}
 					}
 					else
 					{
-						watsredirect( "index.php?option=com_waticketsystem&act=category&task=new", "Please fill in the form correctly" );
+						watsredirect( "index.php?option=com_brazitec&act=category&task=new", "Please fill in the form correctly" );
 					}
 					break;
 				/**
@@ -205,7 +205,7 @@ function watsOption( &$task, &$act )
 					
 					break;
 			}
-			echo "<input type=\"hidden\" name=\"task\" value=\"\" /><input type=\"hidden\" name=\"option\" value=\"com_waticketsystem\" /><input type=\"hidden\" name=\"act\" value=\"category\" /></form>";
+			echo "<input type=\"hidden\" name=\"task\" value=\"\" /><input type=\"hidden\" name=\"option\" value=\"com_brazitec\" /><input type=\"hidden\" name=\"act\" value=\"category\" /></form>";
 			break;
 		/**
 		 * CSS
@@ -214,7 +214,7 @@ function watsOption( &$task, &$act )
 			JToolbarHelper::title("CSS", "wats");
 			echo "<form action=\"index.php\" method=\"post\" name=\"adminForm\">";
 			$watsCss = new watsCssHTML();
-			$watsCss->open('../components/com_waticketsystem/wats.css');
+			$watsCss->open('../components/com_brazitec/wats.css');
 
 			switch ($task) {
 				/**
@@ -225,15 +225,15 @@ function watsOption( &$task, &$act )
 					if ( JRequest::getString('restore') == 'restore' )
 					{
 						// restore css
-						if ( $watsCss->restore( '../components/com_waticketsystem/wats.restore.css' ) )
+						if ( $watsCss->restore( '../components/com_brazitec/wats.restore.css' ) )
 						{
 							// redirect success
-							watsredirect( "index.php?option=com_waticketsystem&act=css", "CSS Restored" );
+							watsredirect( "index.php?option=com_brazitec&act=css", "CSS Restored" );
 						}
 						else
 						{
 							// redirect failure
-							watsredirect( "index.php?option=com_waticketsystem&act=css", "CSS Restore Failed" );
+							watsredirect( "index.php?option=com_brazitec&act=css", "CSS Restore Failed" );
 						}
 					}
 					else
@@ -242,21 +242,21 @@ function watsOption( &$task, &$act )
 						$watsCss->processSettings();
 						$watsCss->save();
 						// redirect
-						watsredirect( "index.php?option=com_waticketsystem&act=css", "Changes Saved" );
+						watsredirect( "index.php?option=com_brazitec&act=css", "Changes Saved" );
 					}
 					break;
 				/**
 				 * cancel
 				 */	
 				case 'cancel':
-					watsredirect( "index.php?option=com_waticketsystem" );
+					watsredirect( "index.php?option=com_brazitec" );
 					break;
 				/**
 				 * backup
 				 */	
 				case 'backup':
 					// open window
-					echo "<script>popup = window.open ('../components/com_waticketsystem/wats.css','watsCSS','resizable=yes,scrollbars=1,width=500,height=500');</script>";
+					echo "<script>popup = window.open ('../components/com_brazitec/wats.css','watsCSS','resizable=yes,scrollbars=1,width=500,height=500');</script>";
 				/**
 				 * default
 				 */	
@@ -328,7 +328,7 @@ function watsOption( &$task, &$act )
 					// end tab pane
 					break;
 			}
-			echo "<input type=\"hidden\" name=\"option\" value=\"com_waticketsystem\" /><input type=\"hidden\" name=\"act\" value=\"css\" /><input type=\"hidden\" name=\"task\" value=\"\" /></form>";
+			echo "<input type=\"hidden\" name=\"option\" value=\"com_brazitec\" /><input type=\"hidden\" name=\"act\" value=\"css\" /><input type=\"hidden\" name=\"task\" value=\"\" /></form>";
 			break;
 		/**
 		 * rites
@@ -357,17 +357,17 @@ function watsOption( &$task, &$act )
 							// create new group
 							$newCategory = watsUserGroup::makeGroup( htmlspecialchars( JRequest::getString('name') ), htmlspecialchars( JRequest::getString('image') ) );
 							// redirect
-							watsredirect( "index.php?option=com_waticketsystem&act=rites&task=view&groupid=".$newCategory->grpid );
+							watsredirect( "index.php?option=com_brazitec&act=rites&task=view&groupid=".$newCategory->grpid );
 						}
 						else
 						{
-							watsredirect( "index.php?option=com_waticketsystem&act=rites&task=new", "Please fill in the form correctly" );
+							watsredirect( "index.php?option=com_brazitec&act=rites&task=new", "Please fill in the form correctly" );
 						}
 					}
 					else
 					{
 						// redirect to add
-						watsredirect( "index.php?option=com_waticketsystem&act=rites&task=new", "Form Contents not recognised" );
+						watsredirect( "index.php?option=com_brazitec&act=rites&task=new", "Form Contents not recognised" );
 						// end display error
 					}
 					// end check for input
@@ -401,7 +401,7 @@ function watsOption( &$task, &$act )
 					{
 						// delete group
 						$userGroup->delete( JRequest::getString('remove') );
-                        watsredirect("index.php?option=com_waticketsystem&act=rites", "Group Updated" );
+                        watsredirect("index.php?option=com_brazitec&act=rites", "Group Updated" );
 					}
 					else
 					{
@@ -409,7 +409,7 @@ function watsOption( &$task, &$act )
 						$userGroup->processForm();
 						$userGroup->save();
 						// redirect on completion
-						watsredirect( "index.php?option=com_waticketsystem&act=rites", "Group Updated" );
+						watsredirect( "index.php?option=com_brazitec&act=rites", "Group Updated" );
 					}
 					break;
 				default:
@@ -424,7 +424,7 @@ function watsOption( &$task, &$act )
 					$userGroupSet->view( $limitstart, $limit );
 					break;
 			}
-			echo "<input type=\"hidden\" name=\"task\" value=\"\" /><input type=\"hidden\" name=\"option\" value=\"com_waticketsystem\" /><input type=\"hidden\" name=\"act\" value=\"rites\" /></form>";
+			echo "<input type=\"hidden\" name=\"task\" value=\"\" /><input type=\"hidden\" name=\"option\" value=\"com_brazitec\" /><input type=\"hidden\" name=\"act\" value=\"rites\" /></form>";
 			break;
 		/**
 		 * user
@@ -477,7 +477,7 @@ function watsOption( &$task, &$act )
 							{
 								// delete user
 								$editUser->delete( JRequest::getCmd('remove') );
-								watsredirect( "index.php?option=com_waticketsystem&act=user", "User Removed" );
+								watsredirect( "index.php?option=com_brazitec&act=user", "User Removed" );
 							}
 							else
 							{
@@ -492,12 +492,12 @@ function watsOption( &$task, &$act )
 								if ( $editUser->updateUser() )
 								{
 									// success
-									watsredirect( "index.php?option=com_waticketsystem&act=user", "User Updated" );
+									watsredirect( "index.php?option=com_brazitec&act=user", "User Updated" );
 								}
 								else
 								{
 									// failure
-									watsredirect( "index.php?option=com_waticketsystem&act=user", "Update failed, user not found" );
+									watsredirect( "index.php?option=com_brazitec&act=user", "Update failed, user not found" );
 								}
 							}
 						}
@@ -506,7 +506,7 @@ function watsOption( &$task, &$act )
 					else
 					{
 						// redirect input error
-						watsredirect( "index.php?option=com_waticketsystem&act=user", "Error updating user" );
+						watsredirect( "index.php?option=com_brazitec&act=user", "Error updating user" );
 					}// end check input
 					break;
 				/**
@@ -537,12 +537,12 @@ function watsOption( &$task, &$act )
 						}
 						// end make users
 						// redirect to list on completion
-						watsredirect( "index.php?option=com_waticketsystem&act=user", "Users Added" );
+						watsredirect( "index.php?option=com_brazitec&act=user", "Users Added" );
 					}
 					else
 					{
 						// redirect to add
-						watsredirect( "index.php?option=com_waticketsystem&act=user&task=new", "Please fill in the form correctly" );
+						watsredirect( "index.php?option=com_brazitec&act=user&task=new", "Please fill in the form correctly" );
 						// end display error
 					}
 					// end check for input
@@ -563,7 +563,7 @@ function watsOption( &$task, &$act )
 					$watsUserSet->view( $limitstart, $limit );
 					break;
 			}
-			echo "<input type=\"hidden\" name=\"act\" value=\"user\" /><input type=\"hidden\" name=\"option\" value=\"com_waticketsystem\" /><input type=\"hidden\" name=\"task\" value=\"\" /></form>";
+			echo "<input type=\"hidden\" name=\"act\" value=\"user\" /><input type=\"hidden\" name=\"option\" value=\"com_brazitec\" /><input type=\"hidden\" name=\"task\" value=\"\" /></form>";
 			break;
 		/**
 		 * about
@@ -599,13 +599,13 @@ function watsOption( &$task, &$act )
 					// save
 					$watsSettings->save();
 					// redirect
-					watsredirect( "index.php?option=com_waticketsystem&act=configure" );
+					watsredirect( "index.php?option=com_brazitec&act=configure" );
 					break;
 				/**
 				 * cancel
 				 */	
 				case 'cancel':
-					watsredirect( "index.php?option=com_waticketsystem" );
+					watsredirect( "index.php?option=com_brazitec" );
 					break;
 				/**
 				 * default
@@ -654,7 +654,7 @@ function watsOption( &$task, &$act )
 					// end tab pane
 					break;
 			}
-			echo "<input type=\"hidden\" name=\"act\" value=\"configure\" /><input type=\"hidden\" name=\"option\" value=\"com_waticketsystem\" /><input type=\"hidden\" name=\"task\" value=\"\" /></form>";
+			echo "<input type=\"hidden\" name=\"act\" value=\"configure\" /><input type=\"hidden\" name=\"option\" value=\"com_brazitec\" /><input type=\"hidden\" name=\"task\" value=\"\" /></form>";
 			break;
 		/**
 		 * default (configuration)
@@ -690,47 +690,47 @@ function watsOption( &$task, &$act )
   <tr> 
     <td width="55%" valign="top"> <div id="cpanel"> 
         <div style="float:left;"> 
-          <div class="icon"> <a href="index.php?option=com_waticketsystem"> 
+          <div class="icon"> <a href="index.php?option=com_brazitec"> 
             <div class="iconimage"> <img src="images/frontpage.png" alt="Frontpage Manager" align="middle" name="image" border="0" /> </div> 
           Webamoeba Ticket System</a> </div> 
         </div> 
         <div style="float:left;"> 
-          <div class="icon"> <a href="index.php?option=com_waticketsystem&act=configure"> 
+          <div class="icon"> <a href="index.php?option=com_brazitec&act=configure"> 
             <div class="iconimage"> <img src="images/config.png" alt="Configuration" align="middle" name="image" border="0" /> </div> 
           Configuration</a> </div> 
         </div> 
         <div style="float:left;"> 
-          <div class="icon"> <a href="index.php?option=com_waticketsystem&act=css"> 
+          <div class="icon"> <a href="index.php?option=com_brazitec&act=css"> 
             <div class="iconimage"> <img src="images/menu.png" alt="CSS" align="middle" name="image" border="0" /> </div> 
           CSS</a> </div> 
         </div> 
         <div style="float:left;"> 
-          <div class="icon"> <a href="index.php?option=com_waticketsystem&act=user"> 
+          <div class="icon"> <a href="index.php?option=com_brazitec&act=user"> 
             <div class="iconimage"> <img src="images/user.png" alt="User Manager" align="middle" name="image" border="0" /> </div> 
           User Manager</a> </div> 
         </div> 
         <div style="float:left;"> 
-          <div class="icon"> <a href="index.php?option=com_waticketsystem&act=rites"> 
+          <div class="icon"> <a href="index.php?option=com_brazitec&act=rites"> 
             <div class="iconimage"> <img src="images/impressions.png" alt="Rites Manager" align="middle" name="image" border="0" /> </div> 
           Rites Manager</a> </div> 
         </div> 
         <div style="float:left;"> 
-          <div class="icon"> <a href="index.php?option=com_waticketsystem&act=category"> 
+          <div class="icon"> <a href="index.php?option=com_brazitec&act=category"> 
             <div class="iconimage"> <img src="images/categories.png" alt="Category Manager" align="middle" name="image" border="0" /> </div> 
           Category Manager</a> </div> 
         </div> 
         <div style="float:left;"> 
-          <div class="icon"> <a href="index.php?option=com_waticketsystem&act=ticket"> 
+          <div class="icon"> <a href="index.php?option=com_brazitec&act=ticket"> 
             <div class="iconimage"> <img src="images/addedit.png" alt="Ticket Viewer" align="middle" name="image" border="0" /> </div> 
             Ticket Viewer </a></div> 
         </div> 
         <div style="float:left;"> 
-          <div class="icon"> <a href="index.php?option=com_waticketsystem&act=database"> 
+          <div class="icon"> <a href="index.php?option=com_brazitec&act=database"> 
             <div class="iconimage"> <img src="images/systeminfo.png" alt="Database Maintenance" align="middle" name="image" border="0" /> </div> 
           Database Maintenance </a></div> 
         </div> 
         <div style="float:left;"> 
-          <div class="icon"> <a href="index.php?option=com_waticketsystem&act=about"> 
+          <div class="icon"> <a href="index.php?option=com_brazitec&act=about"> 
             <div class="iconimage"> <img src="images/cpanel.png" alt="About" align="middle" name="image" border="0" /> </div> 
           About </a></div> 
         </div> 
@@ -743,22 +743,22 @@ function watsOption( &$task, &$act )
           <tr> 
             <td width="80"> Tickets</td>  
             <td width="60"><?php echo $watsStatTicketsRaw; ?> / 100%</td> 
-			<td><img src="components/com_waticketsystem/images/red.gif" style="height: 4px; width: 100%;"></td>
+			<td><img src="components/com_brazitec/images/red.gif" style="height: 4px; width: 100%;"></td>
           </tr> 
           <tr> 
             <td> Open </td> 
             <td><?php echo $watsStatTicketsOpen; ?> / <?php echo intval((100/$watsStatTickets)*$watsStatTicketsOpen); ?>%</td> 
-			<td><img src="components/com_waticketsystem/images/red.gif" style="height: 4px; width: <?php echo (100/$watsStatTickets)*$watsStatTicketsOpen; ?>%;"></td>
+			<td><img src="components/com_brazitec/images/red.gif" style="height: 4px; width: <?php echo (100/$watsStatTickets)*$watsStatTicketsOpen; ?>%;"></td>
           </tr>
           <tr>
             <td>Closed</td>
             <td><?php echo $watsStatTicketsClosed; ?> / <?php echo intval((100/$watsStatTickets)*$watsStatTicketsClosed); ?>%</td>
-            <td><img src="components/com_waticketsystem/images/red.gif" style="height: 4px; width: <?php echo (100/$watsStatTickets)*$watsStatTicketsClosed; ?>%;"></td>
+            <td><img src="components/com_brazitec/images/red.gif" style="height: 4px; width: <?php echo (100/$watsStatTickets)*$watsStatTicketsClosed; ?>%;"></td>
           </tr>
           <tr>
             <td>Dead</td>
             <td><?php echo $watsStatTicketsDead; ?> / <?php echo intval((100/$watsStatTickets)*$watsStatTicketsDead); ?>%</td>
-            <td><img src="components/com_waticketsystem/images/red.gif" style="height: 4px; width: <?php echo (100/$watsStatTickets)*$watsStatTicketsDead; ?>%;"></td>
+            <td><img src="components/com_brazitec/images/red.gif" style="height: 4px; width: <?php echo (100/$watsStatTickets)*$watsStatTicketsDead; ?>%;"></td>
           </tr>
           <tr>
             <td>&nbsp;</td>

@@ -14,7 +14,7 @@ $wats =& WFactory::getConfig();
 
 // create the URL, make suire this includes the host!
 $uri =& JURI::getInstance();
-$url = JRoute::_('index.php?option=com_waticketsystem&act=ticket&task=view&ticketid='.$this->ticket->ticketId);
+$url = JRoute::_('index.php?option=com_brazitec&act=ticket&task=view&ticketid='.$this->ticket->ticketId);
 $url = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port')) . ((!preg_match('~^/~', $url)) ? '/' : '') . $url;
 ?>
  

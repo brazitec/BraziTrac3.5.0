@@ -54,12 +54,12 @@ function watsCategorySetSelect( catid, itemid )
 	if ( catid == -1 )
 	{
 		// jump to location
-		document.location.href = "index.php?option=com_waticketsystem&Itemid=" + itemid;
+		document.location.href = "index.php?option=com_brazitec&Itemid=" + itemid;
     }
 	else
 	{
 		// jump to location
-		document.location.href = "index.php?option=com_waticketsystem&Itemid=" + itemid + "&act=category&catid=" + catid + "&page=1&lifecycle=a";
+		document.location.href = "index.php?option=com_brazitec&Itemid=" + itemid + "&act=category&catid=" + catid + "&page=1&lifecycle=a";
 	}
 }*/
 

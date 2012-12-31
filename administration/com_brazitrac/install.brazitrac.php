@@ -283,7 +283,7 @@ function com_install()
                         ' WHERE ' . $database->nameQuote('name') . '=' . $database->Quote('versionname'));
     $database->query();
 
-	//changeIcon("WATicketSystem", "../components/com_brazitrac/images/mdn_ticket1616.gif");
+	//changeIcon("brazitec", "../components/com_brazitrac/images/mdn_ticket1616.gif");
 	//changeIcon("About", "../components/com_brazitrac/images/mdn_ticket1616.gif");
 	//changeIcon("Ticket Viewer", "../components/com_brazitrac/images/mdn_ticket1616.gif");
 	//changeIcon("User Manager", "../components/com_brazitrac/images/mdn_ticket1616.gif");

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: waticketsystem.php 180 2009-10-06 11:24:12Z webamoeba $
+ * @version $Id: brazitec.php 180 2009-10-06 11:24:12Z webamoeba $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL
  * @package wats
@@ -16,7 +16,7 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "config.php")
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "factory.php");
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "dbhelper.php");
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "tablehelper.php");
-require_once(JPATH_COMPONENT_SITE . DS . "waticketsystem.html.php");
+require_once(JPATH_COMPONENT_SITE . DS . "brazitec.html.php");
 
 // get settings
 $wats =& WFactory::getConfig();
@@ -24,7 +24,7 @@ $wats =& WFactory::getConfig();
 // add css link if turned on
 if ($wats->get( 'css' ) == 'enable') {
     $doc =& JFactory::getDocument();
-    $doc->addStyleSheet('components/com_waticketsystem/wats.css');
+    $doc->addStyleSheet('components/com_brazitec/wats.css');
 }
 
 // create watsUser
@@ -50,7 +50,7 @@ else
 		echo '<p>'.$wats->get( 'agreelw' ).'</p>';
 		echo '<p><a href="index.php?option=com_content&task=view&id='.$wats->get( 'agreei' ).'">'.$wats->get( 'agreen' ).'</a></p>';
 		echo '<p>'.$wats->get( 'agreela' ).'</p>';
-		echo '<form name="agree" method="post" action="index.php?option=com_waticketsystem"><input type="submit" name="agree" value="'.$wats->get( 'agreeb' ).'"></form>';		
+		echo '<form name="agree" method="post" action="index.php?option=com_brazitec"><input type="submit" name="agree" value="'.$wats->get( 'agreeb' ).'"></form>';		
 	}
 	elseif ( JRequest::getVar('agree', false) !== false )
 	{
@@ -58,7 +58,7 @@ else
 		$watsUser->agree = 1;
 		$watsUser->updateUser();
 		// redirect
-		watsredirect( "index.php?option=com_waticketsystem" );
+		watsredirect( "index.php?option=com_brazitec" );
 	}// end check for agreement
 	else
 	{
@@ -70,7 +70,7 @@ else
 		$act = JRequest::getCmd("act", null);
 		
 		// add javaScript
-		echo "<script language=\"javascript\" type=\"text/javascript\" src=\"components/com_waticketsystem/wats.js\"></script>";
+		echo "<script language=\"javascript\" type=\"text/javascript\" src=\"components/com_brazitec/wats.js\"></script>";
 		// create category set
 		$watsCategorySet = new watsCategorySetHTML($watsUser);
 		$GLOBALS["watsCategorySet"] =& $watsCategorySet;
@@ -88,7 +88,7 @@ else
 					  <tr>
 						<td width=\"33%\">
 						  <form name=\"watsTicketMake\" method=\"get\" action=\"index.php\">
-						  <input name=\"option\" type=\"hidden\" value=\"com_waticketsystem\">
+						  <input name=\"option\" type=\"hidden\" value=\"com_brazitec\">
 						  <input name=\"act\" type=\"hidden\" value=\"ticket\">
 						  <input name=\"task\" type=\"hidden\" value=\"make\">
 						  <input type=\"submit\" name=\"watsTicketMake\" value=\"".JText::_("WATS_TICKETS_SUBMIT")."\" class=\"watsFormSubmit\">
@@ -113,7 +113,7 @@ else
 			echo       "</td>
 						<td width=\"33%\">
 							<form name=\"watsTicketMake\" method=\"get\" action=\"index.php\">
-							  <input name=\"option\" type=\"hidden\" value=\"com_waticketsystem\">
+							  <input name=\"option\" type=\"hidden\" value=\"com_brazitec\">
 							  <input name=\"act\" type=\"hidden\" value=\"ticket\">
 							  <input name=\"task\" type=\"hidden\" value=\"view\">
 							  WATS-
@@ -200,13 +200,13 @@ function watsOption( $task, $act )
 						$ticket->save();
 						
                         // trigger onTicketNew event
-                        JPluginHelper::importPlugin('waticketsystem');
+                        JPluginHelper::importPlugin('brazitec');
                         $app =& JFactory::getApplication();
                         $args = array(&$ticket);
                         $app->triggerEvent('onTicketNew', $args);
 						
 						// view new ticket
-						watsredirect('index.php?option=com_waticketsystem&Itemid='.$Itemid.'&act=ticket&task=view&ticketid='.$ticket->ticketId );
+						watsredirect('index.php?option=com_brazitec&Itemid='.$Itemid.'&act=ticket&task=view&ticketid='.$ticket->ticketId );
 					}
 					else
 					{
@@ -272,7 +272,7 @@ function watsOption( $task, $act )
 							} // end check for close
 							
                             // trigger onTicketReply event
-                            JPluginHelper::importPlugin("waticketsystem");
+                            JPluginHelper::importPlugin("brazitec");
                             $app =& JFactory::getApplication();
                             $args = array(&$ticket);
                             $app->triggerEvent("onTicketReply", $args);
@@ -281,7 +281,7 @@ function watsOption( $task, $act )
 							// return to ticket
 							if ( function_exists( 'watsredirect' ) )
 							{
-							   watsredirect( "index.php?option=com_waticketsystem&Itemid=".$Itemid."&act=ticket&task=view&ticketid=".$ticket->ticketId );
+							   watsredirect( "index.php?option=com_brazitec&Itemid=".$Itemid."&act=ticket&task=view&ticketid=".$ticket->ticketId );
 							}
 							else
 							{
@@ -336,7 +336,7 @@ function watsOption( $task, $act )
 						$ticket->view( $watsUser );
 						
                         // trigger onTicketReply event
-                        JPluginHelper::importPlugin("waticketsystem");
+                        JPluginHelper::importPlugin("brazitec");
                         $app =& JFactory::getApplication();
                         $args = array(&$ticket);
                         $app->triggerEvent("onTicketReopen", $args);
@@ -760,7 +760,7 @@ function parseMsg( $msg )
 		$msg = $filter->clean($msg);
 	} else if ( $wats->get( 'msgbox' ) == 'bbcode' ) {
 		// include bbcode class
-		include_once( 'components/com_waticketsystem/bbcode.inc.php' );
+		include_once( 'components/com_brazitec/bbcode.inc.php' );
 		// create bbcode instance
 		$bbcode = new bbcode();
 		// add tags

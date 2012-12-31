@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: admin.waticketsystem.html.php 203 2009-12-12 06:21:50Z webamoeba $
+ * @version $Id: admin.brazitec.html.php 203 2009-12-12 06:21:50Z webamoeba $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL, see LICENSE.php
  * @package wats
@@ -10,7 +10,7 @@
 defined('_JEXEC') or die('Restricted Access');
 
 // include classes
-require("components/com_waticketsystem/admin.waticketsystem.class.php");
+require("components/com_brazitec/admin.brazitec.class.php");
 
 /**
  * @version 1.0
@@ -170,7 +170,7 @@ class watsUserHTML extends watsUser
 	 function makeButton() {
 	 	global $Itemid;
 	 	echo "<form name=\"watsUserMake\" method=\"get\" action=\"index.php\">
-				<input name=\"option\" type=\"hidden\" value=\"com_waticketsystem\">
+				<input name=\"option\" type=\"hidden\" value=\"com_brazitec\">
 				<input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\">
 				<input name=\"act\" type=\"hidden\" value=\"user\">
 				<input name=\"task\" type=\"hidden\" value=\"make\">
@@ -262,7 +262,7 @@ class watsUserSetHTML extends watsUserSet
 		$wats =& WFactory::getConfig();
 		
 		echo "<form name=\"adminForm\" method=\"post\" action=\"index.php\">
-			  <input type=\"hidden\" value=\"com_waticketsystem\" name=\"option\"/>
+			  <input type=\"hidden\" value=\"com_brazitec\" name=\"option\"/>
 			  <input type=\"hidden\" value=\"\" name=\"task\"/>
 			  <input type=\"hidden\" value=\"user\" name=\"act\"/>";
 		
@@ -284,10 +284,10 @@ class watsUserSetHTML extends watsUserSet
 		{
 			echo "<tr class=\"row".($limitstartThrow % 2)."\">
 					<td>
-					    <img src=\"../components/com_waticketsystem/images/".$wats->get('iconset', "PATH")."user1616.gif\" height=\"16\" width=\"16\" border=\"0\">
+					    <img src=\"../components/com_brazitec/images/".$wats->get('iconset', "PATH")."user1616.gif\" height=\"16\" width=\"16\" border=\"0\">
 			        </td>
 					<td>
-			            <a href=\"index.php?option=com_waticketsystem&Itemid=".$Itemid."&act=user&task=edit&userid=".$this->userSet[$limitstartThrow]->id."\">".$this->userSet[$limitstartThrow]->username."</a> (".$this->userSet[$limitstartThrow]->name.")
+			            <a href=\"index.php?option=com_brazitec&Itemid=".$Itemid."&act=user&task=edit&userid=".$this->userSet[$limitstartThrow]->id."\">".$this->userSet[$limitstartThrow]->username."</a> (".$this->userSet[$limitstartThrow]->name.")
 			        </td>
 					<td>".$this->userSet[$limitstartThrow]->organisation."</td>
 					<td>".$this->userSet[$limitstartThrow]->groupName."</td>
@@ -303,7 +303,7 @@ class watsUserSetHTML extends watsUserSet
         $pagination = new JPagination($this->noOfUsers, $limitstart, $limit);
         echo $pagination->getListFooter();
         
-        echo "<input type=\"hidden\" name=\"option\" value=\"com_waticketsystem\" />";
+        echo "<input type=\"hidden\" name=\"option\" value=\"com_brazitec\" />";
 		echo "<input type=\"hidden\" name=\"act\" value=\"user\" />";
 		echo "<input type=\"hidden\" name=\"boxchecked\" value=\"0\" />";
 		echo "<input type=\"hidden\" name=\"hidemainmenu\" value=\"0\" />";
@@ -367,7 +367,7 @@ class watsTicketHTML extends watsTicket
 		// header and ticket name
 		echo "<span class=\"watsHeading1\">"._brazitrac_TICKETS_SUBMIT."</span>
 			  <div class=\"watsTicketMake\" id=\"watsTicketMake\">
-			  <form name=\"submitticket\" method=\"post\" action=\"index.php?option=com_waticketsystem&Itemid=".$Itemid."&act=ticket&task=completeMake\" onsubmit=\"return watsValidateTicketMake( this, 'refill form XXX', '".$wats->get( 'defaultmsg' )."' );\">"
+			  <form name=\"submitticket\" method=\"post\" action=\"index.php?option=com_brazitec&Itemid=".$Itemid."&act=ticket&task=completeMake\" onsubmit=\"return watsValidateTicketMake( this, 'refill form XXX', '".$wats->get( 'defaultmsg' )."' );\">"
 			  ._brazitrac_TICKETS_NAME.
 			  "<input name=\"ticketname\" type=\"text\" id=\"ticketname\" maxlength=\"25\">";
 		// itterate through categories
@@ -393,7 +393,7 @@ class watsTicketHTML extends watsTicket
 			echo "<textarea name=\"msg\" cols=\"".$wats->get( 'msgboxw' )."\" rows=\"".$wats->get( 'msgboxh' )."\" id=\"msg\">".$wats->get( 'defaultmsg' )."</textarea>";
 		}
 		// submit button
-		echo "<input name=\"option\" type=\"hidden\" value=\"com_waticketsystem\">
+		echo "<input name=\"option\" type=\"hidden\" value=\"com_brazitec\">
 			  <input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\">
 			  <input name=\"act\" type=\"hidden\" value=\"ticket\">
 			  <input name=\"task\" type=\"hidden\" value=\"makeComplete\">
@@ -410,7 +410,7 @@ class watsTicketHTML extends watsTicket
 		$wats =& JFactory::getConfig();
 		
 		echo "<div id=\"watsReply\" class=\"watsReply\">
-		      <form name=\"submitmsg\" method=\"post\" action=\"index.php?option=com_waticketsystem&Itemid=".$Itemid."&act=ticket&task=completeReopen&ticketid=".$this->ticketId."\" onsubmit=\"return watsValidateTicketReopen( this, 'refill form XXX', '".$wats->get( 'defaultmsg' )."' );\">
+		      <form name=\"submitmsg\" method=\"post\" action=\"index.php?option=com_brazitec&Itemid=".$Itemid."&act=ticket&task=completeReopen&ticketid=".$this->ticketId."\" onsubmit=\"return watsValidateTicketReopen( this, 'refill form XXX', '".$wats->get( 'defaultmsg' )."' );\">
 			  Please give a reason why you want to reopen this ticket XXXX";
 		// message box
 		if ( $wats->get( 'msgbox' ) == "editor" )
@@ -421,7 +421,7 @@ class watsTicketHTML extends watsTicket
 		{
 			echo "<textarea name=\"msg\" cols=\"".$wats->get( 'msgboxw' )."\" rows=\"".$wats->get( 'msgboxh' )."\" id=\"msg\">".$wats->get( 'defaultmsg' )."</textarea>";
 		} // end message box
-		echo "  <input name=\"option\" type=\"hidden\" value=\"com_waticketsystem\">
+		echo "  <input name=\"option\" type=\"hidden\" value=\"com_brazitec\">
 			    <input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\">
 			    <input name=\"act\" type=\"hidden\" value=\"ticket\">
 			    <input name=\"task\" type=\"hidden\" value=\"completeReopen\">
@@ -475,7 +475,7 @@ class watsTicketSetHTML extends watsTicketSet
 		{
 			echo "<tr class=\"row".($limitstartThrow % 2)."\">
 					<td>
-			            <a href=\"index.php?option=com_waticketsystem&act=ticket&task=view&ticketid=".$this->_ticketList[$limitstartThrow]->ticketId."\">".$this->_ticketList[$limitstartThrow]->name."</a></td>
+			            <a href=\"index.php?option=com_brazitec&act=ticket&task=view&ticketid=".$this->_ticketList[$limitstartThrow]->ticketId."\">".$this->_ticketList[$limitstartThrow]->name."</a></td>
 					<td>".$this->_ticketList[$limitstartThrow]->username."</td>
 					<td>".$this->_ticketList[$limitstartThrow]->msgNumberOf."</td>
 					<td>".JHTML::_('date', $this->_ticketList[$limitstartThrow]->datetime, $wats->get('date'))."</td>
@@ -505,7 +505,7 @@ class watsTicketSetHTML extends watsTicketSet
         $pagination = new JPagination($this->ticketNumberOf, $limitstart, $limit);
         echo $pagination->getListFooter();
         
-        echo "<input type=\"hidden\" name=\"option\" value=\"com_waticketsystem\" />";
+        echo "<input type=\"hidden\" name=\"option\" value=\"com_brazitec\" />";
 		echo "<input type=\"hidden\" name=\"act\" value=\"ticket\" />";
 		echo "<input type=\"hidden\" name=\"boxchecked\" value=\"0\" />";
 		echo "<input type=\"hidden\" name=\"hidemainmenu\" value=\"0\" />";
@@ -645,7 +645,7 @@ class watsCategoryHTML extends watsCategory
 		global $Itemid;
 		echo "<p>
 				<form name=\"watsTicketMake\" method=\"get\" action=\"index.php\">
-				  <input name=\"option\" type=\"hidden\" value=\"com_waticketsystem\">
+				  <input name=\"option\" type=\"hidden\" value=\"com_brazitec\">
 				  <input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\">
 				  <input name=\"act\" type=\"hidden\" value=\"category\">
 				  <input name=\"task\" type=\"hidden\" value=\"purge\">
@@ -675,7 +675,7 @@ class watsAssignHTML extends watsAssign
 		
 		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"watsCategoryView\">
 			    <tr>
-				  <th colspan=\"2\" scope=\"col\"><a href=\"index.php?option=com_waticketsystem&Itemid=$Itemid&act=assign&task=view&page=1\">".$wats->get( 'assignname' )."</a></th>
+				  <th colspan=\"2\" scope=\"col\"><a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=assign&task=view&page=1\">".$wats->get( 'assignname' )."</a></th>
 			    </tr>
 			    <tr>
 				  <td>";
@@ -731,7 +731,7 @@ class watsAssignHTML extends watsAssign
 			// previous
 			if ( $currentPage > 1 )
 			{
-				echo " <a href=\"index.php?option=com_waticketsystem&Itemid=$Itemid&act=assign&task=view&page=".($currentPage - 1)."\">&lt;</a>";
+				echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=assign&task=view&page=".($currentPage - 1)."\">&lt;</a>";
 			} // end previous
 			// itterate through pages
 			$i = 1;
@@ -739,7 +739,7 @@ class watsAssignHTML extends watsAssign
 			{
 				if ( $i != $currentPage)
 				{
-					echo " <a href=\"index.php?option=com_waticketsystem&Itemid=$Itemid&act=assign&task=view&page=".$i."\">".$i."</a>";
+					echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=assign&task=view&page=".$i."\">".$i."</a>";
 				}
 				else
 				{
@@ -750,7 +750,7 @@ class watsAssignHTML extends watsAssign
 			// next
 			if ( $currentPage < $numberOfPages )
 			{
-				echo " <a href=\"index.php?option=com_waticketsystem&Itemid=$Itemid&act=assign&task=view&page=".($currentPage + 1)."\">&gt;</a>";
+				echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=assign&task=view&page=".($currentPage + 1)."\">&gt;</a>";
 			} // end next
 		}
 		echo " </div>";
@@ -822,7 +822,7 @@ class watsCategorySetHTML extends watsCategorySet
         while (($limitstartThrow < count($this->categorySet) ) && ($limitstartThrow < $limitMax))
 		{
             echo "<tr class=\"row".($limitstartThrow % 2)."\">";
-			echo "<td><a href=\"index.php?option=com_waticketsystem&act=category&task=view&catid=".$this->categorySet[$limitstartThrow]->catid."\">".htmlspecialchars($this->categorySet[$limitstartThrow]->name)."</a></td>";
+			echo "<td><a href=\"index.php?option=com_brazitec&act=category&task=view&catid=".$this->categorySet[$limitstartThrow]->catid."\">".htmlspecialchars($this->categorySet[$limitstartThrow]->name)."</a></td>";
 			echo "<td>".htmlspecialchars($this->categorySet[$limitstartThrow]->description)."</td>";
             echo "<td>".htmlspecialchars($this->categorySet[$limitstartThrow]->emails)."</td>";
 			echo "</tr>";
@@ -835,7 +835,7 @@ class watsCategorySetHTML extends watsCategorySet
         $pagination = new JPagination(count($this->categorySet), $limitstart, $limit);
         echo $pagination->getListFooter();
         
-        echo "<input type=\"hidden\" name=\"option\" value=\"com_waticketsystem\" />";
+        echo "<input type=\"hidden\" name=\"option\" value=\"com_brazitec\" />";
 		echo "<input type=\"hidden\" name=\"act\" value=\"category\" />";
 		echo "<input type=\"hidden\" name=\"boxchecked\" value=\"0\" />";
 		echo "<input type=\"hidden\" name=\"hidemainmenu\" value=\"0\" />";
@@ -1837,7 +1837,7 @@ class watsUserGroupSetHTML extends watsUserGroupSet
         while (($limitstartThrow < $this->noOfGroups ) && ($limitstartThrow < $limitMax))
 		{
 			echo "<tr class=\"row".($limitstartThrow % 2)."\">
-					<td><a href=\"index.php?option=com_waticketsystem&act=rites&task=view&groupid=".$this->_userGroupList[$limitstartThrow]->grpid."\">".$this->_userGroupList[$limitstartThrow]->name."</a></td>
+					<td><a href=\"index.php?option=com_brazitec&act=rites&task=view&groupid=".$this->_userGroupList[$limitstartThrow]->grpid."\">".$this->_userGroupList[$limitstartThrow]->name."</a></td>
 					<td>".$this->_userGroupList[$limitstartThrow]->image."</td>
 					<td><input name=\"userGroupV".$limitstartThrow."\" type=\"checkbox\"";
 					echo ($this->_userGroupList[$limitstartThrow]->checkUserPermission('V') == 2) ? " checked=\"checked\"" : "" ;
@@ -1862,7 +1862,7 @@ class watsUserGroupSetHTML extends watsUserGroupSet
         $pagination = new JPagination($this->noOfGroups, $limitstart, $limit);
         echo $pagination->getListFooter();
         
-        echo "<input type=\"hidden\" name=\"option\" value=\"com_waticketsystem\" />";
+        echo "<input type=\"hidden\" name=\"option\" value=\"com_brazitec\" />";
 		echo "<input type=\"hidden\" name=\"act\" value=\"rites\" />";
 		echo "<input type=\"hidden\" name=\"boxchecked\" value=\"0\" />";
 		echo "<input type=\"hidden\" name=\"hidemainmenu\" value=\"0\" />";

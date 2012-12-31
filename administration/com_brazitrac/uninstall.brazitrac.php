@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: uninstall.waticketsystem.php 66 2009-03-31 14:18:46Z webamoeba $
+ * @version $Id: uninstall.brazitec.php 66 2009-03-31 14:18:46Z webamoeba $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL
  * @package wats

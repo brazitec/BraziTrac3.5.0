@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: waticketsystem.class.php 192 2009-11-22 10:48:35Z webamoeba $
+ * @version $Id: brazitec.class.php 192 2009-11-22 10:48:35Z webamoeba $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL
  * @package wats
@@ -636,7 +636,7 @@ class watsTicket
 		$db->query();
 
         // trigger onTicketAssign event
-        JPluginHelper::importPlugin("waticketsystem");
+        JPluginHelper::importPlugin("brazitec");
         $app =& JFactory::getApplication();
         $args = array(&$this);
         $app->triggerEvent("onTicketAssign", $args);

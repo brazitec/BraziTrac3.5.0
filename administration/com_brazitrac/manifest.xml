@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<install type="component" version="1.5">
-    <name>BraziTracSystem</name>
+<install type="component" version="1.6" method="upgrade">
+    <name>brazitrac</name>
     <creationDate>December 2012</creationDate>
     <author>Robert Skolnick</author>
     <copyright>This component is released under the GNU/GPL License</copyright>
