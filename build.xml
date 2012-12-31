@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE project PUBLIC "-//Apache//DTD Ant 1.6//EN" "project.dtd">
+<project name="BraziTrac Help Desk" default="dist">
+
+    <!-- Import xmltask -->
+    <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
+
+    <!-- Versioning Properties -->
+    <property name="version_major"  value="3" />
+    <property name="version_minor"  value="5" />
+    <property name="version_patch"  value="0" />
+    <property name="version_name"   value="stable" />
+    <buildnumber file="antbuild.number"/>
+    <tstamp>
+        <format property="version_month" pattern="MMM" offset="0" unit="hour"/>
+        <format property="version_year"  pattern="yyyy" offset="0" unit="hour"/>
+    </tstamp>
+    <echo>BraziTrac Help Desk</echo>
+    <echo>${version_major}.${version_minor}.${version_patch} (${version_month}, ${version_year})</echo>
+    <echo>Build ${build.number}</echo>
+    
+    
+    <!-- Load build properties file -->
+    <property file="build.properties"/>
+
+    <target name="dtd">
+    <antstructure output="project.dtd"/>
+    </target>
+
+   
+    <!-- Build Ant DTD file -->
+    <target name="build-dtd">
+        <antstructure output="project.dtd" />
+    </target>
+
+
+    <!-- Init -->
+    <target name="init">
+        <echo>Removing old build directory</echo>
+        <delete dir="${buildpath.component.exploded}" 
+                includeemptydirs="true" 
+                verbose="false" 
+                failonerror="true" />
+        
+        <echo>Making build directory</echo>
+        <mkdir dir="${buildpath.component.exploded}" />
+        <mkdir dir="${buildpath.component.installer}" />
+    </target>
+    
+    
+    <!-- Pull the database struture out -->
+    <target name="database">
+        <echo>Extracting Table Creation Information</echo>
+        <sql driver="com.mysql.jdbc.Driver"
+             url="jdbc:mysql://localhost:3306/${database.name}?useUnicode=true&amp;characterEncoding=UTF-8"
+             userid="${database.username}"
+             password="${database.password}"
+             expandProperties="true"
+             print="yes"
+             output="administration/com_brazitrac/tables.sql" >
+            <classpath>
+                <pathelement path="C:\mysql\mysql-connector-java-5.1.22/mysql-connector-java-5.1.22-bin.jar"/>      
+            </classpath>
+            <transaction>
+                SHOW CREATE TABLE ${database.prefix}brazitrac_access_controls;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_access_map;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_announcements;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_data_fields;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_data_groups;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_data_tables;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_document_containers;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_faq_categories;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_faqs;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_glossary;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_request_categories;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_request_history;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_request_priorities;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_request_replies;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_requests;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_tree;
+                SHOW CREATE TABLE ${database.prefix}brazitrac_tree_groups;
+            </transaction>
+        </sql>
+    </target>
+    
+    
+    <!-- Build Everything -->
+    <target name="build" depends="init, database">
+        
+        <echo>Copying files and folders to build directory...</echo>
+        
+        <!-- build front end -->
+        <copy todir="${buildpath.component.exploded}/site">
+            <fileset dir="components/com_brazitrac">
+                <include name="**" />
+                <exclude name="**/Thumbs.db" />
+                <exclude name="**/.svn/**" />
+            </fileset>
+        </copy>
+        
+        <!-- build back end -->
+        <copy todir="${buildpath.component.exploded}/administration">
+            <fileset dir="administration/com_brazitrac">
+                <include name="**" />
+                <exclude name="**/.svn/**" />
+                <exclude name="**/Thumbs.db" />
+                <exclude name="install.brazitrac.php" />
+                <exclude name="uninstall.brazitrac.php" />
+                <exclude name="manifest.xml" />
+            </fileset>
+        </copy>
+        
+        <!-- build front end languages -->
+        <copy todir="${buildpath.component.exploded}/siteLanguages">
+            <fileset dir="siteLanguage">
+                <include name="**/*.com_brazitrac.ini" />
+                <include name="**/*.plg_brazitrac_mailnotification.ini" />
+            </fileset>
+            <mapper type="regexp" from="([^\\]*)\.ini$" to="\1.ini"/>
+        </copy>
+        
+        <!-- build back end languages -->
+        <copy todir="${buildpath.component.exploded}/administrationLanguages">
+            <fileset dir="./administrator/language">
+                <include name="**/*.com_brazitrac.ini" />
+            </fileset>
+            <mapper type="regexp" from="([^\\]*)\.ini$" to="\1.ini"/>
+        </copy>
+        
+        <!-- build install -->
+        <copy todir="${buildpath.component.exploded}">
+            <fileset dir="administration/com_brazitrac">
+                <include name="install.brazitrac.php" />
+                <include name="uninstall.brazitrac.php" />
+                <include name="manifest.xml" />
+            </fileset>
+            <filterchain>
+                <replacetokens begintoken="@PHING:" endtoken="@">
+                    <token key="@PHING:VERSION_MAJOR@" value="${version_major}" />
+                    <token key="@PHING:VERSION_MINOR@" value="${version_minor}" />
+                    <token key="@PHING:VERSION_PATCH@" value="${version_patch}" />
+                    <token key="@PHING:VERSION_NAME@" value="${version_name}" />
+                    <token key="@PHING:MONTH@" value="${version_month}" />
+                    <token key="@PHING:YEAR@" value="${version_year}" />
+                </replacetokens>
+            </filterchain>
+        </copy>
+        
+    </target>
+    
+    
+    <!-- Create the installer -->
+    <target name="dist" depends="build">
+        <echo>Creating archive...</echo>
+        <tar destfile="${buildpath.component.installer}/com_brazitrac-${version_major}.${version_minor}.${version_patch}_build-${build.number}.tar.gz" 
+             compression="gzip">
+            <fileset dir="${buildpath.component.exploded}">
+                <include name="**" />
+            </fileset>
+        </tar>
+    </target>
+</project>
