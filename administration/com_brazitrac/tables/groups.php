@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		$Id$
- * @package		wats
+ * @package		brazitrac
  * @license		GNU/GPL
  */
 
@@ -51,11 +51,11 @@ class WTableGroups extends JTable {
 	 * Constructor
 	 *
 	 * @access protected
-	 * @param $db JDatabase DBO
+	 * @param $database JDatabase DBO
 	 */
-	function __construct(&$db)
+	function __construct(&$database)
 	{
-		parent::__construct('#__brazitrac_groups', 'grpid', $db);
+		parent::__construct('#__brazitrac_groups', 'grpid', $database);
 	}
 
 	/**

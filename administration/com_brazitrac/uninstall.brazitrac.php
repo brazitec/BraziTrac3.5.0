@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: uninstall.brazitec.php 66 2009-03-31 14:18:46Z webamoeba $
+ * @version $Id: uninstall.brazitec.php 66 2009-03-31 14:18:46Z brazitrac $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL
  * @package wats
@@ -41,7 +41,7 @@ function com_uninstall()
 		$database->query();
 	}
 
-	return '<div style="text-align: center;"><h3>BraziTrac Ticket System</h3><p>Thanks for using the BraziTrac TicketSystem</p></div>';
+	return '<div style="text-align: center;"><h3>Brazitrac Ticket System</h3><p>Thanks for using the BraziTrac TicketSystem</p></div>';
 }
 
 ?>

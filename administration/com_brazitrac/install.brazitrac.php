@@ -68,7 +68,7 @@ function com_install()
 			$database->query();
 			$database->setQuery( "CREATE TABLE  " . $database->nameQuote('#__brazitrac_category') . " (
 					  " . $database->nameQuote('catid') . " int(11) NOT NULL auto_increment,
-					  " . $database->nameQuote(name) . " varchar(50) NOT NULL default '',
+					  " . $database->nameQuote('name') . " varchar(50) NOT NULL default '',
 					  " . $database->nameQuote('description') . " varchar(255) default NULL,
 					  " . $database->nameQuote('image') . " varchar(255) default NULL,
 					  PRIMARY KEY  (" . $database->nameQuote('catid') . "),
@@ -164,7 +164,7 @@ function com_install()
                                                                                                ('ticketssub','15'),
                                                                                                ('sourceemail',''),
                                                                                                ('msgbox','bbcode'),
-                                                                                               ('name','BraziTrac Ticket System'),
+                                                                                               ('name','Brazitrac Ticket System'),
                                                                                                ('users','1'),
                                                                                                ('agree','0'),
                                                                                                ('agreei',''),
@@ -177,7 +177,7 @@ function com_install()
                                                                                                ('msgboxw','58'),
                                                                                                ('msgboxt','1'),
                                                                                                ('dorganisation','individual'),
-                                                                                               ('copyright','BraziTrac Ticket System for Mambo and Joomla'),
+                                                                                               ('copyright','Brazitrac Ticket System for Mambo and Joomla'),
                                                                                                ('date','j-M-Y (h:i)'),
                                                                                                ('defaultmsg','type here...'),
                                                                                                ('dateshort','j-M-Y'),
@@ -222,7 +222,7 @@ function com_install()
 		case '2.0.8':
             $database->setQuery( "UPDATE " . $database->nameQuote('#__brazitrac_settings') . " SET " . $database->nameQuote('value') . "='release candidate' WHERE " . $database->nameQuote('name') . "='versionnane';" );
 			$database->query();
-            $database->setQuery( "UPDATE " . $database->nameQuote('#__brazitrac_settings') . " SET " . $database->nameQuote('value') . "='BraziTrac Ticket System for Joomla!' WHERE " . $database->nameQuote('name') . "='copyright';" );
+            $database->setQuery( "UPDATE " . $database->nameQuote('#__brazitrac_settings') . " SET " . $database->nameQuote('value') . "='Brazitrac Ticket System for Joomla!' WHERE " . $database->nameQuote('name') . "='copyright';" );
 			$database->query();
             
             $database->setQuery("DELETE FROM " . $database->nameQuote('#__brazitrac_settings') . " WHERE " . $database->nameQuote('name') . " = 'newpostmsg' OR
@@ -297,7 +297,7 @@ function com_install()
 					<tr>
 						<th>
 							<div style=\"text-align: center;\">
-								BraziTrac Ticket System<br />
+								Brazitrac Ticket System<br />
 								3.5.0 stable
 							</div>
 						</th>

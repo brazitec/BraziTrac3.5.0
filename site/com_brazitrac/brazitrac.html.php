@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: brazitec.html.php 193 2009-11-27 13:55:33Z webamoeba $
+ * @version $Id: brazitec.html.php 193 2009-11-27 13:55:33Z brazitrac $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL
  * @package wats
@@ -84,13 +84,13 @@ class watsUserHTML extends watsUser
 				    <span class=\"watsHeading2\">".JText::_("WATS_USER_GROUP")."</span>
 					<select name=\"grpId\" size=\"10\">";
 		// groups
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
-		$db->setQuery("SELECT " . WDBHelper::nameQuote("g.grpid") . ", " .
+		$database->setQuery("SELECT " . WDBHelper::nameQuote("g.grpid") . ", " .
 		                          WDBHelper::nameQuote("g.name") . " " .
 					  "FROM " . WDBHelper::nameQuote("#__brazitrac_groups") . " AS " . WDBHelper::nameQuote("g") . " " .
 					  "ORDER BY " . WDBHelper::nameQuote("g.name") . " /* watsUserHTML::viewEdit() */ " );
-		$groups = $db->loadObjectList();
+		$groups = $database->loadObjectList();
 		$noOfGroups = count( $groups );
 		$i = 0;
 		while ( $i < $noOfGroups )
@@ -182,7 +182,7 @@ class watsUserHTML extends watsUser
 	 	global $Itemid;
 		
 		$wats =& WFactory::getConfig();
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 	 	echo "<div id=\"watsReply\" class=\"watsReply\">
 		      <form name=\"watsUserMake\" method=\"get\" action=\"index.php\" onsubmit=\"return watsValidateNewUser( this, document.getElementById('user'), '".JText::_("WATS_ERROR_NODATA")."' );\">

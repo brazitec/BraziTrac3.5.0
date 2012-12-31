@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		$Id$
- * @package		wats
+ * @package		brazitrac
  * @license		GNU/GPL
  */
 
@@ -43,11 +43,11 @@ class WTablePermissions extends JTable {
 	 * Constructor
 	 *
 	 * @access protected
-	 * @param $db JDatabase DBO
+	 * @param $database JDatabase DBO
 	 */
-	function __construct(&$db)
+	function __construct(&$database)
 	{
-		parent::__construct('#__brazitrac_permissions', null, $db);
+		parent::__construct('#__brazitrac_permissions', null, $database);
 	}
 
 	/**

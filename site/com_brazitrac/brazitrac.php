@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: brazitec.php 180 2009-10-06 11:24:12Z webamoeba $
+ * @version $Id: brazitec.php 180 2009-10-06 11:24:12Z brazitrac $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL
  * @package wats
@@ -141,7 +141,7 @@ function watsOption( $task, $act )
 	global $watsUser, $Itemid, $watsCategorySet;
 	
 	$wats =& WFactory::getConfig();
-	$db =& JFactory::getDBO();
+	$database = JFactory::getDBO();
 
 	switch ($act) {
 		/**
@@ -668,7 +668,7 @@ function defaultAction( &$watsCategorySet, &$watsUser )
 	global $Itemid;
 	
 	$wats =& WFactory::getConfig();
-	$db =& JFactory::getDBO();
+	$database = JFactory::getDBO();
 	
 	// load tickets to categoryies
 	$watsCategorySet->loadTicketSet( 0, $watsUser );

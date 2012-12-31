@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: admin.brazitec.php 201 2009-11-29 08:37:36Z webamoeba $
+ * @version $Id: admin.brazitec.php 201 2009-11-29 08:37:36Z brazitrac $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL, see LICENSE.php
  * @package wats
@@ -26,7 +26,7 @@ $document->addScript("../components/com_brazitec/wats.js");
 $document->addStyleDeclaration(".icon-48-wats { background-image:url(components/com_brazitec/images/icon-48-watshead.png );}");
 
 // set heading
-JToolBarHelper::title("Webamoeba Ticket System", "wats");
+JToolBarHelper::title("Brazitrac Ticket System", "wats");
 
 // get settings
 $wats = WFactory::getConfig();
@@ -661,28 +661,28 @@ function watsOption( &$task, &$act )
 		 */	
 		default:
 			// stats
-			$db =& JFactory::getDBO();
+			$database = JFactory::getDBO();
 			
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket" );
-			$set = $db->loadObjectList();
+			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket" );
+			$set = $database->loadObjectList();
 			$watsStatTickets = $set[0]->count;
 			$watsStatTicketsRaw = $watsStatTickets;
 			if ( $watsStatTickets == 0 )
 				$watsStatTickets = 1;
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=1" );
-			$set = $db->loadObjectList();
+			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=1" );
+			$set = $database->loadObjectList();
 			$watsStatTicketsOpen = $set[0]->count;
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=2" );
-			$set = $db->loadObjectList();
+			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=2" );
+			$set = $database->loadObjectList();
 			$watsStatTicketsClosed =  $set[0]->count;;
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=3" );
-			$set = $db->loadObjectList();
+			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=3" );
+			$set = $database->loadObjectList();
 			$watsStatTicketsDead = $set[0]->count;
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_users" );
-			$set = $db->loadObjectList();
+			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_users" );
+			$set = $database->loadObjectList();
 			$watsStatUsers = $set[0]->count;
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_category" );
-			$set = $db->loadObjectList();
+			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_category" );
+			$set = $database->loadObjectList();
 			$watsStatCategories = $set[0]->count;
 			// end stats
 			?> 
@@ -692,7 +692,7 @@ function watsOption( &$task, &$act )
         <div style="float:left;"> 
           <div class="icon"> <a href="index.php?option=com_brazitec"> 
             <div class="iconimage"> <img src="images/frontpage.png" alt="Frontpage Manager" align="middle" name="image" border="0" /> </div> 
-          Webamoeba Ticket System</a> </div> 
+          Brazitrac Ticket System</a> </div> 
         </div> 
         <div style="float:left;"> 
           <div class="icon"> <a href="index.php?option=com_brazitec&act=configure"> 

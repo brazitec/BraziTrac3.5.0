@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		$Id$
- * @package		wats
+ * @package		brazitrac
  * @license		GNU/GPL
  */
 
@@ -59,11 +59,11 @@ class WTableMsg extends JTable {
 	 * Constructor
 	 *
 	 * @access protected
-	 * @param $db JDatabase DBO
+	 * @param $database JDatabase DBO
 	 */
-	function __construct(&$db)
+	function __construct(&$database)
 	{
-		parent::__construct('#__brazitrac_msg', 'msgid', $db);
+		parent::__construct('#__brazitrac_msg', 'msgid', $database);
 	}
 
 	/**

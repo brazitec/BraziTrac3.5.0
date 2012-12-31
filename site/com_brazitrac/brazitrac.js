@@ -1,5 +1,5 @@
 /**
- * @version $Id: wats.js 53 2009-03-26 19:11:55Z webamoeba $
+ * @version $Id: wats.js 53 2009-03-26 19:11:55Z brazitrac $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL
  * @package wats

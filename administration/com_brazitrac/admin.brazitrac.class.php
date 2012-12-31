@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: admin.brazitec.class.php 193 2009-11-27 13:55:33Z webamoeba $
+ * @version $Id: admin.brazitec.class.php 193 2009-11-27 13:55:33Z brazitrac $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL, see LICENSE.php
  * @package wats
@@ -37,14 +37,14 @@ class watsUser extends JUser
 	 */
 	function loadWatsUser( $uid )
 	{
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		$returnValue = false;
 		// load user
 		$this->load( $uid );
 		// load WatsUser
-		$db->setQuery( "SELECT  u.*, g.name, g.userrites, g.image, g.name AS groupname FROM #__brazitrac_users AS u LEFT  JOIN #__brazitrac_groups AS g ON g.grpid = u.grpid WHERE u.watsid=".(int)$uid );
-		$vars = $db->loadObjectList();
+		$database->setQuery( "SELECT  u.*, g.name, g.userrites, g.image, g.name AS groupname FROM #__brazitrac_users AS u LEFT  JOIN #__brazitrac_groups AS g ON g.grpid = u.grpid WHERE u.watsid=".(int)$uid );
+		$vars = $database->loadObjectList();
 		// set attributes
 		if ( isset( $vars[0] ) )
 		{
@@ -67,13 +67,13 @@ class watsUser extends JUser
 	 */
 	function checkPermission( $catid, $rite )
 	{
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 	
 		// prepare for no rite
 		$returnValue = 0;
 		// run SQL to find permission
-		$db->setQuery( "SELECT type FROM #__brazitrac_permissions WHERE catid=".(int)$catid ." AND grpid=".(int)$this->group);
-		$vars = $db->loadObjectList();
+		$database->setQuery( "SELECT type FROM #__brazitrac_permissions WHERE catid=".(int)$catid ." AND grpid=".(int)$this->group);
+		$vars = $database->loadObjectList();
 		// check for result
 		if ( isset( $vars[0] ) ) {
 			// find rite in string
@@ -120,7 +120,7 @@ class watsUser extends JUser
 	 * @param watsId
 	 */
 	function makeUser( $watsId, $grpId, $organisation) {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 	
 		// check doesn't already exist
 		$database->setQuery( "SELECT " . WDBHelper::nameQuote("wu.watsid") .
@@ -154,22 +154,22 @@ class watsUser extends JUser
 	 */
 	function updateUser()
 	{
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		// check already exists
-		$db->setQuery("SELECT " . WDBHelper::nameQuote("wu.watsid") .
+		$database->setQuery("SELECT " . WDBHelper::nameQuote("wu.watsid") .
 					  "FROM " . WDBHelper::nameQuote("#__brazitrac_users") . " AS " . WDBHelper::nameQuote("wu") . " " .
 					  "WHERE " . WDBHelper::nameQuote("watsid") . " = " . intval($this->id) . " /* watsUser::updateUser() */ ");
-		$db->query();
-		if ($db->getNumRows() == 1) {
+		$database->query();
+		if ($database->getNumRows() == 1) {
 			// update SQL
-			$db->setQuery("UPDATE " . WDBHelper::nameQuote("#__brazitrac_users") . " " .
-			                     "SET " . WDBHelper::nameQuote("organisation") . " = " . $db->Quote($this->organisation) . ", " .
+			$database->setQuery("UPDATE " . WDBHelper::nameQuote("#__brazitrac_users") . " " .
+			                     "SET " . WDBHelper::nameQuote("organisation") . " = " . $database->Quote($this->organisation) . ", " .
 								          WDBHelper::nameQuote("agree") . " = " . intval($this->agree) . ", " .
 										  WDBHelper::nameQuote("grpid") . " = " . intval($this->group) . " " .
 								 "WHERE " . WDBHelper::nameQuote("watsid") . " = " . intval($this->id) . " /* watsUser::updateUser() */" );
 			// execute
-			return $db->query();	
+			return $database->query();	
 		}
 		else
 		{
@@ -182,14 +182,14 @@ class watsUser extends JUser
 	 * @param groupId
 	 */
 	function setGroup( $groupId ) {
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		// check group exists and get name
-		$db->setQuery("SELECT " . WDBHelper::nameQuote("g.name") .", " .
+		$database->setQuery("SELECT " . WDBHelper::nameQuote("g.name") .", " .
 		                          WDBHelper::nameQuote("g.image") . " " .
 					  "FROM " . WDBHelper::nameQuote("#__brazitrac_groups") . " AS " . WDBHelper::nameQuote("g") ." " .
 					  "WHERE " . WDBHelper::nameQuote("grpid") . " = " . intval($groupId) . " /* watsUser::setGroup() */");
-		$groupDetails = $db->loadObjectList();
+		$groupDetails = $database->loadObjectList();
 		if ( count( $groupDetails ) != 0 )
 		{
 			// update object
@@ -197,13 +197,13 @@ class watsUser extends JUser
 			$this->groupName = $groupDetails[0]->name;
 			$this->image = $groupDetails[0]->image;
 			// update SQL
-			$db->setQuery("UPDATE " . WDBHelper::nameQuote("#__brazitrac_users") . " " .
-			              "SET " . WDBHelper::nameQuote("organisation") . " = " . $db->Quote($this->organisation) . ", " .
+			$database->setQuery("UPDATE " . WDBHelper::nameQuote("#__brazitrac_users") . " " .
+			              "SET " . WDBHelper::nameQuote("organisation") . " = " . $database->Quote($this->organisation) . ", " .
 							       WDBHelper::nameQuote("agree") . " = " . intval($this->agree) . ", " .
 								   WDBHelper::nameQuote("grpid") . " = " . intval($this->group) . " " .
 						  "WHERE " . WDBHelper::nameQuote("watsid") . " = " . intval($this->id) . " /* watsUser::setGroup() */" );
 			// execute
-			return $db->query();
+			return $database->query();
 		}
 		else
 		{
@@ -216,41 +216,41 @@ class watsUser extends JUser
 	 * @param groupId
 	 */
 	function delete( $remove ) {
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 	
 		switch ( $remove )
 		{
 			case 'removeposts':
 				// remove all posts
-				$db->setQuery( "DELETE FROM #__brazitrac_msg WHERE watsid=".intval($this->id));
-				$db->query();
+				$database->setQuery( "DELETE FROM #__brazitrac_msg WHERE watsid=".intval($this->id));
+				$database->query();
 			case 'removetickets':
 				// find tickets
-				$db->setQuery( "SELECT ticketid FROM #__brazitrac_ticket WHERE watsid=".intval($this->id));
-				$tickets = $db->loadObjectList();
+				$database->setQuery( "SELECT ticketid FROM #__brazitrac_ticket WHERE watsid=".intval($this->id));
+				$tickets = $database->loadObjectList();
 				$noOfTickets = count( $tickets );
 				$i = 0;
 				while ( $i < $noOfTickets )
 				{
 					// remove ticket messages
-					$db->setQuery( "DELETE FROM #__brazitrac_msg WHERE ticketid=".intval($tickets[$i]->ticketid));
-					$db->query();
+					$database->setQuery( "DELETE FROM #__brazitrac_msg WHERE ticketid=".intval($tickets[$i]->ticketid));
+					$database->query();
 					// remove highlights
-					$db->setQuery( "DELETE FROM #__brazitrac_highlight WHERE ticketid=".intval($tickets[$i]->ticketid));
-					$db->query();
+					$database->setQuery( "DELETE FROM #__brazitrac_highlight WHERE ticketid=".intval($tickets[$i]->ticketid));
+					$database->query();
 					$i ++;
 				}
 				// remove tickets
-				$db->setQuery( "DELETE FROM #__brazitrac_ticket WHERE watsid=".intval($this->id));
-				$db->query();				
+				$database->setQuery( "DELETE FROM #__brazitrac_ticket WHERE watsid=".intval($this->id));
+				$database->query();				
 				break;
 		}
 		// delete users highlights
 		// $database->setQuery( "DELETE FROM #__brazitrac_highlight WHERE watsid=".$this->id);
 		// $database->query();
 		// delete user
-		$db->setQuery( "DELETE FROM #__brazitrac_users WHERE watsid=".intval($this->id));
-		$db->query();
+		$database->setQuery( "DELETE FROM #__brazitrac_users WHERE watsid=".intval($this->id));
+		$database->query();
 	}
 }
 
@@ -278,13 +278,13 @@ class watsUserSet
 		// load all users
 	    if ( $groupId === null )
 		{
-			$db =& JFactory::getDBO();
+			$database = JFactory::getDBO();
 		
-			$db->setQuery("SELECT u.*, wu.organisation, g.name AS groupname FROM " . WDBHelper::nameQuote("#__brazitrac_users") . " AS " . WDBHelper::nameQuote("wu") . " " .
+			$database->setQuery("SELECT u.*, wu.organisation, g.name AS groupname FROM " . WDBHelper::nameQuote("#__brazitrac_users") . " AS " . WDBHelper::nameQuote("wu") . " " .
                           "JOIN " . WDBHelper::nameQuote("#__users") . " AS " . WDBHelper::nameQuote("u") . " ON " . WDBHelper::nameQuote("u.id") . " = " . WDBHelper::nameQuote("wu.watsid") .
                           "JOIN " . WDBHelper::nameQuote("#__brazitrac_groups") . " AS " . WDBHelper::nameQuote("g") . " ON " . WDBHelper::nameQuote("g.grpid") . " = " . WDBHelper::nameQuote("wu.grpid") .
 			              "ORDER BY " . WDBHelper::nameQuote("username") . " /* watsUserSet::load() */" );
-			$set = $db->loadObjectList();
+			$set = $database->loadObjectList();
 			$this->noOfUsers = count( $set );
 			$i = 0;
 			// create users
@@ -324,7 +324,7 @@ class watsObjectBuilder
 	 * @param ticketId
 	 */
 	 function ticket($ticketId ) {
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		// create query
 		$query = "SELECT * FROM " . WDBHelper::nameQuote("#__brazitrac_ticket") . " " .
@@ -401,12 +401,12 @@ class watsTicket
 		// check for assignment
 	    if ( $this->assignId != null )
 		{
-		    $database =& JFactory::getDBO();
+		    $database = JFactory::getDBO();
 			// find username
-			$db->setQuery("SELECT " . WDBHelper::nameQuote("u.username") . " " .
+			$database->setQuery("SELECT " . WDBHelper::nameQuote("u.username") . " " .
 			                     "FROM " .WDBHelper::nameQuote("#__users") . " AS " . WDBHelper::nameQuote("u") . " " .
 								 "WHERE " . WDBHelper::nameQuote("u.id") . " = " . intval($this->assignId) . " /* watsTicket::watsTicket() */ ");
-			$user = $db->loadObjectList();
+			$user = $database->loadObjectList();
 			$returnValue = $user[0]->username;
 		}
 		else
@@ -423,26 +423,26 @@ class watsTicket
 	 */
 	function save()
 	{
-		$db =&JFactory::getDBO();
+		$database =&JFactory::getDBO();
 	
 		// ticket
 		$queryTicket = "INSERT INTO " . WDBHelper::nameQuote("#__brazitrac_ticket") . " " .
 					   "SET " . WDBHelper::nameQuote("watsid") . " = " . intval($this->watsId) . ", " .
-					            WDBHelper::nameQuote("ticketname") . " = " . $db->Quote($this->name) . ", " .
+					            WDBHelper::nameQuote("ticketname") . " = " . $database->Quote($this->name) . ", " .
 								WDBHelper::nameQuote("lifecycle") . " = " . intval($this->lifeCycle) . ", " .
-								WDBHelper::nameQuote("datetime") . " = " . $db->Quote($this->datetime) . ", " .
+								WDBHelper::nameQuote("datetime") . " = " . $database->Quote($this->datetime) . ", " .
 								WDBHelper::nameQuote("category") . " = " . intval($this->category) . " /* watsTicket::save() */ ";
-		$db->setQuery( $queryTicket );
-		$db->query();
-		$this->ticketId = $db->insertid();
+		$database->setQuery( $queryTicket );
+		$database->query();
+		$this->ticketId = $database->insertid();
 		// message
 		$queryMsg = "INSERT INTO " . WDBHelper::nameQuote("#__brazitrac_msg") . " " .
 		            "SET " . WDBHelper::nameQuote("watsid") . " = " . intval($this->watsId) . ", " .
 					         WDBHelper::nameQuote("ticketid") . " = " . intval($this->ticketId) . ", " .
-							 WDBHelper::nameQuote("msg") . " = " . $db->Quote($this->_msgList[0]->msg) . ", " .
-							 WDBHelper::nameQuote("datetime") . " = " . $db->Quote($this->datetime) . " /* watsTicket::save() */";
-		$db->setQuery( $queryMsg );
-		$db->query();
+							 WDBHelper::nameQuote("msg") . " = " . $database->Quote($this->_msgList[0]->msg) . ", " .
+							 WDBHelper::nameQuote("datetime") . " = " . $database->Quote($this->datetime) . " /* watsTicket::save() */";
+		$database->setQuery( $queryMsg );
+		$database->query();
 	}
 
 	/**
@@ -450,7 +450,7 @@ class watsTicket
 	 */
 	function deactivate()
 	{
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 	
 		// check is not dead
 		if ( $this->lifeCycle < 3 )
@@ -469,11 +469,11 @@ class watsTicket
 			// remove all messages in ticket
 			$queryDeactivateMsg = "DELETE FROM " . WDBHelper::nameQuote("#__brazitrac_msg") . " " . 
 								  "WHERE " . WDBHelper::nameQuote("ticketid") . " = " . intVal($message->ticketId) . " /* watsTicket::deactivate() */ ";
-			$db->setQuery( $queryDeactivateMsg );
-			$db->query();
+			$database->setQuery( $queryDeactivateMsg );
+			$database->query();
 		}
-		$db->setQuery( $queryDeactivateTicket );
-		$db->query();
+		$database->setQuery( $queryDeactivateTicket );
+		$database->query();
 	}
 
 	/**
@@ -481,7 +481,7 @@ class watsTicket
 	 */
 	function _highlightUpdate( $watsId )
 	{
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
         $datetime = JFactory::getDate();
         $datetime = $datetime->toMySQL();
 	
@@ -490,13 +490,13 @@ class watsTicket
 		                  "FROM " . WDBHelper::nameQuote("#__brazitrac_highlight") . " " .
 						  "WHERE " . WDBHelper::nameQuote("ticketid") . " = " . intval($this->ticketId) . " AND " .
 						             WDBHelper::nameQuote("watsid") . " = " . intval($watsId) . " /* watsTicket::_highlightUpdate() */ ";
-		$db->setQuery( $queryHighlight );
-		$db->query();
-		if ( $db->getNumRows() > 0 )
+		$database->setQuery( $queryHighlight );
+		$database->query();
+		if ( $database->getNumRows() > 0 )
 		{
 			// update record
 			$queryHighlight = "UPDATE " . WDBHelper::nameQuote("#__brazitrac_highlight") . " " .
-			                  "SET " . WDBHelper::nameQuote("datetime") . " = " . $db->Quote($datetime) . " " .
+			                  "SET " . WDBHelper::nameQuote("datetime") . " = " . $database->Quote($datetime) . " " .
 							  "WHERE " . WDBHelper::nameQuote("ticketid") . " = " . intval($this->ticketId) . " AND " .
 							             WDBHelper::nameQuote("watsid") . " = " . intval($watsId) . " /* watsTicket::_highlightUpdate*/";
 		}
@@ -506,11 +506,11 @@ class watsTicket
 			$queryHighlight = "INSERT INTO " . WDBHelper::nameQuote("#__brazitrac_highlight") . " " .
 			                  "SET " . WDBHelper::nameQuote("watsid") . " = " . intval($watsId) . ", " . 
 							           WDBHelper::nameQuote("ticketid") . " = " . intval($this->ticketId) . ", " .
-									   WDBHelper::nameQuote("datetime") . " = " . $db->Quote($datetime) . " /* watsTicket::_highlightUpdate() */";
+									   WDBHelper::nameQuote("datetime") . " = " . $database->Quote($datetime) . " /* watsTicket::_highlightUpdate() */";
 		}
 		// perform query
-		$db->setQuery( $queryHighlight );
-		$db->query();
+		$database->setQuery( $queryHighlight );
+		$database->query();
 
 	}
 	
@@ -519,13 +519,13 @@ class watsTicket
 	 */
 	function reactivate()
 	{
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$this->lifeCycle = 1;
 		$queryDeactivateMsg = "UPDATE " . WDBHelper::nameQuote("#__brazitrac_ticket") . " " .
 		                      "SET " . WDBHelper::nameQuote("lifecycle") . " = 1 " .
 							  "WHERE " . WDBHelper::nameQuote("ticketid") . " = " . intval($this->ticketId) . " /* watsTicket::reactivate() */ ";
-		$db->setQuery( $queryDeactivateMsg );
-		$db->query();
+		$database->setQuery( $queryDeactivateMsg );
+		$database->query();
 	}
 
 	/**
@@ -533,16 +533,16 @@ class watsTicket
 	 */
 	function loadMsgList()
 	{
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		// reset number of messages
 		$this->msgNumberOf = 0;
 		// load categories
-		$db->setQuery("SELECT * " .
+		$database->setQuery("SELECT * " .
 		              "FROM " . WDBHelper::nameQuote("#__brazitrac_msg") . " AS " . WDBHelper::nameQuote("m") . " " .
 					  "WHERE " . WDBHelper::nameQuote("ticketid") . " = " . intval($this->ticketId) . " " .
 					  "ORDER BY " . WDBHelper::nameQuote("datetime") . " /* watsTicket::loadMsgList() */ " );
-		$messages = $db->loadObjectList();
+		$messages = $database->loadObjectList();
 		// create message objects
 		$i = 0;
 		foreach( $messages as $message )
@@ -560,10 +560,10 @@ class watsTicket
 	 */
 	function addMsg( $msg, $watsId, $datetime )
 	{
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 	
 		// create SQL and execute
-		$db->setQuery( "INSERT INTO " . WDBHelper::nameQuote("#__brazitrac_msg") . 
+		$database->setQuery( "INSERT INTO " . WDBHelper::nameQuote("#__brazitrac_msg") . 
 		 			   "    ( " . WDBHelper::nameQuote("ticketid") . ", " .
 						          WDBHelper::nameQuote("watsid") . ", " .
 						 		  WDBHelper::nameQuote("msg") . ", " .
@@ -571,10 +571,10 @@ class watsTicket
 					   "    ) " .
 					   "VALUES ( " . intval($this->ticketId) . ", " . 
 					                 intval($watsId) . ", " . 
-									 $db->Quote($msg) . ", " . 
-									 $db->Quote($datetime) . 
+									 $database->Quote($msg) . ", " . 
+									 $database->Quote($datetime) . 
 					   "       ) /* watsTicket::addMsg */ " );
-		$db->query();
+		$database->query();
 		$this->_msgList[ count( $this->_msgList ) ] = new watsMsg( $this->ticketId, $msg, $watsId, $datetime );
 		$this->msgNumberOf ++;
 	}
@@ -584,13 +584,13 @@ class watsTicket
 	 */
 	function setAssignId( $assignId )
 	{
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$this->assignId = $assignId;
 		// create SQL and execute
-		$db->setQuery("UPDATE " . WDBHelper::nameQuote("#__brazitrac_ticket") . " " .
+		$database->setQuery("UPDATE " . WDBHelper::nameQuote("#__brazitrac_ticket") . " " .
 		              "SET " . WDBHelper::nameQuote("assign") . " = " . intval($this->assignId) . " " .
 					  "WHERE " . WDBHelper::nameQuote("ticketid") . " = " . intval($this->ticketId) . " /* watsTicket::setAssignId() */ " );
-		$db->query();
+		$database->query();
 
         // trigger onTicketAssign event
         JPluginHelper::importPlugin("brazitec");
@@ -620,7 +620,7 @@ class watsUserGroupCategoryPermissionSet
 	 */
 	function watsUserGroupCategoryPermissionSet( $grpid, $catid )
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		$this->grpid = $grpid;
 		$this->catid = $catid;
@@ -718,7 +718,7 @@ class watsUserGroupCategoryPermissionSet
 	 */
 	function save()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		$database->setQuery( "UPDATE #__brazitrac_permissions SET type=".$database->Quote($this->rites)." WHERE catid=".intval($this->catid)." AND grpid=".intval($this->grpid));
 		$database->query();
@@ -729,7 +729,7 @@ class watsUserGroupCategoryPermissionSet
 	 */
 	function newPermissionSet( $grpId, $catId )
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		// check doesn't already exist
 		$database->setQuery( "SELECT type FROM #__brazitrac_permissions WHERE catid=".intval($catId)." AND grpid=".intval($grpId));
 		$database->query();
@@ -771,7 +771,7 @@ class watsUserGroupCategoryPermissionSetSet
 	 */
 	function load( $groupId )
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		$this->groupId = $groupId;
 		// load all sets
@@ -811,7 +811,7 @@ class watsUserGroup
 	 */
 	function watsUserGroup( $grpid = -1 )
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		$this->grpid = $grpid;
 		$this->categoryRites = array();
@@ -960,7 +960,7 @@ class watsUserGroup
 	 */
 	function save()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		$database->setQuery( "UPDATE #__brazitrac_groups SET name=".$database->Quote($this->name).", image=".$database->Quote($this->image).", userrites=".$database->Quote($this->userRites)." WHERE grpid=".intval($this->grpid).";" );
 		$database->query();
@@ -970,7 +970,7 @@ class watsUserGroup
 	 * 
 	 */
 	function loadUsers() {
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		$this->_users = null;
 		$this->_users = array();
@@ -993,7 +993,7 @@ class watsUserGroup
 	 */
 	function delete( $option )
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		$this->loadUsers();
 		foreach ( $this->_users as $editUser )
@@ -1013,7 +1013,7 @@ class watsUserGroup
 	 */
 	function makeGroup( $name, $image )
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		// create new category
 		$database->setQuery( "INSERT INTO #__brazitrac_groups ( name, image, userrites ) VALUES (".$database->Quote($name).", ".$database->Quote($image).", '----' );" );
 		$database->query();
@@ -1044,13 +1044,13 @@ class watsUserGroupSet
 	 * 
 	 */
 	function loadUserGroupSet() {
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 	
 		// create query
 		$query = $sql = "SELECT grpid FROM #__brazitrac_groups ORDER BY name";
 		// end create query
-		$db->setQuery( $query );
-		$set = $db->loadObjectList();
+		$database->setQuery( $query );
+		$set = $database->loadObjectList();
 		// check there are results
 		if ( $set != null )
 		{
@@ -1112,7 +1112,7 @@ class watsTicketSet
 	 //$this->ticketSet->loadTicketSet( 0, $this->watsId, -1, true, true );
 	function loadTicketSet( $lifecycle, $category = null )
 	{
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 	
 		// create query
 		$query = $sql = "SELECT COUNT(*) AS posts, t.ticketid, t.assign, t.watsid AS ownerid, t.ticketname, t.category, t.lifecycle, UNIX_TIMESTAMP(t.datetime) AS firstpost, SUBSTRING(MIN(CONCAT(DATE_FORMAT(m1.datetime, '%Y-%m-%d %H:%i:%s'), m1.msgid)), 20) as firstmsg, SUBSTRING(MAX(CONCAT(DATE_FORMAT(m1.datetime, '%Y-%m-%d %H:%i:%s'), m1.msgid)), 20) as lastpostid, SUBSTRING(MAX(CONCAT(DATE_FORMAT(m1.datetime, '%Y-%m-%d %H:%i:%s'), m1.watsid)), 20) as lastid, UNIX_TIMESTAMP(MAX(m1.datetime)) as lastdate, o.username AS username, SUBSTRING(MAX(CONCAT(DATE_FORMAT(m1.datetime, '%Y-%m-%d %H:%i:%s'), p.username)), 20) AS poster FROM #__brazitrac_ticket AS t LEFT JOIN #__brazitrac_msg AS m1 ON t.ticketid = m1.ticketid LEFT JOIN #__users AS o ON t.watsid = o.id LEFT JOIN #__users AS p ON m1.watsid = p.id ";
@@ -1137,8 +1137,8 @@ class watsTicketSet
 		// end create query
 		$query .= " GROUP BY t.ticketid, t.watsid, t.ticketname, t.datetime ORDER BY lastdate desc;";
 		
-		$db->setQuery( $query );
-		$set = $db->loadObjectList();
+		$database->setQuery( $query );
+		$set = $database->loadObjectList();
 		// check there are results
 		if ( $set != null )
 		{
@@ -1198,9 +1198,9 @@ class watsCategory extends JTable
 	 * @param database
 	 */
 	function watsCategory() {
-        $db =& JFactory::getDBO();
+        $database = JFactory::getDBO();
 
-	    $this->__construct( '#__brazitrac_category', 'catid', $db);
+	    $this->__construct( '#__brazitrac_category', 'catid', $database);
 	}
 
 	/**
@@ -1243,7 +1243,7 @@ class watsCategory extends JTable
 			$catid = intval($this->catid);
 		}
 		
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		$database->setQuery( "SELECT wu.watsid, u.username
 								FROM #__brazitrac_permissions AS p
@@ -1269,7 +1269,7 @@ class watsCategory extends JTable
 	 * static
 	 */
 	function newCategory( $name, $description, $image, $emails ) {
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		// check doesn't already exist
 		$database->setQuery( "SELECT name FROM #__brazitrac_category WHERE name=".$database->Quote($name).";");
 		$database->query();
@@ -1304,7 +1304,7 @@ class watsCategory extends JTable
 	 */
 	function updateCategory()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		// check already exists
 		$database->setQuery( "SELECT catid FROM #__brazitrac_category WHERE catid=".intval($this->catid));
@@ -1332,7 +1332,7 @@ class watsCategory extends JTable
 	 */
 	function delete()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		// remove tickets
 		$database->setQuery( "DELETE FROM #__brazitrac_ticket WHERE category=".intval($this->catid).";" );
@@ -1394,7 +1394,7 @@ class watsCategorySet
 	 */	
 	function watsCategorySet()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		// load categories
 		$database->setQuery( "SELECT * FROM #__brazitrac_category ORDER BY name" );
 		$vars = $database->loadObjectList();
@@ -1455,7 +1455,7 @@ class watsCss
 	 */
 	function watsCss()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		$this->cssStyles = array();
 		$database->setQuery( "SELECT value FROM #__brazitrac_settings WHERE name=\"css\"" );
 		$this->css = &$database->loadObjectList();
@@ -1656,7 +1656,7 @@ class watsDatabaseMaintenance
 	 */
 	function performOrphanUsers()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		// find errors
 		$database->setQuery( "SELECT w.watsid, u.id AS id FROM #__brazitrac_users AS w LEFT JOIN #__users AS u ON u.id = w.watsid WHERE u.id is null;" );
 		$errors = $database->loadObjectList();
@@ -1678,7 +1678,7 @@ class watsDatabaseMaintenance
 	 */
 	function performUserPermissionsFormat()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		$database->setQuery( "SELECT grpid, userrites FROM #__brazitrac_groups;" );
 		$rows = $database->loadObjectList();
 		$errors = array();
@@ -1718,7 +1718,7 @@ class watsDatabaseMaintenance
 	 */
 	function performPermissionSetsFormat()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		$database->setQuery( "SELECT grpid, catid, type FROM #__brazitrac_permissions;" );
 		$rows = $database->loadObjectList();
 		$errors = array();
@@ -1799,7 +1799,7 @@ class watsDatabaseMaintenance
 	 */
 	function performOrphanPermissionSets()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		// get group missing
 		$database->setQuery( "SELECT p.grpid, p.catid FROM #__brazitrac_permissions AS p LEFT JOIN #__brazitrac_groups AS g ON p.grpid = g.grpid WHERE g.grpid IS NULL;" );
 		$groupErrors = array();
@@ -1846,7 +1846,7 @@ class watsDatabaseMaintenance
 	 */
 	function performOrphanTickets()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		// get user missing
 		$database->setQuery( "SELECT t.ticketid, u.id FROM #__brazitrac_ticket AS t LEFT JOIN #__users AS u ON t.watsid = u.id WHERE u.id IS NULL;" );
@@ -1897,7 +1897,7 @@ class watsDatabaseMaintenance
 	 */
 	function performOrphanMessages()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		// get user missing
 		$database->setQuery( "SELECT m.msgid FROM #__brazitrac_msg AS m LEFT JOIN #__users AS u ON m.watsid = u.id WHERE u.id IS NULL;" );
@@ -1945,7 +1945,7 @@ class watsDatabaseMaintenance
 	 */
 	function performMissingPermissionSets()
 	{
-	    $database =& JFactory::getDBO();
+	    $database = JFactory::getDBO();
 		
 		// get number of groups
 		$database->setQuery( "SELECT COUNT(*) AS size FROM #__brazitrac_groups" );

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Id: admin.brazitec.html.php 203 2009-12-12 06:21:50Z webamoeba $
+ * @version $Id: admin.brazitec.html.php 203 2009-12-12 06:21:50Z brazitrac $
  * @copyright Copyright (C) James Kennard
  * @license GNU/GPL, see LICENSE.php
  * @package wats
@@ -87,9 +87,9 @@ class watsUserHTML extends watsUser
 						<td width=\"85%\">
 							<select name=\"grpId\">";
 		// groups
-		$db =& JFactory::getDBO();
-		$db->setQuery( "SELECT g.grpid, g.name FROM #__brazitrac_groups AS g ORDER BY g.name" );
-		$groups = $db->loadObjectList();
+		$database = JFactory::getDBO();
+		$database->setQuery( "SELECT g.grpid, g.name FROM #__brazitrac_groups AS g ORDER BY g.name" );
+		$groups = $database->loadObjectList();
 		$noOfGroups = count( $groups );
 		$i = 0;
 		while ( $i < $noOfGroups )
@@ -199,7 +199,7 @@ class watsUserHTML extends watsUser
 						<td>
 				  <select name=\"user[]\" size=\"10\" multiple=\"multiple\" id=\"user\">";
 		// potential users
-		$database =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$database->setQuery( "SELECT u.username, u.id, u.name FROM #__users AS u LEFT OUTER JOIN #__brazitrac_users AS wu ON u.id=wu.watsid where wu.watsid is null" );
 		$users = $database->loadObjectList();
 		$noOfNullUsers = count( $users );
@@ -1027,7 +1027,7 @@ class watsSettingsHTML extends WConfig
 	 *
 	 */
 	function editDebug() {
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		JHTML::_("behavior.tooltip");
 	
@@ -1059,7 +1059,7 @@ class watsSettingsHTML extends WConfig
 		//require_once( '../includes/version.php' );
 		$systemSettings = array();
 		$systemSettings[ 'phpVersion' ] = phpversion();
-		$systemSettings[ 'mySQLVersion' ] = $db->getVersion();
+		$systemSettings[ 'mySQLVersion' ] = $database->getVersion();
 		if ( class_exists( 'joomlaVersion' ) )
 		{
 			$version = new joomlaVersion();
@@ -1088,7 +1088,7 @@ class watsSettingsHTML extends WConfig
 		echo "<table class=\"adminform\">
 				<tr>
 				  <td colspan=\"2\">";
-		echo "<p>If you are planning on upgrading to a newer version of WATS, but want to keep your current data intact, you can use the upgrade route. To do this, first enable 'Upgrade Route', then uninstall WATS. This will leave your data intact, you must then use the upgrade package from <a href=\"http://www.webamoeba.co.uk\" target=\"_blank\">webamoeba.co.uk</a>. This will install the latest version of WATS, but will not make any alterations to your database. It is recomended that you make a seperate backup of your database first. If on the other hand you wish to completely remove WATS, please disable the 'Upgrade Route', and when you uninstall WATS, all your data will be removed.</p>
+		echo "<p>If you are planning on upgrading to a newer version of WATS, but want to keep your current data intact, you can use the upgrade route. To do this, first enable 'Upgrade Route', then uninstall WATS. This will leave your data intact, you must then use the upgrade package from <a href=\"http://www.brazitrac.co.uk\" target=\"_blank\">brazitrac.co.uk</a>. This will install the latest version of WATS, but will not make any alterations to your database. It is recomended that you make a seperate backup of your database first. If on the other hand you wish to completely remove WATS, please disable the 'Upgrade Route', and when you uninstall WATS, all your data will be removed.</p>
 		      <p>You are currently using WATS ".$this->get('versionmajor').".".$this->get('versionminor').".".$this->get('versionpatch')." ( ".$this->get('versionname')." )</p>";
 		echo "    </td>
 				</tr>
@@ -1113,7 +1113,7 @@ class watsSettingsHTML extends WConfig
 			<thead>
 			<tr>
 				<th>
-					WebAmoeba Ticket System<br>
+					Brazitrac Ticket System<br>
 					".$this->get('versionmajor').".".$this->get('versionminor').".".$this->get('versionpatch')." ( ".$this->get('versionname')." )
 				</th>
 			</tr>
@@ -1122,9 +1122,9 @@ class watsSettingsHTML extends WConfig
 			<tr>
 				<td nowrap=\"true\" align=\"center\">
 					<p><strong>Developers</strong><br />
-					<a href=\"mailto:james@webamoeba.co.uk\">James Kennard</a></p>
+					<a href=\"mailto:james@brazitrac.co.uk\">James Kennard</a></p>
 					<p><strong>Web</strong><br />
-					<a href=\"http://www.webamoeba.co.uk\" target=\"_blank\">www.webamoeba.co.uk</a></p>
+					<a href=\"http://www.brazitrac.co.uk\" target=\"_blank\">www.brazitrac.co.uk</a></p>
 					<p><strong>Libraries</strong><br />
 					BBCode - Leif K-Brooks</p>
 						<p><strong>Translations</strong><br />

@@ -1,7 +1,7 @@
 <?php
 /**
- * @version		$Id: factory.php 66 2009-03-31 14:18:46Z webamoeba $
- * @package		wats
+ * @version		$Id: factory.php 66 2009-03-31 14:18:46Z brazitrac $
+ * @package		brazitrac
  * @package		classes
  * @license		GNU/GPL
  */

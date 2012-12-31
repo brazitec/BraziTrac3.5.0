@@ -1,9 +1,9 @@
 <?php
 /**
- * Webamoeba Ticket System
+ * Brazitrac Ticket System
  * 
- * @version		$Id: config.php 66 2009-03-31 14:18:46Z webamoeba $
- * @package		wats
+ * @version		$Id: config.php 66 2009-03-31 14:18:46Z brazitrac $
+ * @package		brazitrac
  * @package		classes
  * @license		GNU/GPL
  */
@@ -37,11 +37,11 @@ class WConfig extends JObject
 	 */
 	function reload() {
 		// get DBO
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		// load settings
-		$db->setQuery("SELECT * FROM " . WDBHelper::nameQuote("#__brazitrac_settings") . " /* WConfig::reload() */ " );
-		$vars = $db->loadObjectList();
+		$database->setQuery("SELECT * FROM " . WDBHelper::nameQuote("#__brazitrac_settings") . " /* WConfig::reload() */ " );
+		$vars = $database->loadObjectList();
 		// create category objects
 		foreach($vars as $var)
 		{
@@ -89,14 +89,14 @@ class WConfig extends JObject
 	 */
 	function save()
 	{
-		$db =& JFactory::getDBO();
+		$database = JFactory::getDBO();
 		
 		// itterate over settings
 		foreach(array_keys($this->_settings) AS $key) {
-			$db->setQuery( "UPDATE " . WDBHelper::nameQuote("#__brazitrac_settings") . " " .
-			               "SET " . WDBHelper::nameQuote("value") . " = " . $db->Quote($this->_settings[$key]) . " " .
-						   "WHERE " . WDBHelper::nameQuote("name") . " = " . $db->Quote($key) . " /* WConfig::save() */ ");
-			$db->query();
+			$database->setQuery( "UPDATE " . WDBHelper::nameQuote("#__brazitrac_settings") . " " .
+			               "SET " . WDBHelper::nameQuote("value") . " = " . $database->Quote($this->_settings[$key]) . " " .
+						   "WHERE " . WDBHelper::nameQuote("name") . " = " . $database->Quote($key) . " /* WConfig::save() */ ");
+			$database->query();
 		}
 	}
 	
