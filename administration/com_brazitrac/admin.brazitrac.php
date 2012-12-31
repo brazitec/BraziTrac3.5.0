@@ -663,25 +663,25 @@ function watsOption( &$task, &$act )
 			// stats
 			$db =& JFactory::getDBO();
 			
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__wats_ticket" );
+			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket" );
 			$set = $db->loadObjectList();
 			$watsStatTickets = $set[0]->count;
 			$watsStatTicketsRaw = $watsStatTickets;
 			if ( $watsStatTickets == 0 )
 				$watsStatTickets = 1;
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__wats_ticket WHERE lifeCycle=1" );
+			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=1" );
 			$set = $db->loadObjectList();
 			$watsStatTicketsOpen = $set[0]->count;
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__wats_ticket WHERE lifeCycle=2" );
+			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=2" );
 			$set = $db->loadObjectList();
 			$watsStatTicketsClosed =  $set[0]->count;;
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__wats_ticket WHERE lifeCycle=3" );
+			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=3" );
 			$set = $db->loadObjectList();
 			$watsStatTicketsDead = $set[0]->count;
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__wats_users" );
+			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_users" );
 			$set = $db->loadObjectList();
 			$watsStatUsers = $set[0]->count;
-			$db->setQuery( "SELECT COUNT(*) as count FROM #__wats_category" );
+			$db->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_category" );
 			$set = $db->loadObjectList();
 			$watsStatCategories = $set[0]->count;
 			// end stats

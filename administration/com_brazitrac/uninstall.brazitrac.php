@@ -23,21 +23,21 @@ function com_uninstall()
 	if ( $wats->get( 'upgrade' ) == 0 )
 	{
 		// uninstall
-		$database->setQuery( "DROP TABLE IF EXISTS `#__wats_category`;" );
+		$database->setQuery( "DROP TABLE IF EXISTS `#__brazitrac_category`;" );
 		$database->query();
-		$database->setQuery( "DROP TABLE IF EXISTS `#__wats_groups`;" );
+		$database->setQuery( "DROP TABLE IF EXISTS `#__brazitrac_groups`;" );
 		$database->query();
-		$database->setQuery( "DROP TABLE IF EXISTS `#__wats_highlight`;" );
+		$database->setQuery( "DROP TABLE IF EXISTS `#__brazitrac_highlight`;" );
 		$database->query();
-		$database->setQuery( "DROP TABLE IF EXISTS `#__wats_msg`;" );
+		$database->setQuery( "DROP TABLE IF EXISTS `#__brazitrac_msg`;" );
 		$database->query();
-		$database->setQuery( "DROP TABLE IF EXISTS `#__wats_permissions`;" );
+		$database->setQuery( "DROP TABLE IF EXISTS `#__brazitrac_permissions`;" );
 		$database->query();
-		$database->setQuery( "DROP TABLE IF EXISTS `#__wats_settings`;" );
+		$database->setQuery( "DROP TABLE IF EXISTS `#__brazitrac_settings`;" );
 		$database->query();
-		$database->setQuery( "DROP TABLE IF EXISTS `#__wats_ticket`;" );
+		$database->setQuery( "DROP TABLE IF EXISTS `#__brazitrac_ticket`;" );
 		$database->query();
-		$database->setQuery( "DROP TABLE IF EXISTS `#__wats_users`;" );
+		$database->setQuery( "DROP TABLE IF EXISTS `#__brazitrac_users`;" );
 		$database->query();
 	}
 

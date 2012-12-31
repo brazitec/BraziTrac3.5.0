@@ -40,7 +40,7 @@ class WConfig extends JObject
 		$db =& JFactory::getDBO();
 		
 		// load settings
-		$db->setQuery("SELECT * FROM " . WDBHelper::nameQuote("#__wats_settings") . " /* WConfig::reload() */ " );
+		$db->setQuery("SELECT * FROM " . WDBHelper::nameQuote("#__brazitrac_settings") . " /* WConfig::reload() */ " );
 		$vars = $db->loadObjectList();
 		// create category objects
 		foreach($vars as $var)
@@ -93,7 +93,7 @@ class WConfig extends JObject
 		
 		// itterate over settings
 		foreach(array_keys($this->_settings) AS $key) {
-			$db->setQuery( "UPDATE " . WDBHelper::nameQuote("#__wats_settings") . " " .
+			$db->setQuery( "UPDATE " . WDBHelper::nameQuote("#__brazitrac_settings") . " " .
 			               "SET " . WDBHelper::nameQuote("value") . " = " . $db->Quote($this->_settings[$key]) . " " .
 						   "WHERE " . WDBHelper::nameQuote("name") . " = " . $db->Quote($key) . " /* WConfig::save() */ ");
 			$db->query();

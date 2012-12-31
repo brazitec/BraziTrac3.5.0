@@ -88,7 +88,7 @@ class watsUserHTML extends watsUser
 		
 		$db->setQuery("SELECT " . WDBHelper::nameQuote("g.grpid") . ", " .
 		                          WDBHelper::nameQuote("g.name") . " " .
-					  "FROM " . WDBHelper::nameQuote("#__wats_groups") . " AS " . WDBHelper::nameQuote("g") . " " .
+					  "FROM " . WDBHelper::nameQuote("#__brazitrac_groups") . " AS " . WDBHelper::nameQuote("g") . " " .
 					  "ORDER BY " . WDBHelper::nameQuote("g.name") . " /* watsUserHTML::viewEdit() */ " );
 		$groups = $db->loadObjectList();
 		$noOfGroups = count( $groups );
@@ -198,7 +198,7 @@ class watsUserHTML extends watsUser
 		                                WDBHelper::nameQuote("u.id") . ", " .
 										WDBHelper::nameQuote("u.name") . " " .
 							"FROM " . WDBHelper::nameQuote("#__users") . " AS " . WDBHelper::nameQuote("u") . " " .
-							"LEFT OUTER JOIN " . WDBHelper::nameQuote("#__wats_users") . " AS " . WDBHelper::nameQuote("wu") . " ON " . WDBHelper::nameQuote("u.id") . " = " . WDBHelper::nameQuote("wu.watsid") . " " .
+							"LEFT OUTER JOIN " . WDBHelper::nameQuote("#__brazitrac_users") . " AS " . WDBHelper::nameQuote("wu") . " ON " . WDBHelper::nameQuote("u.id") . " = " . WDBHelper::nameQuote("wu.watsid") . " " .
 							"WHERE " . WDBHelper::nameQuote("wu.watsid") . " IS NULL /* watsUserHTML::makeForm() */" );
 		$users = $database->loadObjectList();
 		$noOfNullUsers = count( $users );
@@ -216,7 +216,7 @@ class watsUserHTML extends watsUser
 		// potential groups
 		$database->setQuery("SELECT " . WDBHelper::nameQuote("g.grpid") . ", " .
 		                                WDBHelper::nameQuote("g.name") . " " .
-							"FROM " . WDBHelper::nameQuote("#__wats_groups") . " AS " . WDBHelper::nameQuote("g") . " " .
+							"FROM " . WDBHelper::nameQuote("#__brazitrac_groups") . " AS " . WDBHelper::nameQuote("g") . " " .
 							"ORDER BY " . WDBHelper::nameQuote("g.name") . " /* watsUserHTML::makeForm() */ " );
 		$groups = $database->loadObjectList();
 		$noOfGroups = count( $groups );

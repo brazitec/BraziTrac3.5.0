@@ -12,7 +12,7 @@ defined('_JEXEC') or die( 'Restricted access' );
 jimport('joomla.database.table');
 
 /**
- * Table handler for #__wats_users
+ * Table handler for #__brazitrac_users
  */
 class WTableUsers extends JTable {
 	/**
@@ -55,7 +55,7 @@ class WTableUsers extends JTable {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__wats_msg', 'msgid', $db);
+		parent::__construct('#__brazitrac_msg', 'msgid', $db);
 	}
 
 	/**

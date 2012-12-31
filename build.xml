@@ -91,7 +91,7 @@
         
         <!-- build front end -->
         <copy todir="${buildpath.component.exploded}/site">
-            <fileset dir="components/com_brazitrac">
+            <fileset dir="site/com_brazitrac">
                 <include name="**" />
                 <exclude name="**/Thumbs.db" />
                 <exclude name="**/.svn/**" />
@@ -112,7 +112,7 @@
         
         <!-- build front end languages -->
         <copy todir="${buildpath.component.exploded}/siteLanguages">
-            <fileset dir="siteLanguage">
+            <fileset dir="siteLanguages">
                 <include name="**/*.com_brazitrac.ini" />
                 <include name="**/*.plg_brazitrac_mailnotification.ini" />
             </fileset>
@@ -121,7 +121,7 @@
         
         <!-- build back end languages -->
         <copy todir="${buildpath.component.exploded}/administrationLanguages">
-            <fileset dir="./administrator/language">
+            <fileset dir="./administration/com_brazitrac/languages">
                 <include name="**/*.com_brazitrac.ini" />
             </fileset>
             <mapper type="regexp" from="([^\\]*)\.ini$" to="\1.ini"/>

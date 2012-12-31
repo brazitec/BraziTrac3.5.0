@@ -12,7 +12,7 @@ defined('_JEXEC') or die( 'Restricted access' );
 jimport('joomla.database.table');
 
 /**
- * Table handler for #__wats_category
+ * Table handler for #__brazitrac_category
  */
 class WTableHighlight extends JTable {
 	/**
@@ -47,7 +47,7 @@ class WTableHighlight extends JTable {
 	 */
 	function __construct(&$db)
 	{
-		parent::__construct('#__wats_highlight', null, $db);
+		parent::__construct('#__brazitrac_highlight', null, $db);
 	}
 
 	/**

@@ -88,7 +88,7 @@ class watsUserHTML extends watsUser
 							<select name=\"grpId\">";
 		// groups
 		$db =& JFactory::getDBO();
-		$db->setQuery( "SELECT g.grpid, g.name FROM #__wats_groups AS g ORDER BY g.name" );
+		$db->setQuery( "SELECT g.grpid, g.name FROM #__brazitrac_groups AS g ORDER BY g.name" );
 		$groups = $db->loadObjectList();
 		$noOfGroups = count( $groups );
 		$i = 0;
@@ -200,7 +200,7 @@ class watsUserHTML extends watsUser
 				  <select name=\"user[]\" size=\"10\" multiple=\"multiple\" id=\"user\">";
 		// potential users
 		$database =& JFactory::getDBO();
-		$database->setQuery( "SELECT u.username, u.id, u.name FROM #__users AS u LEFT OUTER JOIN #__wats_users AS wu ON u.id=wu.watsid where wu.watsid is null" );
+		$database->setQuery( "SELECT u.username, u.id, u.name FROM #__users AS u LEFT OUTER JOIN #__brazitrac_users AS wu ON u.id=wu.watsid where wu.watsid is null" );
 		$users = $database->loadObjectList();
 		$noOfNullUsers = count( $users );
 		$i = 0;
@@ -219,7 +219,7 @@ class watsUserHTML extends watsUser
 						<td>
 		          <select name=\"grpId\">";
 		// potential groups
-		$database->setQuery( "SELECT g.grpid, g.name FROM #__wats_groups AS g ORDER BY g.name" );
+		$database->setQuery( "SELECT g.grpid, g.name FROM #__brazitrac_groups AS g ORDER BY g.name" );
 		$groups = $database->loadObjectList();
 		$noOfGroups = count( $groups );
 		$i = 0;
@@ -365,10 +365,10 @@ class watsTicketHTML extends watsTicket
 		$wats =& JFactory::getConfig();
 		
 		// header and ticket name
-		echo "<span class=\"watsHeading1\">"._WATS_TICKETS_SUBMIT."</span>
+		echo "<span class=\"watsHeading1\">"._brazitrac_TICKETS_SUBMIT."</span>
 			  <div class=\"watsTicketMake\" id=\"watsTicketMake\">
 			  <form name=\"submitticket\" method=\"post\" action=\"index.php?option=com_waticketsystem&Itemid=".$Itemid."&act=ticket&task=completeMake\" onsubmit=\"return watsValidateTicketMake( this, 'refill form XXX', '".$wats->get( 'defaultmsg' )."' );\">"
-			  ._WATS_TICKETS_NAME.
+			  ._brazitrac_TICKETS_NAME.
 			  "<input name=\"ticketname\" type=\"text\" id=\"ticketname\" maxlength=\"25\">";
 		// itterate through categories
 		echo "Category XXX<select name=\"catid\" class=\"watsCategorySetSelect\">";
@@ -383,7 +383,7 @@ class watsTicketHTML extends watsTicket
 		// end itterate through categories
 		echo "</select>";
 		// message box
-		echo _WATS_TICKETS_DESC;
+		echo _brazitrac_TICKETS_DESC;
 		if ( $wats->get( 'msgbox' ) == "editor" )
 		{
 			editorArea( "msg", $wats->get( 'defaultmsg' ), "msg", $wats->get( 'msgboxw' )*8.5, $wats->get( 'msgboxh' )*18, 45, 5 );
@@ -397,10 +397,10 @@ class watsTicketHTML extends watsTicket
 			  <input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\">
 			  <input name=\"act\" type=\"hidden\" value=\"ticket\">
 			  <input name=\"task\" type=\"hidden\" value=\"makeComplete\">
-			  <input type=\"submit\" name=\"Submit\" value=\""._WATS_TICKETS_SUBMIT."\" class=\"watsFormSubmit\">
+			  <input type=\"submit\" name=\"Submit\" value=\""._brazitrac_TICKETS_SUBMIT."\" class=\"watsFormSubmit\">
 			  </form>
 			  </div>";
-		echo ( $wats->get( 'msgbox' ) == "bbcode" AND $wats->get( 'msgboxt' ) == "1" ) ? _WATS_BB_HELP : "";
+		echo ( $wats->get( 'msgbox' ) == "bbcode" AND $wats->get( 'msgboxt' ) == "1" ) ? _brazitrac_BB_HELP : "";
 	}
 
 	function reopen()
@@ -721,7 +721,7 @@ class watsAssignHTML extends watsAssign
 		// check is valid to show
 		if ( $currentTicketsPerPage < $this->ticketSet->ticketNumberOf )
 		{
-			echo _WATS_TICKETS_PAGES.": ";
+			echo _brazitrac_TICKETS_PAGES.": ";
 			$numberOfPages = 0;
 			$numberOfPages = intval( $this->ticketSet->ticketNumberOf / $ticketsPerPage );
 			if ( ( $this->ticketSet->ticketNumberOf % $ticketsPerPage ) > 0 )
@@ -1130,11 +1130,11 @@ class watsSettingsHTML extends WConfig
 						<p><strong>Translations</strong><br />
 						en-GB - English - James Kennard<br />
                         pt-BR -	Brazillian - Mauro Machado<br />
-                        cs-CZ -	Czech -	Lukáš Nìmec<br />
+                        cs-CZ -	Czech -	Lukï¿½ Nï¿½mec<br />
                         fa-IR -	Farsi -	AmirReza Tehrani<br />
                         fr-FR -	French - Johan Aubry<br />
                         da-DK -	Dansih - Soren Oxholm<br />            
-                        de-DE -	German - Chr.Gärtner<br />
+                        de-DE -	German - Chr.Gï¿½rtner<br />
                         el-GR -	Greek -	George Yiftoyiannis<br />
                         it-IT -	Italian - Leonardo Lombardi<br />
                         nb-NO -	Norwegian - Erol Haagenrud<br />
@@ -1144,7 +1144,7 @@ class watsSettingsHTML extends WConfig
                         ru-RU -	Russian - Vasily Korotkov<br />
                         sr-RS -	Serbian - Ivica Petrovic<br />
                         sl-SI -	Slovenian -	Matjaz Krmelj<br />
-                        sk-SK -	Slovak - Daniel Káèer<br />
+                        sk-SK -	Slovak - Daniel Kï¿½ï¿½er<br />
                         es-ES -	Spanish - Urano Gonzalez & Ventura Ventolera<br />
                         sv-SE -	Swedish - Thomas Westman<br />
                         tr-TR -	Turkish</p>
