@@ -1,9 +1,9 @@
 <?php
 /**
- * @version $Id: install.waticketsystem.php 203 2009-12-12 06:21:50Z webamoeba $
- * @copyright Copyright (C) James Kennard
+ * @version $Id: install.brazitrac.php 203 2009-12-12 06:21:50Z brazitech $
+ * @copyright Copyright (C) Robert Skolnick
  * @license GNU/GPL
- * @package wats
+ * @package brazitrac
  */
 
 // Don't allow direct linking
@@ -302,11 +302,11 @@ function com_install()
 								<p><strong>Translations</strong><br />
                                 en-GB - English - 	 James Kennard<br />
                                 pt-BR -	Brazillian -	Mauro Machado<br />
-                                cs-CZ -	Czech -	Lukáš Nìmec<br />
+                                cs-CZ -	Czech -	Lukï¿½ Nï¿½mec<br />
                                 fa-IR -	Farsi -	AmirReza Tehrani<br />
                                 fr-FR -	French -	Johan Aubry<br />
                                 da-DK -	Dansih - Soren Oxholm<br />
-                                de-DE -	German -	Chr.Gärtner<br />
+                                de-DE -	German -	Chr.Gï¿½rtner<br />
                                 el-GR -	Greek -	George Yiftoyiannis<br />
                                 it-IT -	Italian -	Leonardo Lombardi<br />
                                 nb-NO -	Norwegian - Erol Haagenrud<br />
@@ -316,7 +316,7 @@ function com_install()
                                 ru-RU -	Russian -	Vasily Korotkov<br />
                                 sr-RS -	Serbian -	Ivica Petrovic<br />
                                 sl-SI -	Slovenian -	Matjaz Krmelj<br />
-                                sk-SK -	Slovak -	Daniel Káèer<br />
+                                sk-SK -	Slovak -	Daniel Kï¿½ï¿½er<br />
                                 es-ES -	Spanish -	Urano Gonzalez & Ventura Ventolera<br />
                                 sv-SE -	Swedish -	Thomas Westman<br />
                                 tr-TR -	Turkish
