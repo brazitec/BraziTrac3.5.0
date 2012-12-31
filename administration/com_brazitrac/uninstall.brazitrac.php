@@ -14,10 +14,10 @@ function com_uninstall()
 	$database = JFactory::getDBO();
 	
 	// setup settings
-    require('components/com_waticketsystem/classes/dbhelper.php');  
-    require('components/com_waticketsystem/classes/factory.php');  
-    require('components/com_waticketsystem/classes/config.php');
-	require('components/com_waticketsystem/admin.waticketsystem.html.php');
+    require('components/com_brazitrac/classes/dbhelper.php');  
+    require('components/com_brazitrac/classes/factory.php');  
+    require('components/com_brazitrac/classes/config.php');
+	require('components/com_brazitrac/admin.brazitrac.html.php');
 	$wats = WFactory::getConfig();
 	
 	if ( $wats->get( 'upgrade' ) == 0 )
@@ -41,7 +41,7 @@ function com_uninstall()
 		$database->query();
 	}
 
-	return '<div style="text-align: center;"><h3>Webamoeba Ticket System</h3><p>Thanks for using the WebAmoeba TicketSystem</p></div>';
+	return '<div style="text-align: center;"><h3>BraziTrac Ticket System</h3><p>Thanks for using the BraziTrac TicketSystem</p></div>';
 }
 
 ?>

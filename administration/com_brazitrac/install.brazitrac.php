@@ -22,12 +22,17 @@ function com_install()
 	// new install
 	$version = "0.0.0";
 	// determine upgrade status
-	$database->setQuery( "DESCRIBE #__brazitrac_settings" );
-	$vars = $database->loadObjectList();
+	$query = "SHOW TABLES LIKE '#__brazitrac_settings'";
+	$database->setQuery($query);
+	$coincidences = $database->loadObjectList(); // Replace loadObjectList with loadResult for better performance
+	if (!count($coincidences)) {
+		$newinstall = 1;
+    }
+
 	// if ( count($vars) != 0 )
-	if ( $database->getErrorNum() == 0 )
+	if ( $newinstall == 0 )
 	{
-		// upgrade
+	// upgrade
 		$database->setQuery( "SELECT value FROM #__brazitrac_settings WHERE name=\"upgrade\"" );
 		$vars = $database->loadObjectList();
 		if ( count( $vars ) == 1 )
@@ -45,10 +50,15 @@ function com_install()
 				$vars = $database->loadObjectList();
 				$version .= '.'.$vars[0]->value;
 			}
+
+		  }
+		  else
+		  {
+		  	$version = "0.0.0";
+		  }
 		}
-	}
-	// end determine upgrade status
 	
+	// end determine upgrade status	
 	switch ( $version ) {
 		/**
 		 * new install
@@ -154,7 +164,7 @@ function com_install()
                                                                                                ('ticketssub','15'),
                                                                                                ('sourceemail',''),
                                                                                                ('msgbox','bbcode'),
-                                                                                               ('name','Webamoeba Ticket System'),
+                                                                                               ('name','BraziTrac Ticket System'),
                                                                                                ('users','1'),
                                                                                                ('agree','0'),
                                                                                                ('agreei',''),
@@ -167,7 +177,7 @@ function com_install()
                                                                                                ('msgboxw','58'),
                                                                                                ('msgboxt','1'),
                                                                                                ('dorganisation','individual'),
-                                                                                               ('copyright','WebAmoeba Ticket System for Mambo and Joomla'),
+                                                                                               ('copyright','BraziTrac Ticket System for Mambo and Joomla'),
                                                                                                ('date','j-M-Y (h:i)'),
                                                                                                ('defaultmsg','type here...'),
                                                                                                ('dateshort','j-M-Y'),
@@ -185,7 +195,7 @@ function com_install()
                                                                                                ('versionminor','0'),
                                                                                                ('versionpatch','0');");
 			$database->query();
-			$database->setQuery( "INSERT INTO " . $database->nameQuote('#__brazitrac_groups') . " (" . $database->nameQuote('grpid') . "," . $database->nameQuote('name') . "," . $database->nameQuote('image') . "," . $database->nameQuote('userrites') . ") VALUES (1,'user','components/com_waticketsystem/images/mdn_userSmall.jpg','----'),(2,'advisor','components/com_waticketsystem/images/mdn_userSmallGreen.jpg','V---'),(3,'administrator','components/com_waticketsystem/images/mdn_userSmallRed.jpg','VMED');");
+			$database->setQuery( "INSERT INTO " . $database->nameQuote('#__brazitrac_groups') . " (" . $database->nameQuote('grpid') . "," . $database->nameQuote('name') . "," . $database->nameQuote('image') . "," . $database->nameQuote('userrites') . ") VALUES (1,'user','components/com_brazitrac/images/mdn_userSmall.jpg','----'),(2,'advisor','components/com_brazitrac/images/mdn_userSmallGreen.jpg','V---'),(3,'administrator','components/com_brazitrac/images/mdn_userSmallRed.jpg','VMED');");
 			$database->query();
 			$database->setQuery( "INSERT INTO " . $database->nameQuote('#__brazitrac_permissions') . " (" . $database->nameQuote('grpid') . "," . $database->nameQuote('catid') . "," . $database->nameQuote('type') . ") VALUES (1,1,'vmrcd---'),(2,1,'VmRCDPAO'),(3,1,'VmRCDPAO');");
 			$database->query();
@@ -212,7 +222,7 @@ function com_install()
 		case '2.0.8':
             $database->setQuery( "UPDATE " . $database->nameQuote('#__brazitrac_settings') . " SET " . $database->nameQuote('value') . "='release candidate' WHERE " . $database->nameQuote('name') . "='versionnane';" );
 			$database->query();
-            $database->setQuery( "UPDATE " . $database->nameQuote('#__brazitrac_settings') . " SET " . $database->nameQuote('value') . "='WebAmoeba Ticket System for Joomla!' WHERE " . $database->nameQuote('name') . "='copyright';" );
+            $database->setQuery( "UPDATE " . $database->nameQuote('#__brazitrac_settings') . " SET " . $database->nameQuote('value') . "='BraziTrac Ticket System for Joomla!' WHERE " . $database->nameQuote('name') . "='copyright';" );
 			$database->query();
             
             $database->setQuery("DELETE FROM " . $database->nameQuote('#__brazitrac_settings') . " WHERE " . $database->nameQuote('name') . " = 'newpostmsg' OR
@@ -273,22 +283,22 @@ function com_install()
                         ' WHERE ' . $database->nameQuote('name') . '=' . $database->Quote('versionname'));
     $database->query();
 
-	//changeIcon("WATicketSystem", "../components/com_waticketsystem/images/mdn_ticket1616.gif");
-	//changeIcon("About", "../components/com_waticketsystem/images/mdn_ticket1616.gif");
-	//changeIcon("Ticket Viewer", "../components/com_waticketsystem/images/mdn_ticket1616.gif");
-	//changeIcon("User Manager", "../components/com_waticketsystem/images/mdn_ticket1616.gif");
-	//changeIcon("Configure", "../components/com_waticketsystem/images/mdn_ticket1616.gif");
-	//changeIcon("CSS", "../components/com_waticketsystem/images/mdn_ticket1616.gif");
-	//changeIcon("Rights Manager", "../components/com_waticketsystem/images/mdn_ticket1616.gif");
-	//changeIcon("Category Manager", "../components/com_waticketsystem/images/mdn_ticket1616.gif");
-	//changeIcon("Database Maintenance", "../components/com_waticketsystem/images/mdn_ticket1616.gif");
+	//changeIcon("WATicketSystem", "../components/com_brazitrac/images/mdn_ticket1616.gif");
+	//changeIcon("About", "../components/com_brazitrac/images/mdn_ticket1616.gif");
+	//changeIcon("Ticket Viewer", "../components/com_brazitrac/images/mdn_ticket1616.gif");
+	//changeIcon("User Manager", "../components/com_brazitrac/images/mdn_ticket1616.gif");
+	//changeIcon("Configure", "../components/com_brazitrac/images/mdn_ticket1616.gif");
+	//changeIcon("CSS", "../components/com_brazitrac/images/mdn_ticket1616.gif");
+	//changeIcon("Rights Manager", "../components/com_brazitrac/images/mdn_ticket1616.gif");
+	//changeIcon("Category Manager", "../components/com_brazitrac/images/mdn_ticket1616.gif");
+	//changeIcon("Database Maintenance", "../components/com_brazitrac/images/mdn_ticket1616.gif");
 	echo "<table class=\"adminlist\">
 				<thead>
 					<tr>
 						<th>
 							<div style=\"text-align: center;\">
-								WebAmoeba Ticket System<br />
-								3.0.5 stable
+								BraziTrac Ticket System<br />
+								3.5.0 stable
 							</div>
 						</th>
 					</tr>
@@ -298,14 +308,14 @@ function com_install()
 						<td nowrap=\"true\" align=\"center\">
 							<div style=\"text-align: center;\">
 								<p><strong>Developers</strong><br />
-								<a href=\"mailto:james@webamoeba.co.uk\">James Kennard</a></p>
+								<a href=\"mailto:support@brazitech.com\">BraziTech</a></p>
 								<p><strong>Web</strong><br />
-								<a href=\"http://www.webamoeba.co.uk\" target=\"_blank\">www.webamoeba.co.uk</a></p>
+								<a href=\"http://www.brazitech.com\" target=\"_blank\">www.brazitech.com</a></p>
 								<p><strong>Libraries</strong><br />
 								BBCode - Leif K-Brooks</p>
 								<p><strong>Translations</strong><br />
-                                en-GB - English - 	 James Kennard<br />
-                                pt-BR -	Brazillian -	Mauro Machado<br />
+                                en-GB - English - 	 James Kennard, Robert Skolnick<br />
+                                pt-BR -	Brazillian -	Mauro Machado, Robert Skolnick<br />
                                 cs-CZ -	Czech -	Luk� N�mec<br />
                                 fa-IR -	Farsi -	AmirReza Tehrani<br />
                                 fr-FR -	French -	Johan Aubry<br />
@@ -321,10 +331,9 @@ function com_install()
                                 sr-RS -	Serbian -	Ivica Petrovic<br />
                                 sl-SI -	Slovenian -	Matjaz Krmelj<br />
                                 sk-SK -	Slovak -	Daniel K��er<br />
-                                es-ES -	Spanish -	Urano Gonzalez & Ventura Ventolera<br />
+                                es-ES -	Spanish -	Urano Gonzalez & Ventura Ventolera, Bobert Skolnick<br />
                                 sv-SE -	Swedish -	Thomas Westman<br />
-                                tr-TR -	Turkish
-								<p><strong>Beta Testers</strong><br />
+     							<p><strong>Beta Testers</strong><br />
 								72dpi<br />
 								ateul<br />
 								backupnow<br />
