@@ -21,7 +21,7 @@ class WTableUsers extends JTable {
 	 * @access public
 	 * @var int
 	 */
-	var $watsid = null;
+	var $btracid = null;
 
 	/**
 	 * Organisation user belongs to
@@ -64,7 +64,7 @@ class WTableUsers extends JTable {
 	 * @todo Add check for date and time
 	 */
 	function check() {
-		if ($this->watsid === null) {
+		if ($this->btracid === null) {
 			$this->setError("USER MUST EXIST");
 			return false;
 		}

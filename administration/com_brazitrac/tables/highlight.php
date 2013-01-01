@@ -21,7 +21,7 @@ class WTableHighlight extends JTable {
 	 * @access public
 	 * @var int
 	 */
-	var $watsid = null;
+	var $btracid = null;
 
 	/**
 	 * Composite Primary Key

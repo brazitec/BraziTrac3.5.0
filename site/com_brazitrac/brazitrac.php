@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id: brazitec.php 180 2009-10-06 11:24:12Z brazitrac $
- * @copyright Copyright (C) James Kennard
+ * @copyright Copyright (C) BraziTech
  * @license GNU/GPL
- * @package wats
+ * @package brazitrac
  */
 
 // Don't allow direct linking
@@ -19,50 +19,50 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "tablehelper.
 require_once(JPATH_COMPONENT_SITE . DS . "brazitec.html.php");
 
 // get settings
-$wats =& WFactory::getConfig();
+$wats = WFactory::getConfig();
 
 // add css link if turned on
 if ($wats->get( 'css' ) == 'enable') {
     $doc =& JFactory::getDocument();
-    $doc->addStyleSheet('components/com_brazitec/wats.css');
+    $doc->addStyleSheet('components/com_brazitrac/wats.css');
 }
 
-// create watsUser
-// check id is set and watsUser exists
+// create BtracUser
+// check id is set and BtracUser exists
 
 prevArray( $_GET );
 prevLink( $_GET );
 
 $my =& JFactory::getUser();
 
-if ( $my->id == 0 OR ( $watsUser = new watsUserHTML() AND $watsUser->loadWatsUser( $my->id  ) == false ))
+if ( $my->id == 0 OR ( $BtracUser = new BtracUserHTML() AND $BtracUser->loadBtracUser( $my->id  ) == false ))
 {
 	echo JText::_("WATS_ERROR_NOUSER");
 }
 else
 {
-	$GLOBALS["watsUser"] =& $watsUser;
+	$GLOBALS["BtracUser"] =& $BtracUser;
 
 	// check for agreement
-	if ( $wats->get( 'agree' ) == 1 && $watsUser->agree == 0 && !JRequest::getVar('agree', false) )
+	if ( $wats->get( 'agree' ) == 1 && $BtracUser->agree == 0 && !JRequest::getVar('agree', false) )
 	{
 		// needs to sign agreement
 		echo '<p>'.$wats->get( 'agreelw' ).'</p>';
 		echo '<p><a href="index.php?option=com_content&task=view&id='.$wats->get( 'agreei' ).'">'.$wats->get( 'agreen' ).'</a></p>';
 		echo '<p>'.$wats->get( 'agreela' ).'</p>';
-		echo '<form name="agree" method="post" action="index.php?option=com_brazitec"><input type="submit" name="agree" value="'.$wats->get( 'agreeb' ).'"></form>';		
+		echo '<form name="agree" method="post" action="index.php?option=com_brazitrac"><input type="submit" name="agree" value="'.$wats->get( 'agreeb' ).'"></form>';		
 	}
 	elseif ( JRequest::getVar('agree', false) !== false )
 	{
 		// user has agreed
-		$watsUser->agree = 1;
-		$watsUser->updateUser();
+		$BtracUser->agree = 1;
+		$BtracUser->updateUser();
 		// redirect
-		watsredirect( "index.php?option=com_brazitec" );
+		watsredirect( "index.php?option=com_brazitrac" );
 	}// end check for agreement
 	else
 	{
-		$watsUser->view();
+		$BtracUser->view();
 		
 		//check user exists and has agreed to contract
 		
@@ -70,10 +70,10 @@ else
 		$act = JRequest::getCmd("act", null);
 		
 		// add javaScript
-		echo "<script language=\"javascript\" type=\"text/javascript\" src=\"components/com_brazitec/wats.js\"></script>";
+		echo "<script language=\"javascript\" type=\"text/javascript\" src=\"components/com_brazitrac/wats.js\"></script>";
 		// create category set
-		$watsCategorySet = new watsCategorySetHTML($watsUser);
-		$GLOBALS["watsCategorySet"] =& $watsCategorySet;
+		$btracCategorySet = new btracCategorySetHTML($BtracUser);
+		$GLOBALS["btracCategorySet"] =& $btracCategorySet;
 		
 		// create new navigation
 		if ( $act != 'ticket' || $task != 'make' )
@@ -88,7 +88,7 @@ else
 					  <tr>
 						<td width=\"33%\">
 						  <form name=\"watsTicketMake\" method=\"get\" action=\"index.php\">
-						  <input name=\"option\" type=\"hidden\" value=\"com_brazitec\">
+						  <input name=\"option\" type=\"hidden\" value=\"com_brazitrac\">
 						  <input name=\"act\" type=\"hidden\" value=\"ticket\">
 						  <input name=\"task\" type=\"hidden\" value=\"make\">
 						  <input type=\"submit\" name=\"watsTicketMake\" value=\"".JText::_("WATS_TICKETS_SUBMIT")."\" class=\"watsFormSubmit\">
@@ -98,22 +98,22 @@ else
 			// dispaly navigation drop down menu
 			if ( $act == '' )
 			{
-				$watsCategorySet->select( -1 );
+				$btracCategorySet->select( -1 );
 			}
 			else if ( $act == 'category' )
 			{
 				// send viewing category ID
-				$watsCategorySet->select(JRequest::getInt('catid'));
+				$btracCategorySet->select(JRequest::getInt('catid'));
 			}
 			else
 			{
 				// not viewing category
-				$watsCategorySet->select( null );
+				$btracCategorySet->select( null );
 			}
 			echo       "</td>
 						<td width=\"33%\">
 							<form name=\"watsTicketMake\" method=\"get\" action=\"index.php\">
-							  <input name=\"option\" type=\"hidden\" value=\"com_brazitec\">
+							  <input name=\"option\" type=\"hidden\" value=\"com_brazitrac\">
 							  <input name=\"act\" type=\"hidden\" value=\"ticket\">
 							  <input name=\"task\" type=\"hidden\" value=\"view\">
 							  WATS-
@@ -138,9 +138,9 @@ else
 <?php
 function watsOption( $task, $act )
 {
-	global $watsUser, $Itemid, $watsCategorySet;
+	global $BtracUser, $Itemid, $btracCategorySet;
 	
-	$wats =& WFactory::getConfig();
+	$wats = WFactory::getConfig();
 	$database = JFactory::getDBO();
 
 	switch ($act) {
@@ -159,12 +159,12 @@ function watsOption( $task, $act )
 					if ( $ticket != null )
 					{
 						// check rites
-						$rite =  $watsUser->checkPermission( $ticket->category, "v" );
-						if ( ( $ticket->watsId == $watsUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
+						$rite =  $BtracUser->checkPermission( $ticket->category, "v" );
+						if ( ( $ticket->btracid == $BtracUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
 						{
 							// allow user to view ticket
 							$ticket->loadMsgList();
-							$ticket->view( $watsUser );
+							$ticket->view( $BtracUser );
 						}
 						else
 						{
@@ -180,22 +180,22 @@ function watsOption( $task, $act )
 				 * ticket make
 				 */	
 				case 'make':
-					watsTicketHTML::make( $watsCategorySet, $watsUser );
+					watsTicketHTML::make( $btracCategorySet, $BtracUser );
 					break;
 				/**
 				 * ticket make complete
 				 */	
 				case 'makeComplete':
 					// check rites
-					$rite =  $watsUser->checkPermission( JRequest::getInt('catid'), 'm' );
+					$rite =  $BtracUser->checkPermission( JRequest::getInt('catid'), 'm' );
 					if ( $rite > 0 )
 					{
 						// allow user make ticket
 						$createDatetime = JFactory::getDate();
                         $createDatetime = $createDatetime->toMySQL();
 						$parsedMsg = parseMsg( JRequest::getString('msg', '', 'REQUEST', JREQUEST_ALLOWRAW) );
-						$ticket = new watsTicketHTML(null, null, JRequest::getString('ticketname'), $watsUser->id, null, $createDatetime, 1, null, null, 1, JRequest::getInt('catid') );
-						$ticket->_msgList[0] = new watsMsg( null, $parsedMsg, $watsUser->id, $createDatetime );
+						$ticket = new watsTicketHTML(null, null, JRequest::getString('ticketname'), $BtracUser->id, null, $createDatetime, 1, null, null, 1, JRequest::getInt('catid') );
+						$ticket->_msgList[0] = new watsMsg( null, $parsedMsg, $BtracUser->id, $createDatetime );
 						$ticket->msgNumberOf ++;
 						$ticket->save();
 						
@@ -206,7 +206,7 @@ function watsOption( $task, $act )
                         $app->triggerEvent('onTicketNew', $args);
 						
 						// view new ticket
-						watsredirect('index.php?option=com_brazitec&Itemid='.$Itemid.'&act=ticket&task=view&ticketid='.$ticket->ticketId );
+						watsredirect('index.php?option=com_brazitrac&Itemid='.$Itemid.'&act=ticket&task=view&ticketid='.$ticket->ticketId );
 					}
 					else
 					{
@@ -221,8 +221,8 @@ function watsOption( $task, $act )
 					// find ticket to delete
 					$ticket = watsObjectBuilder::ticket(JRequest::getInt('ticketid'));
 					// check delete rite
-					$rite =  $watsUser->checkPermission( $ticket->category, "d" );
-					if ( (  $ticket->watsId == $watsUser->id AND $rite > 0 ) OR $rite == 2 )
+					$rite =  $BtracUser->checkPermission( $ticket->category, "d" );
+					if ( (  $ticket->btracid == $BtracUser->id AND $rite > 0 ) OR $rite == 2 )
 					{
 						$ticket->deactivate();
 						// return to previous view
@@ -240,27 +240,27 @@ function watsOption( $task, $act )
 					// find ticket to reply to
 					$ticket = watsObjectBuilder::ticket(JRequest::getInt('ticketid') );
 					// check rite to view
-					$rite =  $watsUser->checkPermission( $ticket->category, "v" );
-					if ( ( $ticket->watsId == $watsUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
+					$rite =  $BtracUser->checkPermission( $ticket->category, "v" );
+					if ( ( $ticket->btracid == $BtracUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
 					{
 						// allow user to view ticket
 						$ticket->loadMsgList();
 						// check rites to reply
-						$rite =  $watsUser->checkPermission( $ticket->category, "r" );
-						if ( $rite == 2 OR ( $rite == 1 AND $ticket->watsId == $watsUser->id ) )
+						$rite =  $BtracUser->checkPermission( $ticket->category, "r" );
+						if ( $rite == 2 OR ( $rite == 1 AND $ticket->btracid == $BtracUser->id ) )
 						{
 							// allow user to reply
 							$parsedMsg = parseMsg(JRequest::getString("msg", "", "REQUEST", JREQUEST_ALLOWRAW));
 
                             $updatedDatetime = JFactory::getDate();
                             $updatedDatetime = $updatedDatetime->toMySQL();
-							$ticket->addMsg( $parsedMsg, $watsUser->id, $updatedDatetime );
+							$ticket->addMsg( $parsedMsg, $BtracUser->id, $updatedDatetime );
 							// check for close
 							if ( JRequest::getInt('close', 0) == 1 )
 							{
 								// check rites to close
-								$rite =  $watsUser->checkPermission( $ticket->category, "c" );
-								if ( $rite == 2 OR ( $rite == 1 AND $ticket->watsId == $watsUser->id ) )
+								$rite =  $BtracUser->checkPermission( $ticket->category, "c" );
+								if ( $rite == 2 OR ( $rite == 1 AND $ticket->btracid == $BtracUser->id ) )
 								{
 									// close ticket
 									$ticket->deactivate();
@@ -281,11 +281,11 @@ function watsOption( $task, $act )
 							// return to ticket
 							if ( function_exists( 'watsredirect' ) )
 							{
-							   watsredirect( "index.php?option=com_brazitec&Itemid=".$Itemid."&act=ticket&task=view&ticketid=".$ticket->ticketId );
+							   watsredirect( "index.php?option=com_brazitrac&Itemid=".$Itemid."&act=ticket&task=view&ticketid=".$ticket->ticketId );
 							}
 							else
 							{
-								$ticket->view( $watsUser );
+								$ticket->view( $BtracUser );
 							}
 						} 
 						else
@@ -306,8 +306,8 @@ function watsOption( $task, $act )
 					// find ticket to reopen
 					$ticket = watsObjectBuilder::ticket(JRequest::getInt('ticketid'));
 					// check for reopen rites
-					$rite =  $watsUser->checkPermission( $ticket->category, "o" );
-					if ( ( $ticket->watsId == $watsUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
+					$rite =  $BtracUser->checkPermission( $ticket->category, "o" );
+					if ( ( $ticket->btracid == $BtracUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
 					{
 						$ticket->reopen();
 					}
@@ -324,16 +324,16 @@ function watsOption( $task, $act )
 					// find ticket to reopen
 					$ticket = watsObjectBuilder::ticket(JRequest::getInt('ticketid') );
 					// check for reopen rites
-					$rite =  $watsUser->checkPermission( $ticket->category, "o" );
-					if ( ( $ticket->watsId == $watsUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
+					$rite =  $BtracUser->checkPermission( $ticket->category, "o" );
+					if ( ( $ticket->btracid == $BtracUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
 					{
 						// reactivate
 						$parsedMsg = parseMsg(JRequest::getString("msg", "", "REQUEST", JREQUEST_ALLOWRAW));
 						
 						$ticket->reactivate();
-						$ticket->addMsg( $parsedMsg, $watsUser->id, date( 'YmdHis' ) );
+						$ticket->addMsg( $parsedMsg, $BtracUser->id, date( 'YmdHis' ) );
 						$ticket->loadMsgList();
-						$ticket->view( $watsUser );
+						$ticket->view( $BtracUser );
 						
                         // trigger onTicketReply event
                         JPluginHelper::importPlugin("brazitec");
@@ -358,15 +358,15 @@ function watsOption( $task, $act )
 				 */	
 				case 'purge':
 					// check for purge rite
-					$rite =  $watsUser->checkPermission(JRequest::getInt('catid'), "p");
+					$rite =  $BtracUser->checkPermission(JRequest::getInt('catid'), "p");
 					if ( $rite == 2 )
 					{
 						// create category object
-						$catPurge = new watsCategoryHTML();
+						$catPurge = new btracCategoryHTML();
 						// load details
 						$catPurge->load(JRequest::getInt('catid'));
 						// load dead tickets
-						$catPurge->loadTicketSet( 3, $watsUser->id, true );
+						$catPurge->loadTicketSet( 3, $BtracUser->id, true );
 						// purge dead tickets
 						$catPurge->purge();
 					}
@@ -380,11 +380,11 @@ function watsOption( $task, $act )
 				 */	
 				default:
 					//check rites
-					$rite =  $watsUser->checkPermission( JRequest::getInt('catid'), "v" );
+					$rite =  $BtracUser->checkPermission( JRequest::getInt('catid'), "v" );
 					if ( $rite > 0 )
 					{
 						// create category object
-						$cat = new watsCategoryHTML();
+						$cat = new btracCategoryHTML();
 						// load details
 						$cat->load( JRequest::getInt('catid') );
 						// get lifecycle
@@ -398,25 +398,25 @@ function watsOption( $task, $act )
 						if ( $rite == 2 AND JRequest::getCmd('lifecycle') != 'p' )
 						{
 							// allow user to view category with ALL tickets
-							$cat->loadTicketSet( $lifecycle, $watsUser->id, true );
+							$cat->loadTicketSet( $lifecycle, $BtracUser->id, true );
 						}
 						else if ( $rite > 0  )
 						{
 							// allow user to view category with OWN tickets
-							$cat->loadTicketSet( $lifecycle, $watsUser->id, false );
+							$cat->loadTicketSet( $lifecycle, $BtracUser->id, false );
 						}
 						// end check for level of rites
 						// view tickets
 						
-						$wats =& WFactory::getConfig();
+						$wats = WFactory::getConfig();
 						
 						$start = (JRequest::getInt('page', 1) - 1 ) *  $wats->get( 'ticketssub' );
 						$finish = $start + $wats->get( 'ticketssub' );
-						$cat->pageNav( $wats->get( 'ticketssub' ), JRequest::getInt('page'), 0, $watsUser );
+						$cat->pageNav( $wats->get( 'ticketssub' ), JRequest::getInt('page'), 0, $BtracUser );
 						$cat->viewTicketSet( $finish, $start );
-						$cat->pageNav( $wats->get( 'ticketssub' ), JRequest::getInt('page'), 0, $watsUser );
+						$cat->pageNav( $wats->get( 'ticketssub' ), JRequest::getInt('page'), 0, $BtracUser );
 						// check purge rites
-						if ( JRequest::getInt('lifecycle', null) == 3 AND $watsUser->checkPermission(JRequest::getInt('catid', null), "p") == 2)
+						if ( JRequest::getInt('lifecycle', null) == 3 AND $BtracUser->checkPermission(JRequest::getInt('catid', null), "p") == 2)
 						{
 							$cat->viewPurge();
 						} // end check purge rites
@@ -440,7 +440,7 @@ function watsOption( $task, $act )
 					// create assigned object
 					$assignedTickets = new watsAssignHTML();
 					// load tickets
-					$assignedTickets->loadAssignedTicketSet( $watsUser->id );
+					$assignedTickets->loadAssignedTicketSet( $BtracUser->id );
 					// view tickets
 					$start = (JRequest::getInt('page', 1) - 1) *  $wats->get( 'ticketssub' );
 					$finish = $start + $wats->get( 'ticketssub' );	
@@ -455,18 +455,18 @@ function watsOption( $task, $act )
 					// create ticket object
 					$ticket = watsObjectBuilder::ticket(JRequest::getInt('ticketid'));
 					// check for assign rites
-					$riteA =  $watsUser->checkPermission( $ticket->category, "a" );
-					if ( ( $ticket->assignId == $watsUser->id AND $riteA > 0 ) OR ( $riteA == 2 ) )
+					$riteA =  $BtracUser->checkPermission( $ticket->category, "a" );
+					if ( ( $ticket->assignId == $BtracUser->id AND $riteA > 0 ) OR ( $riteA == 2 ) )
 					{
 						$ticket->setAssignId( JRequest::getInt('assignee') );
 					} // end check for assign rites
 					// check rites
-					$rite =  $watsUser->checkPermission( $ticket->category, "v" );
-					if ( ( $ticket->watsId == $watsUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
+					$rite =  $BtracUser->checkPermission( $ticket->category, "v" );
+					if ( ( $ticket->btracid == $BtracUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
 					{
 						// allow user to view ticket
 						$ticket->loadMsgList();
-						$ticket->view( $watsUser );
+						$ticket->view( $BtracUser );
 					}
 					else
 					{
@@ -486,16 +486,16 @@ function watsOption( $task, $act )
 				case 'edit';
 					echo "<span class=\"watsHeading1\">".JText::_("WATS_USER_EDIT")."</span>";
 					// check for view rites
-					if ( $watsUser->checkUserPermission( 'v' ) )
+					if ( $BtracUser->checkUserPermission( 'v' ) )
 					{
-						$editUser = new watsUserHTML();
-						$editUser->loadWatsUser( JRequest::getInt('userid') );
+						$editUser = new BtracUserHTML();
+						$editUser->loadBtracUser( JRequest::getInt('userid') );
 						// check for edit rites
-						if ( $watsUser->checkUserPermission( 'e' ) == 2 )
+						if ( $BtracUser->checkUserPermission( 'e' ) == 2 )
 						{
 							$editUser->viewEdit();
 							// check for delete rites
-							if ( $watsUser->checkUserPermission( 'd' ) == 2 )
+							if ( $BtracUser->checkUserPermission( 'd' ) == 2 )
 							{
 								echo "<span class=\"watsHeading1\">".JText::_("WATS_USER_DELETE")."</span>";
 								$editUser->viewDelete();
@@ -518,12 +518,12 @@ function watsOption( $task, $act )
 				case 'editComplete':
 					echo "<span class=\"watsHeading1\">".JText::_("WATS_USER_EDIT")."</span>";
 					// check for view rites
-					if ( $watsUser->checkUserPermission( 'v' ) )
+					if ( $BtracUser->checkUserPermission( 'v' ) )
 					{
-						$editUser = new watsUserHTML();
-						$editUser->loadWatsUser( JRequest::getInt('userid') );
+						$editUser = new BtracUserHTML();
+						$editUser->loadBtracUser( JRequest::getInt('userid') );
 						// check for edit rites
-						if ( $watsUser->checkUserPermission( 'e' ) == 2 )
+						if ( $BtracUser->checkUserPermission( 'e' ) == 2 )
 						{
 							// complete edit user
 							$editUser->organisation = JRequest::getString('organisation');
@@ -550,23 +550,23 @@ function watsOption( $task, $act )
 					if (JRequest::getVar('userid', false) AND JRequest::getVar('remove', false) )
 					{
 						// create user object
-						$deleteUser = new watsUser();
+						$deleteUser = new BtracUser();
 						$deleteUser->load(JRequest::getInt('userid'));
 						// delete user
 						$deleteUser->delete(JRequest::getVar('remove'));
 					}
 					// return to home
-					defaultAction( $watsCategorySet, $watsUser );
+					defaultAction( $btracCategorySet, $BtracUser );
 					break;
 				/**
 				 * user make
 				 */	
 				case 'make':
 					// check for make user rites
-					if ( $watsUser->checkUserPermission( 'm' ) == 2 )
+					if ( $BtracUser->checkUserPermission( 'm' ) == 2 )
 					{
 						echo "<span class=\"watsHeading1\">".JText::_("WATS_USER_ADD")."</span>";
-						watsUserHTML::makeForm();
+						BtracUserHTML::makeForm();
 					}
 					else
 					{
@@ -578,7 +578,7 @@ function watsOption( $task, $act )
 				 */	
 				case 'makeComplete':
 					// check for make user rites
-					if ( $watsUser->checkUserPermission( 'm' ) == 2 )
+					if ( $BtracUser->checkUserPermission( 'm' ) == 2 )
 					{
 						// check for input
 						if ( JRequest::getString('user') !== null &&
@@ -593,11 +593,11 @@ function watsOption( $task, $act )
                             while ( $i < $noOfNewUsers )
 							{
 								// check for successful creation
-								if ( watsUser::makeUser( intval($users[ $i ]), JRequest::getInt("grpId"), JRequest::getString('organisation') ) )
+								if ( BtracUser::makeUser( intval($users[ $i ]), JRequest::getInt("grpId"), JRequest::getString('organisation') ) )
                                 {
                                     // give visual confirmation
-                                    $newUser = new watsUserHTML();
-                                    $newUser->loadWatsUser(intval($users[ $i ]));
+                                    $newUser = new BtracUserHTML();
+                                    $newUser->loadBtracUser(intval($users[ $i ]));
                                     $newUser->view();
                                 }
 								else
@@ -613,7 +613,7 @@ function watsOption( $task, $act )
 							// display error
 							echo "<span class=\"watsHeading1\">".JText::_("WATS_USER_ADD")."</span>";
 							echo JText::_("WATS_ERROR_NODATA");
-							watsUserHTML::makeForm();
+							BtracUserHTML::makeForm();
 							// end display error
 						}
 						// end check for input
@@ -628,7 +628,7 @@ function watsOption( $task, $act )
 				 */	
 				default:
 					// check for all user view rites
-					if ( $watsUser->checkUserPermission( 'v' ) == 2 )
+					if ( $BtracUser->checkUserPermission( 'v' ) == 2 )
 					{
 						// determine number of users to show
 						$start = (JRequest::getInt("page", 1) - 1 ) * $wats->get( 'ticketssub' );
@@ -636,15 +636,15 @@ function watsOption( $task, $act )
 
 						$finish = $start + $wats->get( 'ticketssub' );
 						// make user set and load
-						$watsUserSet = new watsUserSetHTML();
-						$watsUserSet->load();
+						$BtracUserSet = new BtracUserSetHTML();
+						$BtracUserSet->load();
 						// view user set
-						$watsUserSet->view( $finish, $start );
-						$watsUserSet->pageNav( $wats->get( 'ticketssub' ), $currentPage );
+						$BtracUserSet->view( $finish, $start );
+						$BtracUserSet->pageNav( $wats->get( 'ticketssub' ), $currentPage );
 						// check for make user rites
-						if ( $watsUser->checkUserPermission( 'm' ) == 2 )
+						if ( $BtracUser->checkUserPermission( 'm' ) == 2 )
 						{
-							watsUserHTML::makeButton();
+							BtracUserHTML::makeButton();
 						}
 					}
 					else
@@ -658,25 +658,25 @@ function watsOption( $task, $act )
 		 * default
 		 */	
 		default:
-			defaultAction( $watsCategorySet, $watsUser );
+			defaultAction( $btracCategorySet, $BtracUser );
 			break;
 	}
 }
 
-function defaultAction( &$watsCategorySet, &$watsUser )
+function defaultAction( &$btracCategorySet, &$BtracUser )
 {
 	global $Itemid;
 	
-	$wats =& WFactory::getConfig();
+	$wats = WFactory::getConfig();
 	$database = JFactory::getDBO();
 	
 	// load tickets to categoryies
-	$watsCategorySet->loadTicketSet( 0, $watsUser );
+	$btracCategorySet->loadTicketSet( 0, $BtracUser );
 	// view tickets
-	$watsCategorySet->viewWithTicketSet( $wats->get( 'ticketsfront' ), 0, $watsUser );
+	$btracCategorySet->viewWithTicketSet( $wats->get( 'ticketsfront' ), 0, $BtracUser );
 	// check for assigned tickets
 	$assignedTickets = new watsAssignHTML();
-	$assignedTickets->loadAssignedTicketSet( $watsUser->id );
+	$assignedTickets->loadAssignedTicketSet( $BtracUser->id );
 	if ( count( $assignedTickets->ticketSet->_ticketList ) > 0 )
 	{
 		// view assigned tickets
@@ -686,21 +686,21 @@ function defaultAction( &$watsCategorySet, &$watsUser )
 		echo "</div>";
 	}
 	// check for all user view rites
-	if ( $watsUser->checkUserPermission( 'v' ) == 2 )
+	if ( $BtracUser->checkUserPermission( 'v' ) == 2 )
 	{
 		// determine number of users to show
 		$start = 0;
 		$finish = $wats->get( 'ticketsfront' );
 		// create user set and load
-		$watsUserSet = new watsUserSetHTML();
-		$watsUserSet->load();
+		$BtracUserSet = new BtracUserSetHTML();
+		$BtracUserSet->load();
 		// view user set
-		$watsUserSet->view( $finish, $start );
-		$watsUserSet->pageNav( $wats->get( 'ticketssub' ), 0, $wats->get( 'ticketsfront' ) );
+		$BtracUserSet->view( $finish, $start );
+		$BtracUserSet->pageNav( $wats->get( 'ticketssub' ), 0, $wats->get( 'ticketsfront' ) );
 		// check for make user rites
-		if ( $watsUser->checkUserPermission( 'm' ) == 2 )
+		if ( $BtracUser->checkUserPermission( 'm' ) == 2 )
 		{
-			watsUserHTML::makeButton();
+			BtracUserHTML::makeButton();
 		}
 	}
 }
@@ -752,7 +752,7 @@ function prevLink( $getArray )
 
 function parseMsg( $msg )
 {
-	$wats =& WFactory::getConfig();
+	$wats = WFactory::getConfig();
 	
 	if ( $wats->get( 'msgbox' ) == 'editor' ) {
         // make safe
@@ -760,7 +760,7 @@ function parseMsg( $msg )
 		$msg = $filter->clean($msg);
 	} else if ( $wats->get( 'msgbox' ) == 'bbcode' ) {
 		// include bbcode class
-		include_once( 'components/com_brazitec/bbcode.inc.php' );
+		include_once( 'components/com_brazitrac/bbcode.inc.php' );
 		// create bbcode instance
 		$bbcode = new bbcode();
 		// add tags
@@ -790,7 +790,7 @@ function watsredirect( $dest )
 {
 	global $mainframe;
 	
-	$wats =& WFactory::getConfig();
+	$wats = WFactory::getConfig();
 	
 	if ( $wats->get( 'debug' ) == 0 )
 	{

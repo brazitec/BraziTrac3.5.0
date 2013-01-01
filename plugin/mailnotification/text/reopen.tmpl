@@ -1,16 +1,16 @@
 <?php
 /**
  * @version $Id: reopen.tmpl 50 2009-03-26 18:40:35Z brazitrac $
- * @copyright Copyright (C) James Kennard
+ * @copyright Copyright (C) BraziTech
  * @license GNU/GPL, see LICENSE.php
- * @package wats-plugins
+ * @package brazitrac-plugins
  * @subpackage mailnotification
  */
 
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-$wats =& WFactory::getConfig();
+$wats = WFactory::getConfig();
 ?>
 <?php echo JText::sprintf("TO %s", $this->recipient->name); ?> 
 <?php echo JText::_("TICKET HAS BEEN REOPENED"); ?> 

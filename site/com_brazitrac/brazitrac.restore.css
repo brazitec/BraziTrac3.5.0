@@ -1,23 +1,23 @@
-#watsCategorySetSelect
+#btracCategorySetSelect
 {
 font-size: 10px;
 border: 1px solid #8FACC9;
 background-color: #D9E3ED;
 }
 
-.watsCategoryView
+.btracCategoryView
 {
 width: 99%;
 background-color: #8FACC9;
 border-bottom: 1px solid #6677BB;
 }
 
-.watsCategoryView th a
+.btracCategoryView th a
 {
 color: #FFFFFF;
 }
 
-.watsCategoryViewWithTicketSet
+.btracCategoryViewWithTicketSet
 {
 margin-bottom: 10px;
 margin-top: 10px;
@@ -41,7 +41,7 @@ background-color: #D9E3ED;
 background-color: #F5F9FC;
 }
 
-#watsAssignedTickets .watsCategoryView
+#watsAssignedTickets .btracCategoryView
 {
 width: 99%;
 background-color: #C88F99;
@@ -66,30 +66,30 @@ background-color: #ECD9DC;
 background-color: #FBF4F6;
 }
 
-.watsUsersView
+.BtracUsersView
 {
 width: 99%;
 background-color: #8FC8B3;
 border-bottom: 1px solid #65BAB5;
 }
 
-.watsUsersView th a
+.BtracUsersView th a
 {
 color: #FFFFFF;
 }
 
-.watsUserSetViewRow0
+.BtracUserSetViewRow0
 {
 background-color: #F4FBF8;
 }
 
-.watsUserSetView
+.BtracUserSetView
 {
 width: 99%;
 background-color: #EBF4F1;
 }
 
-.watsUserSetView th
+.BtracUserSetView th
 {
 text-align: left;
 border-bottom: 1px solid #65BAB5;
@@ -235,14 +235,14 @@ margin: 0px;
 font-style: italic;
 }
 
-#watsUserDelete
+#BtracUserDelete
 {
 border: 1px solid #FF0000;
 padding: 2px;
 width: 98%;
 }
 
-.watsUserView
+.BtracUserView
 {
 width: 99%;
 }

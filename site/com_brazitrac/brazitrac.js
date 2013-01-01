@@ -1,8 +1,8 @@
 /**
  * @version $Id: wats.js 53 2009-03-26 19:11:55Z brazitrac $
- * @copyright Copyright (C) James Kennard
+ * @copyright Copyright (C) BraziTech
  * @license GNU/GPL
- * @package wats
+ * @package brazitrac
  */
 
 /**
@@ -49,17 +49,17 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 /**
  * implement 'jump' feature of category selection box
  
-function watsCategorySetSelect( catid, itemid )
+function btracCategorySetSelect( catid, itemid )
 {
 	if ( catid == -1 )
 	{
 		// jump to location
-		document.location.href = "index.php?option=com_brazitec&Itemid=" + itemid;
+		document.location.href = "index.php?option=com_brazitrac&Itemid=" + itemid;
     }
 	else
 	{
 		// jump to location
-		document.location.href = "index.php?option=com_brazitec&Itemid=" + itemid + "&act=category&catid=" + catid + "&page=1&lifecycle=a";
+		document.location.href = "index.php?option=com_brazitrac&Itemid=" + itemid + "&act=category&catid=" + catid + "&page=1&lifecycle=a";
 	}
 }*/
 

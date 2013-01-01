@@ -1,8 +1,8 @@
 /**
  * @version $Id: admin.wats.js 66 2009-03-31 14:18:46Z brazitrac $
- * @copyright Copyright (C) James Kennard
+ * @copyright Copyright (C) BraziTech
  * @license GNU/GPL
- * @package wats
+ * @package brazitrac
  */
 
 /**

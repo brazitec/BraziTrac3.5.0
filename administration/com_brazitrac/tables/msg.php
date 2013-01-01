@@ -37,7 +37,7 @@ class WTableMsg extends JTable {
 	 * @access public
 	 * @var int
 	 */
-	var $watsid = null;
+	var $btracid = null;
 
 	/**
 	 * Message content
@@ -77,7 +77,7 @@ class WTableMsg extends JTable {
 			return false;
 		}
 		
-		if ($this->watsid === null) {
+		if ($this->btracid === null) {
 			$this->setError("MESSAGE USER MUST EXIST");
 			return false;
 		}

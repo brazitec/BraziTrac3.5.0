@@ -99,10 +99,10 @@ function com_install()
 			$database->setQuery( "DROP TABLE IF EXISTS " . $database->nameQuote('#__brazitrac_highlight') . ";");
 			$database->query();
 			$database->setQuery( "CREATE TABLE  " . $database->nameQuote('#__brazitrac_highlight') . " (
-                      " . $database->nameQuote('watsid') . " int(11) NOT NULL default '0',
+                      " . $database->nameQuote('btracid') . " int(11) NOT NULL default '0',
                       " . $database->nameQuote('ticketid') . " int(11) NOT NULL default '0',
                       " . $database->nameQuote('datetime') . " timestamp,
-                      PRIMARY KEY  (" . $database->nameQuote('watsid') . "," . $database->nameQuote('ticketid') . ")
+                      PRIMARY KEY  (" . $database->nameQuote('btracid') . "," . $database->nameQuote('ticketid') . ")
                     );");
 			$database->query();
 			$database->setQuery( "DROP TABLE IF EXISTS " . $database->nameQuote('#__brazitrac_msg') . ";");
@@ -110,7 +110,7 @@ function com_install()
 			$database->setQuery( "CREATE TABLE " . $database->nameQuote('#__brazitrac_msg') . " (
 					  " . $database->nameQuote('msgid') . " int(11) NOT NULL auto_increment,
 					  " . $database->nameQuote('ticketid') . " int(11) NOT NULL default '0',
-					  " . $database->nameQuote('watsid') . " int(11) NOT NULL default '0',
+					  " . $database->nameQuote('btracid') . " int(11) NOT NULL default '0',
 					  " . $database->nameQuote('msg') . " text NOT NULL,
 					  " . $database->nameQuote('datetime') . " timestamp,
 					  PRIMARY KEY  (" . $database->nameQuote('msgid') . ")
@@ -135,7 +135,7 @@ function com_install()
 			$database->query();
 			$database->setQuery( "DROP TABLE IF EXISTS " . $database->nameQuote('#__brazitrac_ticket') . ";");
 			$database->setQuery( "CREATE TABLE  " . $database->nameQuote('#__brazitrac_ticket') . " (
-					  " . $database->nameQuote('watsid') . " int(11) NOT NULL default '0',
+					  " . $database->nameQuote('btracid') . " int(11) NOT NULL default '0',
 					  " . $database->nameQuote('ticketid') . " int(11) NOT NULL auto_increment,
 					  " . $database->nameQuote('ticketname') . " varchar(25) NOT NULL default '',
 					  " . $database->nameQuote('lifecycle') . " tinyint(1) NOT NULL default '0',
@@ -148,11 +148,11 @@ function com_install()
 			$database->setQuery( "DROP TABLE IF EXISTS " . $database->nameQuote('#__brazitrac_users') . ";");
 			$database->query();
 			$database->setQuery( "CREATE TABLE  " . $database->nameQuote('#__brazitrac_users') . " (
-					  " . $database->nameQuote('watsid') . " int(11) NOT NULL default '0',
+					  " . $database->nameQuote('btracid') . " int(11) NOT NULL default '0',
 					  " . $database->nameQuote('organisation') . " varchar(25) NOT NULL default '',
 					  " . $database->nameQuote('agree') . " tinyint(1) NOT NULL default '0',
 					  " . $database->nameQuote('grpid') . " int(11) NOT NULL default '0',
-					  PRIMARY KEY  (" . $database->nameQuote('watsid') . ")
+					  PRIMARY KEY  (" . $database->nameQuote('btracid') . ")
 					);");
 			$database->query();
 			$database->setQuery( "DROP TABLE IF EXISTS " . $database->nameQuote('#__brazitrac_agree') . ";");

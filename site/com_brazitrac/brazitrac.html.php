@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id: brazitec.html.php 193 2009-11-27 13:55:33Z brazitrac $
- * @copyright Copyright (C) James Kennard
+ * @copyright Copyright (C) BraziTech
  * @license GNU/GPL
- * @package wats
+ * @package brazitrac
  */
 
 // Don't allow direct linking
@@ -11,29 +11,29 @@ defined('_JEXEC') or die('Restricted Access');
 
 // include classes
 require_once(JPATH_COMPONENT_SITE . DS . "brazitec.class.php");
-//require_once("components/com_brazitec/brazitec.class.php");
+//require_once("components/com_brazitrac/brazitec.class.php");
 
 /**
  * @version 1.0
  * @created 06-Dec-2005 21:42:51
  */
-class watsUserHTML extends watsUser
+class BtracUserHTML extends BtracUser
 {
 	/**
 	 *
-	 * @param watsId
+	 * @param btracid
 	 */
-	 function watsUserHTML() {
+	 function BtracUserHTML() {
 	 	$this->__construct();
 	 }
 
 	/**
 	 *
-	 * @param watsId
+	 * @param btracid
 	 */
 	function view()
 	{
-		echo "<div class=\"watsUserView\">
+		echo "<div class=\"BtracUserView\">
 				<table>
 				  <tr>";
 		// add image
@@ -54,12 +54,12 @@ class watsUserHTML extends watsUser
 	
 	/**
 	 *
-	 * @param watsId
+	 * @param btracid
 	 */
 	function viewEdit()
 	{
 		global $Itemid;
-		echo "<div class=\"watsUserEditView\">
+		echo "<div class=\"BtracUserEditView\">
 				<table>
 				  <tr>";
 		// add image
@@ -73,9 +73,9 @@ class watsUserHTML extends watsUser
 			        </td>
 				  </tr>
 				</table>
-				<div id=\"watsUserEdit\">
-				<form name=\"watsUserMake\" method=\"post\" action=\"index.php?Itemid=".$Itemid."&act=user&task=editComplete\">
-				<input name=\"option\" type=\"hidden\" value=\"com_brazitec\" />
+				<div id=\"BtracUserEdit\">
+				<form name=\"BtracUserMake\" method=\"post\" action=\"index.php?Itemid=".$Itemid."&act=user&task=editComplete\">
+				<input name=\"option\" type=\"hidden\" value=\"com_brazitrac\" />
 				<input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\" />
 				<input name=\"act\" type=\"hidden\" value=\"user\" />
 				<input name=\"task\" type=\"hidden\" value=\"editComplete\" />
@@ -89,7 +89,7 @@ class watsUserHTML extends watsUser
 		$database->setQuery("SELECT " . WDBHelper::nameQuote("g.grpid") . ", " .
 		                          WDBHelper::nameQuote("g.name") . " " .
 					  "FROM " . WDBHelper::nameQuote("#__brazitrac_groups") . " AS " . WDBHelper::nameQuote("g") . " " .
-					  "ORDER BY " . WDBHelper::nameQuote("g.name") . " /* watsUserHTML::viewEdit() */ " );
+					  "ORDER BY " . WDBHelper::nameQuote("g.name") . " /* BtracUserHTML::viewEdit() */ " );
 		$groups = $database->loadObjectList();
 		$noOfGroups = count( $groups );
 		$i = 0;
@@ -122,15 +122,15 @@ class watsUserHTML extends watsUser
 	
 	/**
 	 *
-	 * @param watsId
+	 * @param btracid
 	 */
 	function viewDelete()
 	{
 		global $Itemid;
-		echo "<div id=\"watsUserView\">
-				<div id=\"watsUserDelete\">
-				<form name=\"watsUserDelete\" method=\"post\" action=\"index.php?Itemid=".$Itemid."&act=user&task=delete\">
-				<input name=\"option\" type=\"hidden\" value=\"com_brazitec\" />
+		echo "<div id=\"BtracUserView\">
+				<div id=\"BtracUserDelete\">
+				<form name=\"BtracUserDelete\" method=\"post\" action=\"index.php?Itemid=".$Itemid."&act=user&task=delete\">
+				<input name=\"option\" type=\"hidden\" value=\"com_brazitrac\" />
 				<input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\" />
 				<input name=\"act\" type=\"hidden\" value=\"user\" />
 				<input name=\"task\" type=\"hidden\" value=\"delete\" />
@@ -153,7 +153,7 @@ class watsUserHTML extends watsUser
 
 	/**
 	 *
-	 * @param watsId
+	 * @param btracid
 	 */
 	function viewSimple()
 	{
@@ -165,8 +165,8 @@ class watsUserHTML extends watsUser
 	 */
 	 function makeButton() {
 	 	global $Itemid;
-	 	echo "<form name=\"watsUserMake\" method=\"get\" action=\"index.php\">
-				<input name=\"option\" type=\"hidden\" value=\"com_brazitec\" />
+	 	echo "<form name=\"BtracUserMake\" method=\"get\" action=\"index.php\">
+				<input name=\"option\" type=\"hidden\" value=\"com_brazitrac\" />
 				<input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\" />
 				<input name=\"act\" type=\"hidden\" value=\"user\" />
 				<input name=\"task\" type=\"hidden\" value=\"make\" />
@@ -181,12 +181,12 @@ class watsUserHTML extends watsUser
 	 function makeForm() {
 	 	global $Itemid;
 		
-		$wats =& WFactory::getConfig();
+		$wats = WFactory::getConfig();
 		$database = JFactory::getDBO();
 		
 	 	echo "<div id=\"watsReply\" class=\"watsReply\">
-		      <form name=\"watsUserMake\" method=\"get\" action=\"index.php\" onsubmit=\"return watsValidateNewUser( this, document.getElementById('user'), '".JText::_("WATS_ERROR_NODATA")."' );\">
-				<input name=\"option\" type=\"hidden\" value=\"com_brazitec\" />
+		      <form name=\"BtracUserMake\" method=\"get\" action=\"index.php\" onsubmit=\"return watsValidateNewUser( this, document.getElementById('user'), '".JText::_("WATS_ERROR_NODATA")."' );\">
+				<input name=\"option\" type=\"hidden\" value=\"com_brazitrac\" />
 				<input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\" />
 				<input name=\"act\" type=\"hidden\" value=\"user\" />
 				<input name=\"task\" type=\"hidden\" value=\"makeComplete\" />
@@ -198,8 +198,8 @@ class watsUserHTML extends watsUser
 		                                WDBHelper::nameQuote("u.id") . ", " .
 										WDBHelper::nameQuote("u.name") . " " .
 							"FROM " . WDBHelper::nameQuote("#__users") . " AS " . WDBHelper::nameQuote("u") . " " .
-							"LEFT OUTER JOIN " . WDBHelper::nameQuote("#__brazitrac_users") . " AS " . WDBHelper::nameQuote("wu") . " ON " . WDBHelper::nameQuote("u.id") . " = " . WDBHelper::nameQuote("wu.watsid") . " " .
-							"WHERE " . WDBHelper::nameQuote("wu.watsid") . " IS NULL /* watsUserHTML::makeForm() */" );
+							"LEFT OUTER JOIN " . WDBHelper::nameQuote("#__brazitrac_users") . " AS " . WDBHelper::nameQuote("wu") . " ON " . WDBHelper::nameQuote("u.id") . " = " . WDBHelper::nameQuote("wu.btracid") . " " .
+							"WHERE " . WDBHelper::nameQuote("wu.btracid") . " IS NULL /* BtracUserHTML::makeForm() */" );
 		$users = $database->loadObjectList();
 		$noOfNullUsers = count( $users );
 		$i = 0;
@@ -217,7 +217,7 @@ class watsUserHTML extends watsUser
 		$database->setQuery("SELECT " . WDBHelper::nameQuote("g.grpid") . ", " .
 		                                WDBHelper::nameQuote("g.name") . " " .
 							"FROM " . WDBHelper::nameQuote("#__brazitrac_groups") . " AS " . WDBHelper::nameQuote("g") . " " .
-							"ORDER BY " . WDBHelper::nameQuote("g.name") . " /* watsUserHTML::makeForm() */ " );
+							"ORDER BY " . WDBHelper::nameQuote("g.name") . " /* BtracUserHTML::makeForm() */ " );
 		$groups = $database->loadObjectList();
 		$noOfGroups = count( $groups );
 		$i = 0;
@@ -244,7 +244,7 @@ class watsUserHTML extends watsUser
  * @version 1.0
  * @created 09-Jan-2006 15:54
  */
-class watsUserSetHTML extends watsUserSet
+class BtracUserSetHTML extends BtracUserSet
 {
 	/**
 	 * 
@@ -255,19 +255,19 @@ class watsUserSetHTML extends watsUserSet
 	{
 		global $Itemid;
 		
-		$wats =& WFactory::getConfig();
+		$wats = WFactory::getConfig();
 		
 		// header
-		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"watsUsersView\">
+		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"BtracUsersView\">
 			    <tr>
-				  <th scope=\"col\"><a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=user&page=1\">".JText::_("WATS_USER_SET")."</a></th>
+				  <th scope=\"col\"><a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=user&page=1\">".JText::_("WATS_USER_SET")."</a></th>
 			    </tr>
 			    <tr>
 				  <td>".JText::_("WATS_USER_SET_DESCRIPTION")."</td>
 			    </tr>
 			  </table>";
 		// end header
-		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"watsUserSetView\">
+		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"BtracUserSetView\">
 				    <tr>
 					  <th scope=\"col\" width=\"20\">&nbsp;</th>
 					  <th scope=\"col\">".JText::_("WATS_USER_USERNAME")."</th>
@@ -301,12 +301,12 @@ class watsUserSetHTML extends watsUserSet
 		// itterate through users
 		while ( $i < $finish )
 		{
-			echo "<tr class=\"watsUserSetViewRow".($i % 2)."\">
+			echo "<tr class=\"BtracUserSetViewRow".($i % 2)."\">
 					<td>
-				      <img src=\"components/com_brazitec/images/".$wats->get( 'iconset' )."user1616.gif\" height=\"16\" width=\"16\" border=\"0\" alt=\"".JText::_('WATS_USER')."\">
+				      <img src=\"components/com_brazitrac/images/".$wats->get( 'iconset' )."user1616.gif\" height=\"16\" width=\"16\" border=\"0\" alt=\"".JText::_('WATS_USER')."\">
 			        </td>
 					<td>";
-			echo "<a href=\"index.php?option=com_brazitec&Itemid=".$Itemid."&act=user&task=edit&userid=".$this->userSet[$i]->id."\">".$this->userSet[$i]->username."</a><br />(".$this->userSet[$i]->name.")
+			echo "<a href=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=user&task=edit&userid=".$this->userSet[$i]->id."\">".$this->userSet[$i]->username."</a><br />(".$this->userSet[$i]->name.")
 			        </td>
 					<td>".$this->userSet[$i]->organisation."</td>
 					<td>".$this->userSet[$i]->groupName."</td>
@@ -346,7 +346,7 @@ class watsUserSetHTML extends watsUserSet
 			// previous
 			if ( $currentPage > 1 )
 			{
-				echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=user&page=".($currentPage - 1)."\">&lt;</a>";
+				echo " <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=user&page=".($currentPage - 1)."\">&lt;</a>";
 			} // end previous
 			// itterate through pages
 			$i = 1;
@@ -354,7 +354,7 @@ class watsUserSetHTML extends watsUserSet
 			{
 				if ( $i != $currentPage)
 				{
-					echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=user&page=".$i."\">".$i."</a>";
+					echo " <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=user&page=".$i."\">".$i."</a>";
 				}
 				else
 				{
@@ -365,7 +365,7 @@ class watsUserSetHTML extends watsUserSet
 			// next
 			if ( $currentPage < $numberOfPages )
 			{
-				echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=user&page=".($currentPage + 1)."\">&gt;</a>";
+				echo " <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=user&page=".($currentPage + 1)."\">&gt;</a>";
 			} // end next
 		}
 		echo " </div>";
@@ -382,16 +382,16 @@ class watsTicketHTML extends watsTicket
 
 	/**
 	 * 
-	 * @param watsUser
+	 * @param BtracUser
 	 */	
-	function view( &$watsUser )
+	function view( &$BtracUser )
 	{
 		global $Itemid;
 		
-		$wats =& WFactory::getConfig();
+		$wats = WFactory::getConfig();
 		
 		// update highlight setting
-		$this->_highlightUpdate( $watsUser->id );
+		$this->_highlightUpdate( $BtracUser->id );
 		// echo out
 		echo "<div id=\"watsTicketView\" class=\"watsTicketView\">";
 		echo "<span class=\"watsHeading1\">".$this->name."</span>";
@@ -401,16 +401,16 @@ class watsTicketHTML extends watsTicket
 		while ( $i < $this->msgNumberOf )
 		{
 			// check if user already setup
-			if ( $watsUser->id == $this->_msgList[$i]->watsId )
+			if ( $BtracUser->id == $this->_msgList[$i]->btracid )
 			{
 				// use existing user
-				$msgUser = $watsUser;
+				$msgUser = $BtracUser;
 			}
 			else
 			{
 				// create new user
-				$msgUser = new watsUserHTML();
-				$msgUser->loadWatsUser( $this->_msgList[$i]->watsId  );
+				$msgUser = new BtracUserHTML();
+				$msgUser->loadBtracUser( $this->_msgList[$i]->btracid  );
 			}
 			// print message
 			echo "<div class=\"watsMsgView\">";
@@ -431,12 +431,12 @@ class watsTicketHTML extends watsTicket
 		// check for lifeCycle status
 		if ( $this->lifeCycle == 1 )
 		{
-			$riteR =  $watsUser->checkPermission( $this->category, "r" );
-			$riteC =  $watsUser->checkPermission( $this->category, "c" );
-			if ( ( ( $this->watsId == $watsUser->id AND $riteR > 0 ) OR ( $riteR == 2 ) ) )
+			$riteR =  $BtracUser->checkPermission( $this->category, "r" );
+			$riteC =  $BtracUser->checkPermission( $this->category, "c" );
+			if ( ( ( $this->btracid == $BtracUser->id AND $riteR > 0 ) OR ( $riteR == 2 ) ) )
 			{ // reply rites
 				echo "<div id=\"watsReply\" class=\"watsReply\">
-					<form name=\"submitmsg\" method=\"post\" action=\"index.php?option=com_brazitec&Itemid=".$Itemid."&act=ticket&task=reply\" onsubmit=\"return watsValidateTicketReply( this, '".JText::_("WATS_ERROR_NODATA")."', '".$wats->get( 'defaultmsg' )."' );\">
+					<form name=\"submitmsg\" method=\"post\" action=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=ticket&task=reply\" onsubmit=\"return watsValidateTicketReply( this, '".JText::_("WATS_ERROR_NODATA")."', '".$wats->get( 'defaultmsg' )."' );\">
 					  <table border=\"0\" class=\"wats_form\" width=\"100%\">
 						<tr> 
 						  <td>".JText::_("WATS_TICKETS_REPLY")."</td>
@@ -476,7 +476,7 @@ class watsTicketHTML extends watsTicket
 				echo "   </td>
 						</tr>";
                 // check for close  rites
-				if ( ( ( $this->watsId == $watsUser->id AND $riteR > 0 ) OR ( $riteR == 2 ) ) AND ( ( $this->watsId == $watsUser->id AND $riteC > 0 ) OR ( $riteC == 2 ) ) )
+				if ( ( ( $this->btracid == $BtracUser->id AND $riteR > 0 ) OR ( $riteR == 2 ) ) AND ( ( $this->btracid == $BtracUser->id AND $riteC > 0 ) OR ( $riteC == 2 ) ) )
 				{ // reply and close
 					echo "<tr> 
 						  <td>" . JText::_("WATS_TICKETS_CLOSE") . "</td>
@@ -487,7 +487,7 @@ class watsTicketHTML extends watsTicket
                 echo "  <tr> 
 						  <td>&nbsp;</td>
 						  <td>
-							<input name=\"option\" type=\"hidden\" value=\"com_brazitec\" />
+							<input name=\"option\" type=\"hidden\" value=\"com_brazitrac\" />
 							<input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\" />
 							<input name=\"act\" type=\"hidden\" value=\"ticket\" />
 							<input name=\"task\" type=\"hidden\" value=\"reply\" />
@@ -507,8 +507,8 @@ class watsTicketHTML extends watsTicket
 				echo "<span class=\"watsTicketAssign\">(".JText::_("WATS_TICKETS_ASSIGNEDTO")." ".$this->getAssignedUsername().")</span>";
 			} // end show assignment
 			// check for assign rites
-			$riteA =  $watsUser->checkPermission( $this->category, "a" );
-			if ( ( $this->assignId == $watsUser->id AND $riteA > 0 ) OR ( $riteA == 2 ) )
+			$riteA =  $BtracUser->checkPermission( $this->category, "a" );
+			if ( ( $this->assignId == $BtracUser->id AND $riteA > 0 ) OR ( $riteA == 2 ) )
 			{
 				$this->viewAssignTo();
 			} // end chck for assign rites
@@ -516,11 +516,11 @@ class watsTicketHTML extends watsTicket
 		} // end reply rites
 		else if ( $this->lifeCycle == 2 )
 		{ // reopen rites
-			$rite =  $watsUser->checkPermission( $this->category, "o" );
-			if ( ( $this->watsId == $watsUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
+			$rite =  $BtracUser->checkPermission( $this->category, "o" );
+			if ( ( $this->btracid == $BtracUser->id AND $rite > 0 ) OR ( $rite == 2 ) )
 			{ // reopen
 				echo "<form name=\"watsTicketMake\" method=\"get\" action=\"index.php\">";
-				echo "  <input name=\"option\" type=\"hidden\" value=\"com_brazitec\" />
+				echo "  <input name=\"option\" type=\"hidden\" value=\"com_brazitrac\" />
 					    <input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\" />
 					    <input name=\"act\" type=\"hidden\" value=\"ticket\" />
 					    <input name=\"task\" type=\"hidden\" value=\"reopen\" />
@@ -540,15 +540,15 @@ class watsTicketHTML extends watsTicket
 	{
 		global $Itemid;
 		
-		$wats =& WFactory::getConfig();
+		$wats = WFactory::getConfig();
 	
-		$assignees = watsCategory::getAssignee($this->category);
+		$assignees = btracCategory::getAssignee($this->category);
 		// check for useres to assign to
 		if ( $assignees != null )
 		{
 			echo "<div id=\"watsViewAssignTo\" class=\"watsViewAssignTo\">
-					<form name=\"submitassign\" method=\"post\" action=\"index.php?option=com_brazitec&Itemid=".$Itemid."&act=assign&task=assignto\" onsubmit=\"return watsValidateTicketAssign( this, '".JText::_("WATS_ERROR_NODATA")."', '".$wats->get( 'defaultmsg' )."' );\">
-					<input name=\"option\" type=\"hidden\" value=\"com_brazitec\" />
+					<form name=\"submitassign\" method=\"post\" action=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=assign&task=assignto\" onsubmit=\"return watsValidateTicketAssign( this, '".JText::_("WATS_ERROR_NODATA")."', '".$wats->get( 'defaultmsg' )."' );\">
+					<input name=\"option\" type=\"hidden\" value=\"com_brazitrac\" />
 					<input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\" />
 					<input name=\"act\" type=\"hidden\" value=\"assign\" />
 					<input name=\"task\" type=\"hidden\" value=\"assignto\" />
@@ -559,9 +559,9 @@ class watsTicketHTML extends watsTicket
 			while ( $i < $assigneeCount )
 			{
 				// check is not already assigned to
-				if ( $assignees[$i]->watsid != $this->assignId )
+				if ( $assignees[$i]->btracid != $this->assignId )
 				{
-					echo "<option value=\"".$assignees[$i]->watsid."\">".$assignees[$i]->username."</option>";
+					echo "<option value=\"".$assignees[$i]->btracid."\">".$assignees[$i]->username."</option>";
 				}
 				$i ++;
 			}
@@ -575,23 +575,23 @@ class watsTicketHTML extends watsTicket
 	/**
 	 * 
 	 */
-	function make( &$categorySet, &$watsUser )
+	function make( &$categorySet, &$BtracUser )
 	{
 		global $Itemid;
 		
-		$wats =& WFactory::getConfig();
+		$wats = WFactory::getConfig();
 		
 		// header and ticket name
 		echo "<span class=\"watsHeading1\">".JText::_("WATS_TICKETS_SUBMIT")."</span>
 			  <div class=\"watsTicketMake\" id=\"watsTicketMake\">
-			  <form name=\"submitticket\" method=\"post\" action=\"index.php?option=com_brazitec&Itemid=".$Itemid."&act=ticket&task=makeComplete\" onsubmit=\"return watsValidateTicketMake( this, '".JText::_("WATS_ERROR_NODATA")."', '".$wats->get( 'defaultmsg' )."' );\">"
+			  <form name=\"submitticket\" method=\"post\" action=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=ticket&task=makeComplete\" onsubmit=\"return watsValidateTicketMake( this, '".JText::_("WATS_ERROR_NODATA")."', '".$wats->get( 'defaultmsg' )."' );\">"
 			  .JText::_("WATS_TICKETS_NAME").
 			  "<input name=\"ticketname\" type=\"text\" id=\"ticketname\" maxlength=\"255\" />";
 		// itterate through categories
-		echo JText::_("WATS_CATEGORY")."<select name=\"catid\" class=\"watsCategorySetSelect\">";
+		echo JText::_("WATS_CATEGORY")."<select name=\"catid\" class=\"btracCategorySetSelect\">";
 	    foreach( $categorySet->categorySet as $category )
 		{
-			if ( $watsUser->checkPermission( $category->catid, "m" ) > 0 )
+			if ( $BtracUser->checkPermission( $category->catid, "m" ) > 0 )
 			{
 				// allow user to submit ticket to category ticket
 				echo "<option value=\"".$category->catid."\">".$category->name."</option>\n";
@@ -637,7 +637,7 @@ class watsTicketHTML extends watsTicket
         // end message box
 
 		// submit button
-		echo "<input name=\"option\" type=\"hidden\" value=\"com_brazitec\" />
+		echo "<input name=\"option\" type=\"hidden\" value=\"com_brazitrac\" />
 			  <input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\" />
 			  <input name=\"act\" type=\"hidden\" value=\"ticket\" />
 			  <input name=\"task\" type=\"hidden\" value=\"makeComplete\" />
@@ -651,10 +651,10 @@ class watsTicketHTML extends watsTicket
 	{
 		global $Itemid;
 		
-		$wats =& WFactory::getConfig();
+		$wats = WFactory::getConfig();
 		
 		echo "<div id=\"watsReply\" class=\"watsReply\">
-		      <form name=\"submitmsg\" method=\"post\" action=\"index.php?option=com_brazitec&Itemid=".$Itemid."&act=ticket&task=completeReopen&ticketid=".$this->ticketId."\" onsubmit=\"return watsValidateTicketReopen( this, '".JText::_("WATS_ERROR_NODATA")."', '".$wats->get( 'defaultmsg' )."' );\">
+		      <form name=\"submitmsg\" method=\"post\" action=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=ticket&task=completeReopen&ticketid=".$this->ticketId."\" onsubmit=\"return watsValidateTicketReopen( this, '".JText::_("WATS_ERROR_NODATA")."', '".$wats->get( 'defaultmsg' )."' );\">
 			  ".JText::_("WATS_TICKETS_REOPEN_REASON");
 		// message box
         if ( $wats->get( 'msgbox' ) == "editor" ) {
@@ -685,7 +685,7 @@ class watsTicketHTML extends watsTicket
         //$document->addScriptDeclaration($script);
         $document->addCustomTag('<script type="text/javascript" defer="defer">'.$script.'</script>');
         // end message box
-		echo "  <input name=\"option\" type=\"hidden\" value=\"com_brazitec\" />
+		echo "  <input name=\"option\" type=\"hidden\" value=\"com_brazitrac\" />
 			    <input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\" />
 			    <input name=\"act\" type=\"hidden\" value=\"ticket\" />
 			    <input name=\"task\" type=\"hidden\" value=\"completeReopen\" />
@@ -709,9 +709,9 @@ class watsTicketSetHTML extends watsTicketSet
 	 */
 	function view( $finish, $start = 0 )
 	{
-		global $Itemid, $watsUser;
+		global $Itemid, $BtracUser;
 		
-		$wats =& WFactory::getConfig();
+		$wats = WFactory::getConfig();
 		
 		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"watsTicketSetView\">
 				    <tr>
@@ -754,7 +754,7 @@ class watsTicketSetHTML extends watsTicketSet
 			// check if open
 			if ( $this->_ticketList[$i]->lifeCycle == 1 )
 			{
-				echo "<img src=\"components/com_brazitec/images/".$wats->get( 'iconset' )."ticket1616.gif\" height=\"16\" width=\"16\" border=\"0\" alt=\"".JText::_('WATS_TICKET')."\">";
+				echo "<img src=\"components/com_brazitrac/images/".$wats->get( 'iconset' )."ticket1616.gif\" height=\"16\" width=\"16\" border=\"0\" alt=\"".JText::_('WATS_TICKET')."\">";
 			}
 			else
 			{
@@ -767,23 +767,23 @@ class watsTicketSetHTML extends watsTicketSet
 				echo "<span class=\"watsTicketHighlight\">".$wats->get( 'highlight' )."</span> ";
 			}
 			// end highlight
-			echo "<a href=\"index.php?option=com_brazitec&Itemid=".$Itemid."&act=ticket&task=view&ticketid=".$this->_ticketList[$i]->ticketId."\">".$this->_ticketList[$i]->name."</a><br />".$this->_ticketList[$i]->username.": <span class=\"watsDate\">".JHTML::_('date', $this->_ticketList[$i]->datetime, $wats->get('dateshort'))."</span></td>
+			echo "<a href=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=ticket&task=view&ticketid=".$this->_ticketList[$i]->ticketId."\">".$this->_ticketList[$i]->name."</a><br />".$this->_ticketList[$i]->username.": <span class=\"watsDate\">".JHTML::_('date', $this->_ticketList[$i]->datetime, $wats->get('dateshort'))."</span></td>
 					<td>".$this->_ticketList[$i]->msgNumberOf."</td>
 					<td><span class=\"watsDate\">" . JHTML::_('date', $this->_ticketList[$i]->lastMsg, $wats->get('date')) . "</span></td>
 					<td>";
-            $canDelete =  $watsUser->checkPermission($this->_ticketList[$i]->category, 'd');
+            $canDelete =  $BtracUser->checkPermission($this->_ticketList[$i]->category, 'd');
 			if (
                 $this->_ticketList[$i]->lifeCycle != 1 && 
                 (
                     $canDelete == 2 ||
                     (
                         $canDelete == 1 &&
-                        $this->_ticketList[$i]->watsId == $watsUser->id
+                        $this->_ticketList[$i]->btracid == $BtracUser->id
                     )
                 )
                 )
 			{
-				echo "<a href=\"" . JRoute::_("index.php?option=com_brazitec&act=ticket&task=delete&ticketid=".$this->_ticketList[$i]->ticketId."&returnUrl=".$returnUrl) . "\" onClick=\"return confirm( '".JText::_("WATS_MISC_DELETE_VERIFY")."' );\"><img src=\"components/com_brazitec/images/".$wats->get( 'iconset' )."delete1616.gif\" height=\"16\" width=\"16\" border=\"0\" alt=\"".JText::_('DELETE')."\"></a>";
+				echo "<a href=\"" . JRoute::_("index.php?option=com_brazitrac&act=ticket&task=delete&ticketid=".$this->_ticketList[$i]->ticketId."&returnUrl=".$returnUrl) . "\" onClick=\"return confirm( '".JText::_("WATS_MISC_DELETE_VERIFY")."' );\"><img src=\"components/com_brazitrac/images/".$wats->get( 'iconset' )."delete1616.gif\" height=\"16\" width=\"16\" border=\"0\" alt=\"".JText::_('DELETE')."\"></a>";
             }
 			echo "</td>
 				  </tr>";
@@ -797,7 +797,7 @@ class watsTicketSetHTML extends watsTicketSet
  * @version 1.0
  * @created 06-Dec-2005 21:44:17
  */
-class watsCategoryHTML extends watsCategory {
+class btracCategoryHTML extends btracCategory {
 
 	/**
 	 * 
@@ -805,9 +805,9 @@ class watsCategoryHTML extends watsCategory {
 	function view( )
 	{
 		global $Itemid;
-		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"watsCategoryView\">
+		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"btracCategoryView\">
 			    <tr>
-				  <th colspan=\"2\" scope=\"col\"><a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=a\">".htmlspecialchars($this->name)."</a></th>
+				  <th colspan=\"2\" scope=\"col\"><a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=a\">".htmlspecialchars($this->name)."</a></th>
 			    </tr>
 			    <tr>
 				  <td>";
@@ -842,7 +842,7 @@ class watsCategoryHTML extends watsCategory {
 	/**
 	 * 
 	 */	
-	function pageNav( $ticketsPerPage, $currentPage = 0, $currentTicketsPerPage = 0, &$watsUser )
+	function pageNav( $ticketsPerPage, $currentPage = 0, $currentTicketsPerPage = 0, &$BtracUser )
 	{
 		global $Itemid;
 		if ( $currentTicketsPerPage == 0 )
@@ -868,7 +868,7 @@ class watsCategoryHTML extends watsCategory {
 			// previous
 			if ( $currentPage > 1 )
 			{
-				echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=category&catid=$this->catid&page=".($currentPage - 1)."&lifecycle=".$lifecycle."\">&lt;</a>";
+				echo " <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=category&catid=$this->catid&page=".($currentPage - 1)."&lifecycle=".$lifecycle."\">&lt;</a>";
 			} // end previous
 			// itterate through pages
 			$i = 1;
@@ -876,7 +876,7 @@ class watsCategoryHTML extends watsCategory {
 			{
 				if ( $i != $currentPage)
 				{
-					echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=category&catid=$this->catid&page=".$i."&lifecycle=".$lifecycle."\">".$i."</a>";
+					echo " <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=category&catid=$this->catid&page=".$i."&lifecycle=".$lifecycle."\">".$i."</a>";
 				}
 				else
 				{
@@ -887,7 +887,7 @@ class watsCategoryHTML extends watsCategory {
 			// next
 			if ( $currentPage < $numberOfPages )
 			{
-				echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=category&catid=$this->catid&page=".($currentPage + 1)."&lifecycle=".$lifecycle."\">&gt;</a>";
+				echo " <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=category&catid=$this->catid&page=".($currentPage + 1)."&lifecycle=".$lifecycle."\">&gt;</a>";
 			} // end next
 		}
 		// view type
@@ -898,10 +898,10 @@ class watsCategoryHTML extends watsCategory {
 		}
 		else
 		{
-			echo " (<a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=a\">".JText::_("WATS_TICKETS_STATE_ALL")."</a>";
+			echo " (<a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=a\">".JText::_("WATS_TICKETS_STATE_ALL")."</a>";
 		} // end all
 		// check for full rites
-		$rite =  $watsUser->checkPermission( $this->catid, "v" );
+		$rite =  $BtracUser->checkPermission( $this->catid, "v" );
 		if ( $rite == 2 )
 		{
 			// check current selection
@@ -910,7 +910,7 @@ class watsCategoryHTML extends watsCategory {
 			}
 			else
 			{
-				echo ", <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=p\">".JText::_("WATS_TICKETS_STATE_PERSONAL")."</a>";
+				echo ", <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=p\">".JText::_("WATS_TICKETS_STATE_PERSONAL")."</a>";
 			}
 		}
 		//open
@@ -920,10 +920,10 @@ class watsCategoryHTML extends watsCategory {
 		}
 		else
 		{
-			echo ", <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=1\">".JText::_("WATS_TICKETS_STATE_OPEN")."</a>";
+			echo ", <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=1\">".JText::_("WATS_TICKETS_STATE_OPEN")."</a>";
 		} // end open
 		// check for delete rites
-		$rite =  $watsUser->checkPermission( $this->catid, "d" );
+		$rite =  $BtracUser->checkPermission( $this->catid, "d" );
 		if ( $rite > 0 )
 		{
 			// check current selection
@@ -932,11 +932,11 @@ class watsCategoryHTML extends watsCategory {
 			}
 			else
 			{
-				echo ", <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=2\">".JText::_("WATS_TICKETS_STATE_CLOSED")."</a>";
+				echo ", <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=2\">".JText::_("WATS_TICKETS_STATE_CLOSED")."</a>";
 			}
 		}
 		// check for purge rites
-		$rite =  $watsUser->checkPermission( $this->catid, "p" );
+		$rite =  $BtracUser->checkPermission( $this->catid, "p" );
 		if ( $rite > 0 )
 		{
 			// check current selection
@@ -945,7 +945,7 @@ class watsCategoryHTML extends watsCategory {
 			}
 			else
 			{
-				echo ", <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=3\">".JText::_("WATS_TICKETS_STATE_DEAD")."</a>";
+				echo ", <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=category&catid=$this->catid&page=1&lifecycle=3\">".JText::_("WATS_TICKETS_STATE_DEAD")."</a>";
 			}
 		}
 		echo ")";
@@ -958,7 +958,7 @@ class watsCategoryHTML extends watsCategory {
 		global $Itemid;
 		echo "<p>
 				<form name=\"watsTicketMake\" method=\"get\" action=\"index.php\">
-				  <input name=\"option\" type=\"hidden\" value=\"com_brazitec\" />
+				  <input name=\"option\" type=\"hidden\" value=\"com_brazitrac\" />
 				  <input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\" />
 				  <input name=\"act\" type=\"hidden\" value=\"category\" />
 				  <input name=\"task\" type=\"hidden\" value=\"purge\" />
@@ -984,11 +984,11 @@ class watsAssignHTML extends watsAssign
 	{
 		global $Itemid;
 		
-		$wats =& WFactory::getConfig();
+		$wats = WFactory::getConfig();
 		
-		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"watsCategoryView\">
+		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"btracCategoryView\">
 			    <tr>
-				  <th colspan=\"2\" scope=\"col\"><a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=assign&task=view&page=1\">".$wats->get( 'assignname' )."</a></th>
+				  <th colspan=\"2\" scope=\"col\"><a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=assign&task=view&page=1\">".$wats->get( 'assignname' )."</a></th>
 			    </tr>
 			    <tr>
 				  <td>";
@@ -1044,7 +1044,7 @@ class watsAssignHTML extends watsAssign
 			// previous
 			if ( $currentPage > 1 )
 			{
-				echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=assign&task=view&page=".($currentPage - 1)."\">&lt;</a>";
+				echo " <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=assign&task=view&page=".($currentPage - 1)."\">&lt;</a>";
 			} // end previous
 			// itterate through pages
 			$i = 1;
@@ -1052,7 +1052,7 @@ class watsAssignHTML extends watsAssign
 			{
 				if ( $i != $currentPage)
 				{
-					echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=assign&task=view&page=".$i."\">".$i."</a>";
+					echo " <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=assign&task=view&page=".$i."\">".$i."</a>";
 				}
 				else
 				{
@@ -1063,7 +1063,7 @@ class watsAssignHTML extends watsAssign
 			// next
 			if ( $currentPage < $numberOfPages )
 			{
-				echo " <a href=\"index.php?option=com_brazitec&Itemid=$Itemid&act=assign&task=view&page=".($currentPage + 1)."\">&gt;</a>";
+				echo " <a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=assign&task=view&page=".($currentPage + 1)."\">&gt;</a>";
 			} // end next
 		}
 		echo " </div>";
@@ -1074,22 +1074,22 @@ class watsAssignHTML extends watsAssign
  * @version 1.0
  * @created 06-Dec-2005 21:43:13
  */
-class watsCategorySetHTML extends watsCategorySet
+class btracCategorySetHTML extends btracCategorySet
 {
 
 	/**
 	 * 
 	 */	
-	function viewWithTicketSet( $finish, $start = 0, &$watsUser )
+	function viewWithTicketSet( $finish, $start = 0, &$BtracUser )
 	{
-		$wats =& WFactory::getConfig();
+		$wats = WFactory::getConfig();
 		
 		foreach($this->categorySet as $category) {
             // onyl display a category if there are any tickets in the category
             if ($category->ticketSet->ticketNumberOf) {
-                echo "<div class=\"watsCategoryViewWithTicketSet\" id=\"watsCategory".$category->catid."\">";
+                echo "<div class=\"btracCategoryViewWithTicketSet\" id=\"btracCategory".$category->catid."\">";
                 $category->viewTicketSet( $finish, $start );
-                $category->pageNav( $wats->get( 'ticketssub' ), 0, $wats->get( 'ticketsfront' ), $watsUser );
+                $category->pageNav( $wats->get( 'ticketssub' ), 0, $wats->get( 'ticketsfront' ), $BtracUser );
                 echo "</div>";
             }
 		}
@@ -1104,16 +1104,16 @@ class watsCategorySetHTML extends watsCategorySet
 	{
 		global $Itemid;
 		
-		$wats =& WFactory::getConfig();
+		$wats = WFactory::getConfig();
 		
-		echo "<select name=\"option\" id=\"watsCategorySetSelect\" class=\"watsCategorySetSelect\" onchange=\"MM_jumpMenu('parent',this,0)\">";
+		echo "<select name=\"option\" id=\"btracCategorySetSelect\" class=\"btracCategorySetSelect\" onchange=\"MM_jumpMenu('parent',this,0)\">";
 		echo ( $current == null ) ? "<option selected=\"selected\"> " : "" ;
-		echo"<option value=\"index.php?option=com_brazitec&Itemid=".$Itemid."\">".$wats->get( 'name' )."</option>\n";
+		echo"<option value=\"index.php?option=com_brazitrac&Itemid=".$Itemid."\">".$wats->get( 'name' )."</option>\n";
 	    foreach( $this->categorySet as $category )
 		{
 		    echo "<option";
 			echo ( $category->catid == $current ) ? " selected=\"selected\" " : "" ;
-			echo " value=\"index.php?option=com_brazitec&Itemid=".$Itemid."&act=category&catid=".$category->catid."&page=1&lifecycle=a\">".htmlspecialchars($category->name)."</option>\n";
+			echo " value=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=category&catid=".$category->catid."&page=1&lifecycle=a\">".htmlspecialchars($category->name)."</option>\n";
 		}
 		echo "</select>";
 	}

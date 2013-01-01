@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id: toolbar.brazitec.php 66 2009-03-31 14:18:46Z brazitrac $
- * @copyright Copyright (C) James Kennard
+ * @copyright Copyright (C) BraziTech
  * @license GNU/GPL
- * @package wats
+ * @package brazitrac
  */
 
 // Don't allow direct linking

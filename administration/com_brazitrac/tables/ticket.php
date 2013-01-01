@@ -30,7 +30,7 @@ class WTableTicket extends JTable {
 	 * @access public
 	 * @var int
 	 */
-	var $watsid = null;
+	var $btracid = null;
 	
 	/**
 	 * Name of ticket
@@ -89,7 +89,7 @@ class WTableTicket extends JTable {
 	 * @todo Add check for date and time
 	 */
 	function check() {
-		if ($this->watsid === null) {
+		if ($this->btracid === null) {
 			$this->setError("TICKET USER MUST EXIST");
 			return false;
 		}

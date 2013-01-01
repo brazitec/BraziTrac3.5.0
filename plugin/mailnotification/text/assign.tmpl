@@ -1,16 +1,16 @@
 <?php
 /**
  * @version $Id: assign.tmpl 200 2009-11-29 03:12:10Z brazitrac $
- * @copyright Copyright (C) James Kennard
+ * @copyright Copyright (C) BraziTech
  * @license GNU/GPL, see LICENSE.php
- * @package wats-plugins
+ * @package brazitrac-plugins
  * @subpackage mailnotification
  */
 
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-$wats =& WFactory::getConfig();
+$wats = WFactory::getConfig();
 ?>
 
 <?php echo JText::sprintf("TO %s", $this->recipient->name); ?> 

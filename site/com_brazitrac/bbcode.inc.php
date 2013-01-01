@@ -4,7 +4,7 @@
  * 
  * @version $Id: bbcode.inc.php 52 2009-03-26 18:44:31Z brazitrac $
  * @license GNU/GPL
- * @package wats
+ * @package brazitrac
  */
  
 function begtoend($htmltag){

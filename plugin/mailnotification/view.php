@@ -1,9 +1,9 @@
 <?php
 /**
  * @version $Id: view.php 156 2009-07-29 10:19:38Z brazitrac $
- * @copyright Copyright (C) James Kennard
+ * @copyright Copyright (C) BraziTech
  * @license GNU/GPL, see LICENSE.php
- * @package wats-plugins
+ * @package brazitrac-plugins
  * @subpackage mailnotification
  */
 

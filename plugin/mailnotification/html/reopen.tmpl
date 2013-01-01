@@ -1,20 +1,20 @@
 <?php
 /**
  * @version $Id: reopen.tmpl 88 2009-04-19 12:25:24Z brazitrac $
- * @copyright Copyright (C) James Kennard
+ * @copyright Copyright (C) BraziTech
  * @license GNU/GPL, see LICENSE.php
- * @package wats-plugins
+ * @package brazitrac-plugins
  * @subpackage mailnotification
  */
 
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-$wats =& WFactory::getConfig();
+$wats = WFactory::getConfig();
 
 // create the URL, make suire this includes the host!
 $uri =& JURI::getInstance();
-$url = JRoute::_('index.php?option=com_brazitec&act=ticket&task=view&ticketid='.$this->ticket->ticketId);
+$url = JRoute::_('index.php?option=com_brazitrac&act=ticket&task=view&ticketid='.$this->ticket->ticketId);
 $url = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port')) . ((!preg_match('~^/~', $url)) ? '/' : '') . $url;
 ?>
 
