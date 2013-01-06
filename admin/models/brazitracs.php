@@ -21,7 +21,7 @@ class BraziTracModelBraziTracs extends JModelList
                 // Select some fields
                 $query->select('id,greeting');
                 // From the hello table
-                $query->from('#__brazitrac');
+                $query->from('#__brazitrac_greeting');
                 return $query;
         }
 }

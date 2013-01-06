@@ -17,6 +17,6 @@ class BraziTracTableBraziTrac extends JTable
          */
         function __construct(&$db) 
         {
-                parent::__construct('#__brazitrac', 'id', $db);
+                parent::__construct('#__brazitrac_)greeting', 'id', $db);
         }
 }
