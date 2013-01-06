@@ -6,35 +6,55 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.modelitem');
  
 /**
- * BRAZITRAC Model
+ * BraziTrac Model
  */
 class BraziTracModelBraziTrac extends JModelItem
 {
         /**
-         * @var string msg
+         * @var array messages
          */
-        protected $msg;
+        protected $messages;
  
         /**
+         * Returns a reference to the a Table object, always creating it.
+         *
+         * @param       type    The table type to instantiate
+         * @param       string  A prefix for the table class name. Optional.
+         * @param       array   Configuration array for model. Optional.
+         * @return      JTable  A database object
+         * @since       2.5
+         */
+        public function getTable($type = 'BraziTrac', $prefix = 'BraziTracTable', $config = array()) 
+        {
+                return JTable::getInstance($type, $prefix, $config);
+        }
+        /**
          * Get the message
+         * @param  int    The corresponding id of the message to be retrieved
          * @return string The message to be displayed to the user
          */
-        public function getMsg() 
+        public function getMsg($id = 1) 
         {
-                if (!isset($this->msg)) 
+                if (!is_array($this->messages))
                 {
-                        $id = JRequest::getInt('id');
-                        switch ($id) 
-                        {
-                        case 2:
-                                $this->msg = 'Good bye BraziTrac User!';
-                        break;
-                        default:
-                        case 1:
-                                $this->msg = 'Hello BraziTrac User!';
-                        break;
-                        }
+                        $this->messages = array();
                 }
-                return $this->msg;
+ 
+                if (!isset($this->messages[$id])) 
+                {
+                        //request the selected id
+                        $id = JRequest::getInt('id');
+ 
+                        // Get a TableBraziTrac instance
+                        $table = $this->getTable();
+ 
+                        // Load the message
+                        $table->load($id);
+ 
+                        // Assign the message
+                        $this->messages[$id] = $table->greeting;
+                }
+ 
+                return $this->messages[$id];
         }
 }
