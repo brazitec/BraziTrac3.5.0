@@ -53,6 +53,11 @@
                         <!-- Admin Main File Copy Section -->
                         <filename>index.html</filename>
                         <filename>brazitrac.php</filename>
+                        <filename>controller.php</filename>
+                        <folder>tables</folder>
+                        <folder>models</folder>
+                        <!-- views files section -->
+                        <folder>views</folder>
                         <!-- SQL files section -->
                         <folder>sql</folder>
                 </files>
