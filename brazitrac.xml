@@ -10,7 +10,7 @@
         <copyright>This component is released under the GNU/GPL License</copyright>
         <license>GNU/GPL</license>
         <!--  The version string is recorded in the components table -->
-        <version>3.5.0</version>
+        <version>3.5.1</version>
         <!-- The description is optional and defaults to the name -->
         <description>Brazitrac Ticket System</description>
  
@@ -27,6 +27,8 @@
         <files folder="site">
                 <filename>index.html</filename>
                 <filename>brazitrac.php</filename>
+                <filename>controller.php</filename>
+                <folder>views</folder>
         </files>
  
         <administration>
