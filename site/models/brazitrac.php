@@ -6,7 +6,7 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.modelitem');
  
 /**
- * HelloWorld Model
+ * BRAZITRAC Model
  */
 class BraziTracModelBraziTrac extends JModelItem
 {
@@ -23,7 +23,17 @@ class BraziTracModelBraziTrac extends JModelItem
         {
                 if (!isset($this->msg)) 
                 {
-                        $this->msg = 'Hello BraziTrac User!';
+                        $id = JRequest::getInt('id');
+                        switch ($id) 
+                        {
+                        case 2:
+                                $this->msg = 'Good bye BraziTrac User!';
+                        break;
+                        default:
+                        case 1:
+                                $this->msg = 'Hello BraziTrac User!';
+                        break;
+                        }
                 }
                 return $this->msg;
         }

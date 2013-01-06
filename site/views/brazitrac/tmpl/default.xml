@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
         <layout title="COM_BRAZITRAC_BRAZITRAC_VIEW_DEFAULT_TITLE">
-                <message>
-                        <![CDATA[COM_BRAZITRAC_BRAZITRAC_VIEW_DEFAULT_DESC]]>
-                </message>
+                <message>COM_BRAZITRAC_BRAZITRAC_VIEW_DEFAULT_DESC</message>
         </layout>
+        <fields name="request">
+                <fieldset name="request">
+                        <field
+                                name="id"
+                                type="list"
+                                label="COM_BRAZITRAC_BRAZITRAC_FIELD_GREETING_LABEL"
+                                description="COM_BRAZITRAC_BRAZITRAC_FIELD_GREETING_DESC"
+                                default="1"
+                        >
+                                <option value="1">Hello BraziTrac User</option>
+                                <option value="2">Good bye BraziTrac User</option>
+                        </field>
+                </fieldset>
+        </fields>
 </metadata>

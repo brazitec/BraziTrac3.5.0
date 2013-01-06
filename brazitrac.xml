@@ -10,7 +10,7 @@
         <copyright>This component is released under the GNU/GPL License</copyright>
         <license>GNU/GPL</license>
         <!--  The version string is recorded in the components table -->
-        <version>3.5.3</version>
+        <version>3.5.6</version>
         <!-- The description is optional and defaults to the name -->
         <description>Brazitrac Ticket System</description>
  
@@ -34,7 +34,7 @@
  
         <administration>
                 <!-- Administration Menu Section -->
-                <menu>BraziTrac System</menu>
+                <menu>BraziTrac</menu>
                 <!-- Administration Main File Copy Section -->
                 <!-- Note the folder attribute: This attribute describes the folder
                         to copy FROM in the package to install therefore files copied
