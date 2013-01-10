@@ -74,8 +74,8 @@ class WConfig extends JObject
 	 * @param $value string value of setting
 	 * @return boolean
 	 */
-	function set($name, $value) {
-		// only set if is known
+	 function set($name, $value) {
+	// only set if is known
 		if (array_key_exists($name, $this->_settings)) {
 			$this->_settings[$name] = $value;
 			return true;

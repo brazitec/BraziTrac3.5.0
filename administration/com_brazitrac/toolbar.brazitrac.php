@@ -9,7 +9,7 @@
 // Don't allow direct linking
 defined('_JEXEC') or die('Restricted Access');
 
-require_once( $mainframe->getPath( 'toolbar_html' ) );
+require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "toolbar.brazitrac.html.php");
 
 
 

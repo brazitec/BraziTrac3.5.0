@@ -32,7 +32,7 @@ JToolBarHelper::title("Brazitrac Ticket System", "BraziTrac");
 $btrac = WFactory::getConfig();
 
 $act = JRequest::getCmd("act");
-require_once("toolbar.brazitec.php");
+require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "toolbar.brazitrac.php");
 
 // perform selected operation
 btracOption($task, $act);
