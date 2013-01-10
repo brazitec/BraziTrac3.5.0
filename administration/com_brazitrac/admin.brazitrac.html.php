@@ -184,7 +184,7 @@ class BtracUserHTML extends BtracUser
 	 */
 	 function newForm() {
 	 	
-		$wats = WFactory::getConfig();
+		$btrac = WFactory::getConfig();
 		
 	 	echo "<table class=\"adminform\">
 					<tr>
@@ -236,7 +236,7 @@ class BtracUserHTML extends BtracUser
 							Enter Organisation:
 						</td>
 						<td>
-					<input name=\"organisation\" type=\"text\" maxlength=\"255\" size=\"50\" value=\"".$wats->get( 'dorganisation' )."\" />
+					<input name=\"organisation\" type=\"text\" maxlength=\"255\" size=\"50\" value=\"".$btrac->get( 'dorganisation' )."\" />
 										</td>
 					</tr>
 					</table>";
@@ -259,7 +259,7 @@ class BtracUserSetHTML extends BtracUserSet
 	{
 		global $Itemid;
 		
-		$wats = WFactory::getConfig();
+		$btrac = WFactory::getConfig();
 		
 		echo "<form name=\"adminForm\" method=\"post\" action=\"index.php\">
 			  <input type=\"hidden\" value=\"com_brazitrac\" name=\"option\"/>
@@ -284,7 +284,7 @@ class BtracUserSetHTML extends BtracUserSet
 		{
 			echo "<tr class=\"row".($limitstartThrow % 2)."\">
 					<td>
-					    <img src=\"../components/com_brazitrac/images/".$wats->get('iconset', "PATH")."user1616.gif\" height=\"16\" width=\"16\" border=\"0\">
+					    <img src=\"../components/com_brazitrac/images/".$btrac->get('iconset', "PATH")."user1616.gif\" height=\"16\" width=\"16\" border=\"0\">
 			        </td>
 					<td>
 			            <a href=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=user&task=edit&userid=".$this->userSet[$limitstartThrow]->id."\">".$this->userSet[$limitstartThrow]->username."</a> (".$this->userSet[$limitstartThrow]->name.")
@@ -327,7 +327,7 @@ class watsTicketHTML extends watsTicket
 	{
 		global $Itemid;
 		
-		$wats = JFactory::getConfig();
+		$btrac = JFactory::getConfig();
 		
 		// echo out
 		echo "<table class=\"adminform\"><tr><th>".$this->name."<br/>";
@@ -344,7 +344,7 @@ class watsTicketHTML extends watsTicket
 				    <tr class=\"row0\">
 					  <td scope=\"col\">";
 			$msgUser->viewSimple();
-		 	echo "<br /><span class=\"watsDate\">".JHTML::_('date', $this->_msgList[$i]->datetime, $wats->get('date'))."</span></td>
+		 	echo "<br /><span class=\"watsDate\">".JHTML::_('date', $this->_msgList[$i]->datetime, $btrac->get('date'))."</span></td>
 				    </tr>
 				    <tr class=\"row1\">
 					  <td>".$this->_msgList[$i]->msg."</td>
@@ -362,12 +362,12 @@ class watsTicketHTML extends watsTicket
 	{
 		global $Itemid;
 		
-		$wats = JFactory::getConfig();
+		$btrac = JFactory::getConfig();
 		
 		// header and ticket name
 		echo "<span class=\"watsHeading1\">"._brazitrac_TICKETS_SUBMIT."</span>
 			  <div class=\"watsTicketMake\" id=\"watsTicketMake\">
-			  <form name=\"submitticket\" method=\"post\" action=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=ticket&task=completeMake\" onsubmit=\"return watsValidateTicketMake( this, 'refill form XXX', '".$wats->get( 'defaultmsg' )."' );\">"
+			  <form name=\"submitticket\" method=\"post\" action=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=ticket&task=completeMake\" onsubmit=\"return watsValidateTicketMake( this, 'refill form XXX', '".$btrac->get( 'defaultmsg' )."' );\">"
 			  ._brazitrac_TICKETS_NAME.
 			  "<input name=\"ticketname\" type=\"text\" id=\"ticketname\" maxlength=\"25\">";
 		// itterate through categories
@@ -384,13 +384,13 @@ class watsTicketHTML extends watsTicket
 		echo "</select>";
 		// message box
 		echo _brazitrac_TICKETS_DESC;
-		if ( $wats->get( 'msgbox' ) == "editor" )
+		if ( $btrac->get( 'msgbox' ) == "editor" )
 		{
-			editorArea( "msg", $wats->get( 'defaultmsg' ), "msg", $wats->get( 'msgboxw' )*8.5, $wats->get( 'msgboxh' )*18, 45, 5 );
+			editorArea( "msg", $btrac->get( 'defaultmsg' ), "msg", $btrac->get( 'msgboxw' )*8.5, $btrac->get( 'msgboxh' )*18, 45, 5 );
 		}
 		else
 		{
-			echo "<textarea name=\"msg\" cols=\"".$wats->get( 'msgboxw' )."\" rows=\"".$wats->get( 'msgboxh' )."\" id=\"msg\">".$wats->get( 'defaultmsg' )."</textarea>";
+			echo "<textarea name=\"msg\" cols=\"".$btrac->get( 'msgboxw' )."\" rows=\"".$btrac->get( 'msgboxh' )."\" id=\"msg\">".$btrac->get( 'defaultmsg' )."</textarea>";
 		}
 		// submit button
 		echo "<input name=\"option\" type=\"hidden\" value=\"com_brazitrac\">
@@ -400,26 +400,26 @@ class watsTicketHTML extends watsTicket
 			  <input type=\"submit\" name=\"Submit\" value=\""._brazitrac_TICKETS_SUBMIT."\" class=\"watsFormSubmit\">
 			  </form>
 			  </div>";
-		echo ( $wats->get( 'msgbox' ) == "bbcode" AND $wats->get( 'msgboxt' ) == "1" ) ? _brazitrac_BB_HELP : "";
+		echo ( $btrac->get( 'msgbox' ) == "bbcode" AND $btrac->get( 'msgboxt' ) == "1" ) ? _brazitrac_BB_HELP : "";
 	}
 
 	function reopen()
 	{
 		global $Itemid;
 		
-		$wats = JFactory::getConfig();
+		$btrac = JFactory::getConfig();
 		
 		echo "<div id=\"watsReply\" class=\"watsReply\">
-		      <form name=\"submitmsg\" method=\"post\" action=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=ticket&task=completeReopen&ticketid=".$this->ticketId."\" onsubmit=\"return watsValidateTicketReopen( this, 'refill form XXX', '".$wats->get( 'defaultmsg' )."' );\">
+		      <form name=\"submitmsg\" method=\"post\" action=\"index.php?option=com_brazitrac&Itemid=".$Itemid."&act=ticket&task=completeReopen&ticketid=".$this->ticketId."\" onsubmit=\"return watsValidateTicketReopen( this, 'refill form XXX', '".$btrac->get( 'defaultmsg' )."' );\">
 			  Please give a reason why you want to reopen this ticket XXXX";
 		// message box
-		if ( $wats->get( 'msgbox' ) == "editor" )
+		if ( $btrac->get( 'msgbox' ) == "editor" )
 		{
-			editorArea( "msg", $wats->get( 'defaultmsg' ), "msg", $wats->get( 'msgboxw' )*8.5, $wats->get( 'msgboxh' )*18, 45, 5 );
+			editorArea( "msg", $btrac->get( 'defaultmsg' ), "msg", $btrac->get( 'msgboxw' )*8.5, $btrac->get( 'msgboxh' )*18, 45, 5 );
 		}
 		else
 		{
-			echo "<textarea name=\"msg\" cols=\"".$wats->get( 'msgboxw' )."\" rows=\"".$wats->get( 'msgboxh' )."\" id=\"msg\">".$wats->get( 'defaultmsg' )."</textarea>";
+			echo "<textarea name=\"msg\" cols=\"".$btrac->get( 'msgboxw' )."\" rows=\"".$btrac->get( 'msgboxh' )."\" id=\"msg\">".$btrac->get( 'defaultmsg' )."</textarea>";
 		} // end message box
 		echo "  <input name=\"option\" type=\"hidden\" value=\"com_brazitrac\">
 			    <input name=\"Itemid\" type=\"hidden\" value=\"".$Itemid."\">
@@ -437,13 +437,13 @@ class watsTicketHTML extends watsTicket
  * @version 1.0
  * @created 06-Dec-2005 21:43:53
  */
-class watsTicketSetHTML extends watsTicketSet
+class btracTicketSetHTML extends watsTicketSet
 {
 	/**
 	 * 
 	 * @param database
 	 */
-	function watsTicketSetHTML()
+	function btracTicketSetHTML()
 	{
 		$this->watsTicketSet();
 	}
@@ -454,7 +454,7 @@ class watsTicketSetHTML extends watsTicketSet
 	 * @param start
 	 */
 	function view($limit, $limitstart) {
-		$wats = WFactory::getConfig();
+		$btrac = WFactory::getConfig();
 		
 		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"adminlist\">
 				<thead>
@@ -478,8 +478,8 @@ class watsTicketSetHTML extends watsTicketSet
 			            <a href=\"index.php?option=com_brazitrac&act=ticket&task=view&ticketid=".$this->_ticketList[$limitstartThrow]->ticketId."\">".$this->_ticketList[$limitstartThrow]->name."</a></td>
 					<td>".$this->_ticketList[$limitstartThrow]->username."</td>
 					<td>".$this->_ticketList[$limitstartThrow]->msgNumberOf."</td>
-					<td>".JHTML::_('date', $this->_ticketList[$limitstartThrow]->datetime, $wats->get('date'))."</td>
-					<td><span class=\"watsDate\">".JHTML::_('date', $this->_ticketList[$limitstartThrow]->lastMsg, $wats->get('date'))."</span></td>
+					<td>".JHTML::_('date', $this->_ticketList[$limitstartThrow]->datetime, $btrac->get('date'))."</td>
+					<td><span class=\"watsDate\">".JHTML::_('date', $this->_ticketList[$limitstartThrow]->lastMsg, $btrac->get('date'))."</span></td>
 					<td>";
 			// status
 			if ( $this->_ticketList[$limitstartThrow]->lifeCycle == 1 )
@@ -671,20 +671,20 @@ class watsAssignHTML extends watsAssign
 	{
 		global $Itemid;
 		
-		$wats = JFactory::getConfig();
+		$btrac = JFactory::getConfig();
 		
 		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"btracCategoryView\">
 			    <tr>
-				  <th colspan=\"2\" scope=\"col\"><a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=assign&task=view&page=1\">".$wats->get( 'assignname' )."</a></th>
+				  <th colspan=\"2\" scope=\"col\"><a href=\"index.php?option=com_brazitrac&Itemid=$Itemid&act=assign&task=view&page=1\">".$btrac->get( 'assignname' )."</a></th>
 			    </tr>
 			    <tr>
 				  <td>";
-		if ( $wats->get( 'assignimage' ) !== null )
+		if ( $btrac->get( 'assignimage' ) !== null )
 		{
 			echo "";
 		}
 		echo "</td>
-				  <td>".$wats->get( 'assigndescription' )."</td>
+				  <td>".$btrac->get( 'assigndescription' )."</td>
 			    </tr>
 			  </table>";
 	}
@@ -769,13 +769,13 @@ class btracCategorySetHTML extends btracCategorySet
 	 */	
 	function viewWithTicketSet( $finish, $start = 0, &$BtracUser )
 	{
-		$wats = JFactory::getConfig();
+		$btrac = JFactory::getConfig();
 		
 		foreach( $this->categorySet as $category )
 		{
 			echo "<div class=\"btracCategoryViewWithTicketSet\" id=\"btracCategory".$category->catid."\">";
 			$category->viewTicketSet( $finish, $start );
-			$category->pageNav( $wats->get( 'ticketssub' ), 0, $wats->get( 'ticketsfront' ), $BtracUser );
+			$category->pageNav( $btrac->get( 'ticketssub' ), 0, $btrac->get( 'ticketsfront' ), $BtracUser );
 			echo "</div>";
 		}
 	}
@@ -788,10 +788,10 @@ class btracCategorySetHTML extends btracCategorySet
 	{
 		global $Itemid;
 		
-		$wats = JFactory::getConfig();
+		$btrac = JFactory::getConfig();
 		
 		echo "<select name=\"option\" id=\"btracCategorySetSelect\" class=\"btracCategorySetSelect\">
-				<option onClick=\"btracCategorySetSelect( -1, $Itemid )\">".$wats->get( 'name' )."</option>\n";
+				<option onClick=\"btracCategorySetSelect( -1, $Itemid )\">".$btrac->get( 'name' )."</option>\n";
 	    foreach( $this->categorySet as $category )
 		{
 		    echo "<option onClick=\"btracCategorySetSelect( $category->catid, $Itemid )\">".$category->name."</option>\n";
@@ -806,7 +806,7 @@ class btracCategorySetHTML extends btracCategorySet
 	 */
 	function view( $limit, $limitstart )
 	{
-		global $Itemid, $wats;
+		global $Itemid, $btrac;
 		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"adminlist\">
 				<thead>
 				    <tr>
@@ -1198,7 +1198,7 @@ class watsSettingsHTML extends WConfig
 
 }
 
-class watsCssHTML extends watsCss
+class btracCssHTML extends watsCss
 {
 
 	/*
@@ -1207,15 +1207,15 @@ class watsCssHTML extends watsCss
 	 */
 	function processSettings()
 	{
-		$wats = WFactory::getConfig();
-		$status = JRequest::getCmd('watsCSS', null);
+		$btrac = WFactory::getConfig();
+		$status = JRequest::getCmd('btracCSS', null);
 
 		// enable disable css
         // check is of correct type and is different
-        if ( ( $status == 'enable' || $status == 'disable' ) && $status != $wats->get('css') )
+        if ( ( $status == 'enable' || $status == 'disable' ) && $status != $btrac->get('css') )
         {
-            $wats->set( 'css', $status );;
-            $wats->save();
+            $btrac->set( 'css', $status );;
+            $btrac->save();
             $this->css = $status;
         }
 		
@@ -1275,14 +1275,14 @@ class watsCssHTML extends watsCss
 				  <tr> 
 					<td width=\"185\">WATS CSS :</td> 
 					<td width=\"500\">
-					  <input type=\"radio\" name=\"watsCSS\" id=\"watsCSSDisable\" value=\"disable\"";
+					  <input type=\"radio\" name=\"btracCSS\" id=\"btracCSSDisable\" value=\"disable\"";
 					   echo ($this->css == "disable") ? " checked=\"checked\"" : " ";
 					   echo "class=\"inputbox\" />
-					  <label for=\"watsCSSDisable\">Disable</label>
-					  <input type=\"radio\" name=\"watsCSS\" id=\"watsCSSEnable\" value=\"enable\"";
+					  <label for=\"btracCSSDisable\">Disable</label>
+					  <input type=\"radio\" name=\"btracCSS\" id=\"btracCSSEnable\" value=\"enable\"";
 					   echo ($this->css == "enable") ? " checked=\"checked\"" : " ";
 					   echo "class=\"inputbox\" />
-					  <label for=\"watsCSSEnable\">Enable</label> ".JHTML::_("tooltip", 'Ensure no WATS styles are present in the site template before enabling', 'WATS Warning', "warning.png")."
+					  <label for=\"btracCSSEnable\">Enable</label> ".JHTML::_("tooltip", 'Ensure no WATS styles are present in the site template before enabling', 'WATS Warning', "warning.png")."
 					  </td> 
 				  </tr> 
 				  <tr> 
@@ -1735,7 +1735,7 @@ class BtracUserGroupHTML extends BtracUserGroup
 	 */
 	function processForm()
 	{
-		global $_POST, $wats;
+		global $_POST, $btrac;
 		
 		$keys = array_keys( $_POST );
 		$riteString = '';
@@ -1817,7 +1817,7 @@ class BtracUserGroupSetHTML extends BtracUserGroupSet
 	 */
 	function view( $limitstart, $limit )
 	{
-		global $Itemid, $wats;
+		global $Itemid, $btrac;
 		echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"adminlist\">
 				    <thead>
 						<tr>

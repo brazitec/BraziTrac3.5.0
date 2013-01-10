@@ -10,7 +10,7 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-$wats = WFactory::getConfig();
+$btrac = WFactory::getConfig();
 ?>
 
 <?php echo JText::sprintf("TO %s", $this->recipient->name); ?> 
@@ -24,4 +24,4 @@ $wats = WFactory::getConfig();
 <?php echo JText::_("WATS_TICKETS_ID"); ?>: WATS-<?php echo $this->ticket->ticketId; ?> 
 <?php echo JText::_("Submitted By"); ?>: <?php echo $this->ticketOwner->username; ?> 
 ------------------------------------------------------------ 
-<?php echo $wats->get( 'copyright' )?> 
+<?php echo $btrac->get( 'copyright' )?> 

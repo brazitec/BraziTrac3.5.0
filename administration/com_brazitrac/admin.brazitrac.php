@@ -10,7 +10,7 @@
 defined('_JEXEC') or die('Restricted Access');
 
 echo "<script language=\"javascript\" type=\"text/javascript\" src=\"components/com_brazitrac/admin.wats.js\"></script>";
-echo '<div class="wats">';
+echo '<div class="btrac">';
 
 //add custom classes and functions
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "config.php");
@@ -19,37 +19,37 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "factory.php"
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "admin.brazitec.html.php");
 
 // add javaScript
-$document =& JFactory::getDocument();
+$document = JFactory::getDocument();
 $document->addScript("../components/com_brazitrac/wats.js");
 
 // add CSS
 $document->addStyleDeclaration(".icon-48-wats { background-image:url(components/com_brazitrac/images/icon-48-watshead.png );}");
 
 // set heading
-JToolBarHelper::title("Brazitrac Ticket System", "wats");
+JToolBarHelper::title("Brazitrac Ticket System", "BraziTrac");
 
 // get settings
-$wats = WFactory::getConfig();
+$btrac = WFactory::getConfig();
 
 $act = JRequest::getCmd("act");
 require_once("toolbar.brazitec.php");
 
 // perform selected operation
-watsOption($task, $act);
+btracOption($task, $act);
 	
 ?> 
 </div> 
 <?php
-function watsOption( &$task, &$act )
+function btracOption( &$task, &$act )
 {
-	global $wats, $option, $mainframe;
+	global $btrac, $option, $mainframe;
 
 	switch ($act) {
 		/**
 		 * ticket
 		 */	
 		case 'ticket':
-			JToolbarHelper::title("Ticket Viewer", "wats");
+			JToolbarHelper::title("Ticket Viewer", "btrac");
 			echo "<form action=\"index.php\" method=\"post\" name=\"adminForm\">";
 			switch ($task) {
 				/**
@@ -67,7 +67,7 @@ function watsOption( &$task, &$act )
                     // In case limit has been changed, adjust limitstart accordingly
                     $limitstart = ( $limit != 0 ? (floor($limitstart / $limit) * $limit) : 0 );
                     
-					$ticketSet = new watsTicketSetHTML();
+					$ticketSet = new btracTicketSetHTML();
 					$ticketSet->loadTicketSet( -1 );
 					$ticketSet->view( $limit, $limitstart );
 					// key
@@ -80,7 +80,7 @@ function watsOption( &$task, &$act )
 		 * category
 		 */	
 		case 'category':
-			JToolbarHelper::title("Category Manager", "wats");
+			JToolbarHelper::title("Category Manager", "btrac");
 			echo "<form action=\"index.php\" method=\"post\" name=\"adminForm\">";
 			switch ($task) {
 				/**
@@ -211,10 +211,10 @@ function watsOption( &$task, &$act )
 		 * CSS
 		 */	
 		case 'css':
-			JToolbarHelper::title("CSS", "wats");
+			JToolbarHelper::title("CSS", "btrac");
 			echo "<form action=\"index.php\" method=\"post\" name=\"adminForm\">";
-			$watsCss = new watsCssHTML();
-			$watsCss->open('../components/com_brazitrac/wats.css');
+			$btracCss = new btracCssHTML();
+			$btracCss->open('../components/com_brazitrac/btrac.css');
 
 			switch ($task) {
 				/**
@@ -225,7 +225,7 @@ function watsOption( &$task, &$act )
 					if ( JRequest::getString('restore') == 'restore' )
 					{
 						// restore css
-						if ( $watsCss->restore( '../components/com_brazitrac/wats.restore.css' ) )
+						if ( $btracCss->restore( '../components/com_brazitrac/btrac.restore.css' ) )
 						{
 							// redirect success
 							watsredirect( "index.php?option=com_brazitrac&act=css", "CSS Restored" );
@@ -239,8 +239,8 @@ function watsOption( &$task, &$act )
 					else
 					{
 						// save changes
-						$watsCss->processSettings();
-						$watsCss->save();
+						$btracCss->processSettings();
+						$btracCss->save();
 						// redirect
 						watsredirect( "index.php?option=com_brazitrac&act=css", "Changes Saved" );
 					}
@@ -256,7 +256,7 @@ function watsOption( &$task, &$act )
 				 */	
 				case 'backup':
 					// open window
-					echo "<script>popup = window.open ('../components/com_brazitrac/wats.css','watsCSS','resizable=yes,scrollbars=1,width=500,height=500');</script>";
+					echo "<script>popup = window.open ('../components/com_brazitrac/btrac.css','btracCSS','resizable=yes,scrollbars=1,width=500,height=500');</script>";
 				/**
 				 * default
 				 */	
@@ -278,8 +278,8 @@ function watsOption( &$task, &$act )
 									</tr>
 									<tr>
 										<td>";
-										$watsCss->editSettings();
-						if ( $watsCss->css == "enable" )
+										$btracCss->editSettings();
+						if ( $btracCss->css == "enable" )
 						{
 							// prepare tabs
 							jimport("joomla.html.pane");
@@ -289,27 +289,27 @@ function watsOption( &$task, &$act )
 							{
 								// general
 								$cssTabs->startPanel( 'General', 'cssTabs' );
-								$watsCss->editGeneral();
+								$btracCss->editGeneral();
 								$cssTabs->endPanel();
 								// navigation
 								$cssTabs->startPanel( 'Navigation', 'cssTabs' );
-								$watsCss->editNavigation();
+								$btracCss->editNavigation();
 								$cssTabs->endPanel();
 								// categories
 								$cssTabs->startPanel( 'Categories', 'cssTabs' );
-								$watsCss->editCategories();
+								$btracCss->editCategories();
 								$cssTabs->endPanel();
 								// tickets
 								$cssTabs->startPanel( 'Tickets', 'cssTabs' );
-								$watsCss->editTickets();
+								$btracCss->editTickets();
 								$cssTabs->endPanel();
 								// assigned tickets
 								$cssTabs->startPanel( 'Assigned', 'cssTabs' );
-								$watsCss->editAssignedTickets();
+								$btracCss->editAssignedTickets();
 								$cssTabs->endPanel();
 								// users
 								$cssTabs->startPanel( 'Users', 'cssTabs' );
-								$watsCss->editUsers();
+								$btracCss->editUsers();
 								$cssTabs->endPanel();
 							}
 							// end fill tabs
@@ -320,7 +320,7 @@ function watsOption( &$task, &$act )
 								</table>
 						          </td>
 								  <td valign=\"top\">";
-						$watsCss->viewRestore();
+						$btracCss->viewRestore();
 						echo "	  </td>
 								</tr>
 						  </table>";
@@ -334,7 +334,7 @@ function watsOption( &$task, &$act )
 		 * rites
 		 */	
 		case 'rites':
-			JToolbarHelper::title("Rights Manager", "wats");
+			JToolbarHelper::title("Rights Manager", "btrac");
 			echo "<form action=\"index.php\" method=\"post\" name=\"adminForm\">";
 			switch ($task) {
 				/**
@@ -430,7 +430,7 @@ function watsOption( &$task, &$act )
 		 * user
 		 */	
 		case 'user':
-			JToolbarHelper::title("User Manager", "wats");
+			JToolbarHelper::title("User Manager", "btrac");
 			echo "<form action=\"index.php\" method=\"post\" name=\"adminForm\">";
 			switch ($task) {
 				/**
@@ -569,23 +569,23 @@ function watsOption( &$task, &$act )
 		 * about
 		 */	
 		case 'about':
-			JToolbarHelper::title("About", "wats");
-			$watsSettings = new watsSettingsHTML();
-			$watsSettings->about();
+			JToolbarHelper::title("About", "btrac");
+			$btracSettings = new watsSettingsHTML();
+			$btracSettings->about();
 			break;
 		/**
 		 * database
 		 */	
 		case 'database':
-			JToolbarHelper::title("Database Maintenance", "wats");
-			$watsDatabaseMaintenance = new watsDatabaseMaintenanceHTML();
-			$watsDatabaseMaintenance->performMaintenance();
+			JToolbarHelper::title("Database Maintenance", "btrac");
+			$btracDatabaseMaintenance = new watsDatabaseMaintenanceHTML();
+			$btracDatabaseMaintenance->performMaintenance();
 			break;
 		/**
 		 * configuration
 		 */	
 		case 'configure':
-			JToolbarHelper::title("Configuration", "wats");
+			JToolbarHelper::title("Configuration", "btrac");
 			echo "<form action=\"index.php\" method=\"post\" name=\"adminForm\">";
 			switch ($task) {
 				/**
@@ -593,11 +593,11 @@ function watsOption( &$task, &$act )
 				 */	
 				case 'apply':
 					// create settings object
-					$watsSettings = new watsSettingsHTML();
+					$btracSettings = new watsSettingsHTML();
 					// process form
-					$watsSettings->processForm();
+					$btracSettings->processForm();
 					// save
-					$watsSettings->save();
+					$btracSettings->save();
 					// redirect
 					watsredirect( "index.php?option=com_brazitrac&act=configure" );
 					break;
@@ -616,7 +616,7 @@ function watsOption( &$task, &$act )
 					jimport("joomla.html.pane");
 					
 					
-					$watsSettings = new watsSettingsHTML();
+					$btracSettings = new watsSettingsHTML();
 					// start Tab Pane
 					{
 						$settingsTabs = JPane::getInstance("tabs");
@@ -625,15 +625,15 @@ function watsOption( &$task, &$act )
 						{
 							// general
 							echo $settingsTabs->startPanel( 'General', 'settingsTabs' );
-							$watsSettings->editGeneral();
+							$btracSettings->editGeneral();
 							echo $settingsTabs->endPanel();
 							// Users
 							echo $settingsTabs->startPanel( 'Users', 'settingsTabs' );
-							$watsSettings->editUser();
+							$btracSettings->editUser();
 							echo $settingsTabs->endPanel();
 							// Agreement
 							echo $settingsTabs->startPanel( 'Agreement', 'settingsTabs' );
-							$watsSettings->editAgreement();
+							$btracSettings->editAgreement();
 							echo $settingsTabs->endPanel();
 							// Notification
 							echo $settingsTabs->startPanel( 'Notification', 'settingsTabs' );
@@ -641,11 +641,11 @@ function watsOption( &$task, &$act )
 							echo $settingsTabs->endPanel();
 							// Upgrade
 							echo $settingsTabs->startPanel( 'Upgrade', 'settingsTabs' );
-							$watsSettings->editUpgrade();
+							$btracSettings->editUpgrade();
 							echo $settingsTabs->endPanel();
 							// Debug
 							echo $settingsTabs->startPanel( 'Debug', 'settingsTabs' );
-							$watsSettings->editDebug();
+							$btracSettings->editDebug();
 							echo $settingsTabs->endPanel();
 						}
 						// end fill tabs
@@ -665,25 +665,25 @@ function watsOption( &$task, &$act )
 			
 			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket" );
 			$set = $database->loadObjectList();
-			$watsStatTickets = $set[0]->count;
-			$watsStatTicketsRaw = $watsStatTickets;
-			if ( $watsStatTickets == 0 )
-				$watsStatTickets = 1;
+			$btracStatTickets = $set[0]->count;
+			$btracStatTicketsRaw = $btracStatTickets;
+			if ( $btracStatTickets == 0 )
+				$btracStatTickets = 1;
 			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=1" );
 			$set = $database->loadObjectList();
-			$watsStatTicketsOpen = $set[0]->count;
+			$btracStatTicketsOpen = $set[0]->count;
 			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=2" );
 			$set = $database->loadObjectList();
-			$watsStatTicketsClosed =  $set[0]->count;;
+			$btracStatTicketsClosed =  $set[0]->count;;
 			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_ticket WHERE lifeCycle=3" );
 			$set = $database->loadObjectList();
-			$watsStatTicketsDead = $set[0]->count;
+			$btracStatTicketsDead = $set[0]->count;
 			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_users" );
 			$set = $database->loadObjectList();
-			$watsStatUsers = $set[0]->count;
+			$btracStatUsers = $set[0]->count;
 			$database->setQuery( "SELECT COUNT(*) as count FROM #__brazitrac_category" );
 			$set = $database->loadObjectList();
-			$watsStatCategories = $set[0]->count;
+			$btracStatCategories = $set[0]->count;
 			// end stats
 			?> 
 <table class="adminform"> 
@@ -742,23 +742,23 @@ function watsOption( &$task, &$act )
           </tr> 
           <tr> 
             <td width="80"> Tickets</td>  
-            <td width="60"><?php echo $watsStatTicketsRaw; ?> / 100%</td> 
+            <td width="60"><?php echo $btracStatTicketsRaw; ?> / 100%</td> 
 			<td><img src="components/com_brazitrac/images/red.gif" style="height: 4px; width: 100%;"></td>
           </tr> 
           <tr> 
             <td> Open </td> 
-            <td><?php echo $watsStatTicketsOpen; ?> / <?php echo intval((100/$watsStatTickets)*$watsStatTicketsOpen); ?>%</td> 
-			<td><img src="components/com_brazitrac/images/red.gif" style="height: 4px; width: <?php echo (100/$watsStatTickets)*$watsStatTicketsOpen; ?>%;"></td>
+            <td><?php echo $btracStatTicketsOpen; ?> / <?php echo intval((100/$btracStatTickets)*$btracStatTicketsOpen); ?>%</td> 
+			<td><img src="components/com_brazitrac/images/red.gif" style="height: 4px; width: <?php echo (100/$btracStatTickets)*$btracStatTicketsOpen; ?>%;"></td>
           </tr>
           <tr>
             <td>Closed</td>
-            <td><?php echo $watsStatTicketsClosed; ?> / <?php echo intval((100/$watsStatTickets)*$watsStatTicketsClosed); ?>%</td>
-            <td><img src="components/com_brazitrac/images/red.gif" style="height: 4px; width: <?php echo (100/$watsStatTickets)*$watsStatTicketsClosed; ?>%;"></td>
+            <td><?php echo $btracStatTicketsClosed; ?> / <?php echo intval((100/$btracStatTickets)*$btracStatTicketsClosed); ?>%</td>
+            <td><img src="components/com_brazitrac/images/red.gif" style="height: 4px; width: <?php echo (100/$btracStatTickets)*$btracStatTicketsClosed; ?>%;"></td>
           </tr>
           <tr>
             <td>Dead</td>
-            <td><?php echo $watsStatTicketsDead; ?> / <?php echo intval((100/$watsStatTickets)*$watsStatTicketsDead); ?>%</td>
-            <td><img src="components/com_brazitrac/images/red.gif" style="height: 4px; width: <?php echo (100/$watsStatTickets)*$watsStatTicketsDead; ?>%;"></td>
+            <td><?php echo $btracStatTicketsDead; ?> / <?php echo intval((100/$btracStatTickets)*$btracStatTicketsDead); ?>%</td>
+            <td><img src="components/com_brazitrac/images/red.gif" style="height: 4px; width: <?php echo (100/$btracStatTickets)*$btracStatTicketsDead; ?>%;"></td>
           </tr>
           <tr>
             <td>&nbsp;</td>
@@ -767,7 +767,7 @@ function watsOption( &$task, &$act )
           </tr>
           <tr>
             <td>Users</td>
-            <td><?php echo $watsStatUsers; ?></td>
+            <td><?php echo $btracStatUsers; ?></td>
             <td>&nbsp;</td>
           </tr>
           <tr>
@@ -777,7 +777,7 @@ function watsOption( &$task, &$act )
           </tr>
           <tr>
             <td>Categories</td>
-            <td><?php echo $watsStatCategories; ?></td>
+            <td><?php echo $btracStatCategories; ?></td>
 			<td>&nbsp;</td>
           </tr> 
         </table> 
@@ -792,12 +792,12 @@ function watsOption( &$task, &$act )
 function watsredirect($uri, $message = null, $level = "message") {
 	global $mainframe;
 	
-	$wats = WFactory::getConfig();
+	$btrac = WFactory::getConfig();
 	
-	if ( $wats->get( 'debug' ) == 0 ) {
+	if ( $btrac->get( 'debug' ) == 0 ) {
 		$mainframe->redirect($uri, $message, $level);
 	} else {
-		echo "<a href=\"".$uri."\">".$wats->get( 'debugmessage' )."</a><br />".$message;
+		echo "<a href=\"".$uri."\">".$btrac->get( 'debugmessage' )."</a><br />".$message;
 	}
 }
 ?> 

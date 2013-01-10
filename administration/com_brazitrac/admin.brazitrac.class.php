@@ -1214,7 +1214,7 @@ class btracCategory extends JTable
 	function loadTicketSet( $lifecycle, $btracid, $riteAll = false )
 	{
 		// create new ticketset
-		$this->ticketSet = new watsTicketSetHTML();
+		$this->ticketSet = new btracTicketSetHTML();
 		// load tickets
 		$this->ticketSet->loadTicketSet( $lifecycle, $btracid, $this->catid, $riteAll );
 	}
@@ -1373,7 +1373,7 @@ class watsAssign
 		// set btracid
 		$this->btracid = $btracid;
 		// create new ticketset
-		$this->ticketSet = new watsTicketSetHTML();
+		$this->ticketSet = new btracTicketSetHTML();
 		// load tickets
 		$this->ticketSet->loadTicketSet( 0, $this->btracid, -1, true, true );
 	}

@@ -9,7 +9,7 @@
 // Don't allow direct linking
 defined('_JEXEC') or die('Restricted Access');
 
-echo '<div class="wats">';
+echo '<div class="btrac">';
 
 //add custom classes and functions
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "config.php");
@@ -19,12 +19,12 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "tablehelper.
 require_once(JPATH_COMPONENT_SITE . DS . "brazitec.html.php");
 
 // get settings
-$wats = WFactory::getConfig();
+$btrac = WFactory::getConfig();
 
 // add css link if turned on
-if ($wats->get( 'css' ) == 'enable') {
+if ($btrac->get( 'css' ) == 'enable') {
     $doc =& JFactory::getDocument();
-    $doc->addStyleSheet('components/com_brazitrac/wats.css');
+    $doc->addStyleSheet('components/com_brazitrac/btrac.css');
 }
 
 // create BtracUser
@@ -44,13 +44,13 @@ else
 	$GLOBALS["BtracUser"] =& $BtracUser;
 
 	// check for agreement
-	if ( $wats->get( 'agree' ) == 1 && $BtracUser->agree == 0 && !JRequest::getVar('agree', false) )
+	if ( $btrac->get( 'agree' ) == 1 && $BtracUser->agree == 0 && !JRequest::getVar('agree', false) )
 	{
 		// needs to sign agreement
-		echo '<p>'.$wats->get( 'agreelw' ).'</p>';
-		echo '<p><a href="index.php?option=com_content&task=view&id='.$wats->get( 'agreei' ).'">'.$wats->get( 'agreen' ).'</a></p>';
-		echo '<p>'.$wats->get( 'agreela' ).'</p>';
-		echo '<form name="agree" method="post" action="index.php?option=com_brazitrac"><input type="submit" name="agree" value="'.$wats->get( 'agreeb' ).'"></form>';		
+		echo '<p>'.$btrac->get( 'agreelw' ).'</p>';
+		echo '<p><a href="index.php?option=com_content&task=view&id='.$btrac->get( 'agreei' ).'">'.$btrac->get( 'agreen' ).'</a></p>';
+		echo '<p>'.$btrac->get( 'agreela' ).'</p>';
+		echo '<form name="agree" method="post" action="index.php?option=com_brazitrac"><input type="submit" name="agree" value="'.$btrac->get( 'agreeb' ).'"></form>';		
 	}
 	elseif ( JRequest::getVar('agree', false) !== false )
 	{
@@ -128,19 +128,19 @@ else
 	
 		
 		// perform selected operation
-		watsOption( $task, $act );
+		btracOption( $task, $act );
 	}
 
 }
 ?>
-<p class="watsCopyright"><?php echo $wats->get( 'copyright' )?></p>
+<p class="watsCopyright"><?php echo $btrac->get( 'copyright' )?></p>
 </div>
 <?php
-function watsOption( $task, $act )
+function btracOption( $task, $act )
 {
 	global $BtracUser, $Itemid, $btracCategorySet;
 	
-	$wats = WFactory::getConfig();
+	$btrac = WFactory::getConfig();
 	$database = JFactory::getDBO();
 
 	switch ($act) {
@@ -408,13 +408,13 @@ function watsOption( $task, $act )
 						// end check for level of rites
 						// view tickets
 						
-						$wats = WFactory::getConfig();
+						$btrac = WFactory::getConfig();
 						
-						$start = (JRequest::getInt('page', 1) - 1 ) *  $wats->get( 'ticketssub' );
-						$finish = $start + $wats->get( 'ticketssub' );
-						$cat->pageNav( $wats->get( 'ticketssub' ), JRequest::getInt('page'), 0, $BtracUser );
+						$start = (JRequest::getInt('page', 1) - 1 ) *  $btrac->get( 'ticketssub' );
+						$finish = $start + $btrac->get( 'ticketssub' );
+						$cat->pageNav( $btrac->get( 'ticketssub' ), JRequest::getInt('page'), 0, $BtracUser );
 						$cat->viewTicketSet( $finish, $start );
-						$cat->pageNav( $wats->get( 'ticketssub' ), JRequest::getInt('page'), 0, $BtracUser );
+						$cat->pageNav( $btrac->get( 'ticketssub' ), JRequest::getInt('page'), 0, $BtracUser );
 						// check purge rites
 						if ( JRequest::getInt('lifecycle', null) == 3 AND $BtracUser->checkPermission(JRequest::getInt('catid', null), "p") == 2)
 						{
@@ -442,11 +442,11 @@ function watsOption( $task, $act )
 					// load tickets
 					$assignedTickets->loadAssignedTicketSet( $BtracUser->id );
 					// view tickets
-					$start = (JRequest::getInt('page', 1) - 1) *  $wats->get( 'ticketssub' );
-					$finish = $start + $wats->get( 'ticketssub' );	
+					$start = (JRequest::getInt('page', 1) - 1) *  $btrac->get( 'ticketssub' );
+					$finish = $start + $btrac->get( 'ticketssub' );	
 					$assignedTickets->viewTicketSet( $finish, $start );
 					// display page navigation
-					$assignedTickets->pageNav( $wats->get( 'ticketssub' ), JRequest::getInt('page', 1), $wats->get( 'ticketssub' ) );
+					$assignedTickets->pageNav( $btrac->get( 'ticketssub' ), JRequest::getInt('page', 1), $btrac->get( 'ticketssub' ) );
 					break;
 				/**
 				 * assign ticket to
@@ -631,16 +631,16 @@ function watsOption( $task, $act )
 					if ( $BtracUser->checkUserPermission( 'v' ) == 2 )
 					{
 						// determine number of users to show
-						$start = (JRequest::getInt("page", 1) - 1 ) * $wats->get( 'ticketssub' );
+						$start = (JRequest::getInt("page", 1) - 1 ) * $btrac->get( 'ticketssub' );
 						$currentPage = JRequest::getInt('page');
 
-						$finish = $start + $wats->get( 'ticketssub' );
+						$finish = $start + $btrac->get( 'ticketssub' );
 						// make user set and load
 						$BtracUserSet = new BtracUserSetHTML();
 						$BtracUserSet->load();
 						// view user set
 						$BtracUserSet->view( $finish, $start );
-						$BtracUserSet->pageNav( $wats->get( 'ticketssub' ), $currentPage );
+						$BtracUserSet->pageNav( $btrac->get( 'ticketssub' ), $currentPage );
 						// check for make user rites
 						if ( $BtracUser->checkUserPermission( 'm' ) == 2 )
 						{
@@ -667,13 +667,13 @@ function defaultAction( &$btracCategorySet, &$BtracUser )
 {
 	global $Itemid;
 	
-	$wats = WFactory::getConfig();
+	$btrac = WFactory::getConfig();
 	$database = JFactory::getDBO();
 	
 	// load tickets to categoryies
 	$btracCategorySet->loadTicketSet( 0, $BtracUser );
 	// view tickets
-	$btracCategorySet->viewWithTicketSet( $wats->get( 'ticketsfront' ), 0, $BtracUser );
+	$btracCategorySet->viewWithTicketSet( $btrac->get( 'ticketsfront' ), 0, $BtracUser );
 	// check for assigned tickets
 	$assignedTickets = new watsAssignHTML();
 	$assignedTickets->loadAssignedTicketSet( $BtracUser->id );
@@ -681,8 +681,8 @@ function defaultAction( &$btracCategorySet, &$BtracUser )
 	{
 		// view assigned tickets
 		echo "<div id=\"watsAssignedTickets\">";
-		$assignedTickets->viewTicketSet( $wats->get( 'ticketsfront' ), 0 );
-		$assignedTickets->pageNav( $wats->get( 'ticketssub' ), 0, $wats->get( 'ticketsfront' ) );
+		$assignedTickets->viewTicketSet( $btrac->get( 'ticketsfront' ), 0 );
+		$assignedTickets->pageNav( $btrac->get( 'ticketssub' ), 0, $btrac->get( 'ticketsfront' ) );
 		echo "</div>";
 	}
 	// check for all user view rites
@@ -690,13 +690,13 @@ function defaultAction( &$btracCategorySet, &$BtracUser )
 	{
 		// determine number of users to show
 		$start = 0;
-		$finish = $wats->get( 'ticketsfront' );
+		$finish = $btrac->get( 'ticketsfront' );
 		// create user set and load
 		$BtracUserSet = new BtracUserSetHTML();
 		$BtracUserSet->load();
 		// view user set
 		$BtracUserSet->view( $finish, $start );
-		$BtracUserSet->pageNav( $wats->get( 'ticketssub' ), 0, $wats->get( 'ticketsfront' ) );
+		$BtracUserSet->pageNav( $btrac->get( 'ticketssub' ), 0, $btrac->get( 'ticketsfront' ) );
 		// check for make user rites
 		if ( $BtracUser->checkUserPermission( 'm' ) == 2 )
 		{
@@ -752,13 +752,13 @@ function prevLink( $getArray )
 
 function parseMsg( $msg )
 {
-	$wats = WFactory::getConfig();
+	$btrac = WFactory::getConfig();
 	
-	if ( $wats->get( 'msgbox' ) == 'editor' ) {
+	if ( $btrac->get( 'msgbox' ) == 'editor' ) {
         // make safe
         $filter =& JFilterInput::getInstance(array(), array(), 1, 1, 1);
 		$msg = $filter->clean($msg);
-	} else if ( $wats->get( 'msgbox' ) == 'bbcode' ) {
+	} else if ( $btrac->get( 'msgbox' ) == 'bbcode' ) {
 		// include bbcode class
 		include_once( 'components/com_brazitrac/bbcode.inc.php' );
 		// create bbcode instance
@@ -790,15 +790,15 @@ function watsredirect( $dest )
 {
 	global $mainframe;
 	
-	$wats = WFactory::getConfig();
+	$btrac = WFactory::getConfig();
 	
-	if ( $wats->get( 'debug' ) == 0 )
+	if ( $btrac->get( 'debug' ) == 0 )
 	{
 		$mainframe->redirect( $dest );
 	}
 	else
 	{
-		echo "<a href=\"".$dest."\">".$wats->get( 'debugmessage' )."</a>";
+		echo "<a href=\"".$dest."\">".$btrac->get( 'debugmessage' )."</a>";
 	}
 }
 ?>

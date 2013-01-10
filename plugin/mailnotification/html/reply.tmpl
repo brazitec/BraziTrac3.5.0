@@ -10,7 +10,7 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-$wats = WFactory::getConfig();
+$btrac = WFactory::getConfig();
 
 // create the URL, make suire this includes the host!
 $uri =& JURI::getInstance();
@@ -52,7 +52,7 @@ $url = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port')) . ((!preg
                 </tr>
                 <tr>
                     <td><strong><?php echo JText::_("REPLY SUBMITTED"); ?></strong></td>
-                    <td><?php echo JHTML::_('date', $this->lastMessage->datetime, $wats->get('date')); ?></td>
+                    <td><?php echo JHTML::_('date', $this->lastMessage->datetime, $btrac->get('date')); ?></td>
                 </tr>
                 <tr>
                     <td><strong><?php echo JText::_("REPLY SUBMITTED BY"); ?></strong></td>
@@ -69,7 +69,7 @@ $url = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port')) . ((!preg
     </div>
     <br /><br />
     <hr />
-    <p><?php echo $wats->get( 'copyright' )?></p>
+    <p><?php echo $btrac->get( 'copyright' )?></p>
 </body>
 </html>
 

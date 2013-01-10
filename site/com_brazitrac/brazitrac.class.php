@@ -28,7 +28,7 @@ class BtracUser extends JUser
 	 */
 	function loadBtracUser( $uid )
 	{
-		$wats = WFactory::getConfig();
+		$btrac = WFactory::getConfig();
 		
 		$database = JFactory::getDBO();
 		
@@ -57,7 +57,7 @@ class BtracUser extends JUser
 			$this->userRites = $vars[0]->userrites;
 			$returnValue = true;
 		}
-		elseif ($wats->get( 'users' ) == 1)
+		elseif ($btrac->get( 'users' ) == 1)
 		{
 			// allow all user access enabled
 			// get default group
@@ -67,18 +67,18 @@ class BtracUser extends JUser
 										WDBHelper::nameQuote("g.image") . ", " .
 										WDBHelper::nameQuote("g.name") . " AS " . WDBHelper::nameQuote("groupname") . " " .
 						   "FROM " . WDBHelper::nameQuote("#__brazitrac_groups") . " AS " . WDBHelper::nameQuote("g") . " " .
-						   "WHERE " . WDBHelper::nameQuote("g.grpid") . " = " . intval($wats->get('userdefault')) . " /* BtracUser::loadBtracUser() */");
+						   "WHERE " . WDBHelper::nameQuote("g.grpid") . " = " . intval($btrac->get('userdefault')) . " /* BtracUser::loadBtracUser() */");
 			$vars = $database->loadObjectList();
 			// setup user vars
 		    $this->groupName = $vars[0]->groupname ;
 		    $this->agree = "";
-		    $this->organisation = $wats->get( 'dorganisation' );
+		    $this->organisation = $btrac->get( 'dorganisation' );
 			$this->group = $vars[0]->grpid;
 			$this->image = $vars[0]->image;
 			$this->groupName = $vars[0]->name;
 			$this->userRites = $vars[0]->userrites;
 			// check for import
-			if ( $wats->get( 'usersimport' ) == 1 )
+			if ( $btrac->get( 'usersimport' ) == 1 )
 			{
 				// import user to default group
 				BtracUser::makeUser($this->id, $this->group, $this->organisation);
@@ -801,7 +801,7 @@ class btracCategory extends JTable
 	 */
 	function loadTicketSet( $lifecycle, $btracid, $riteAll = false ) {
 		// create new ticketset
-		$this->ticketSet = new watsTicketSetHTML();
+		$this->ticketSet = new btracTicketSetHTML();
 		// load tickets
 		$this->ticketSet->loadTicketSet( $lifecycle, $btracid, $this->catid, $riteAll );
 	}
@@ -874,7 +874,7 @@ class watsAssign
 		// set btracid
 		$this->btracid = $btracid;
 		// create new ticketset
-		$this->ticketSet = new watsTicketSetHTML();
+		$this->ticketSet = new btracTicketSetHTML();
 		// load tickets
 		$this->ticketSet->loadTicketSet(0, $this->btracid, -1, true, true);
 	}

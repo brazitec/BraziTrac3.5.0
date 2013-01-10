@@ -18,9 +18,9 @@ function com_uninstall()
     require('components/com_brazitrac/classes/factory.php');  
     require('components/com_brazitrac/classes/config.php');
 	require('components/com_brazitrac/admin.brazitrac.html.php');
-	$wats = WFactory::getConfig();
+	$btrac = WFactory::getConfig();
 	
-	if ( $wats->get( 'upgrade' ) == 0 )
+	if ( $btrac->get( 'upgrade' ) == 0 )
 	{
 		// uninstall
 		$database->setQuery( "DROP TABLE IF EXISTS `#__brazitrac_category`;" );

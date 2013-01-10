@@ -10,7 +10,7 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-$wats = WFactory::getConfig();
+$btrac = WFactory::getConfig();
 ?>
 <?php echo JText::sprintf("TO %s", $this->recipient->name); ?> 
 <?php echo JText::_("TICKET HAS BEEN REOPENED"); ?> 
@@ -21,4 +21,4 @@ $wats = WFactory::getConfig();
 <?php echo JText::_("REOPEN REASON"); ?>: 
 <?php echo $this->lastMessage->msg; ?> 
 ------------------------------------------------------------ 
-<?php echo $wats->get("copyright"); ?> 
+<?php echo $btrac->get("copyright"); ?> 
