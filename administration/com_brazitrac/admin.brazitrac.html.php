@@ -10,7 +10,7 @@
 defined('_JEXEC') or die('Restricted Access');
 
 // include classes
-require("components/com_brazitrac/admin.brazitec.class.php");
+require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "admin.brazitrac.class.php");
 
 /**
  * @version 1.0

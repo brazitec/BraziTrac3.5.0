@@ -16,7 +16,7 @@ echo '<div class="btrac">';
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "config.php");
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "dbhelper.php");
 require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "classes" . DS . "factory.php");
-require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "admin.brazitec.html.php");
+require_once(JPATH_COMPONENT_ADMINISTRATOR . DS . "admin.brazitrac.html.php");
 
 // add javaScript
 $document = JFactory::getDocument();
