@@ -18,7 +18,7 @@ class BraziTracController extends JController
         function display($cachable = false) 
         {
                 // set default view if not set
-                JRequest::setVar('view', JRequest::getCmd('view', 'BraziTracs'));
+                JRequest::setVar('view', JRequest::getCmd('view', 'BraziTrac'));
  
                 // call parent behavior
                 parent::display($cachable);
