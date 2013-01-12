@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+        <fieldset
+                name="brazitrac"
+                label="COM_BRAZITRAC_CONFIG_SETTINGS_LABEL"
+                description="COM_BRAZITRAC_CONFIG_SETTINGS_DESC"
+        >
+                <field
+                        name="iconset"
+                        type="text"
+                        label="COM_BRAZITRAC_ICONSET_LABEL"
+                        description="COM_BRAZITRAC_ICONSET_DESC"
+                        default="mdn_"
+                >
+
+                </field>
+                <field
+                        name="highlight"
+                        type="text"
+                        label="COM_BRAZITRAC_HIGHLIGHT_LABEL"
+                        description="COM_BRAZITRAC_HIGHLIGHT_DESC"
+                        default="!"
+                >
+
+                </field>
+                <field
+                        name="enhighlight"
+                        type="text"
+                        label="COM_BRAZITRAC_ENHIGHLIGHT_LABEL"
+                        description="COM_BRAZITRAC_ENHIGHLIGHT_DESC"
+                        default="1"
+                >
+
+                </field>
+                <field
+                        name="ticketsfront"
+                        type="text"
+                        label="COM_BRAZITRAC_TICKETSFRONT_LABEL"
+                        description="COM_BRAZITRAC_TICKETSFRONT_DESC"
+                        default="5"
+                >
+
+                </field>
+                <field
+                        name="ticketssub"
+                        type="text"
+                        label="COM_BRAZITRAC_TICKETSSUB_LABEL"
+                        description="COM_BRAZITRAC_TICKETSSUB_DESC"
+                        default="15"
+                >
+
+                </field>
+                <field
+                        name="sourceemail"
+                        type="text"
+                        label="COM_BRAZITRAC_SOURCEEMAIL_LABEL"
+                        description="COM_BRAZITRAC_SOURCEEMAIL_DESC"
+                        default=""
+                >
+
+                </field>
+                <field
+                        name="msgbox"
+                        type="text"
+                        label="COM_BRAZITRAC_MSGBOX_LABEL"
+                        description="COM_BRAZITRAC_MSGBOX_DESC"
+                        default="bbcode"
+                >
+
+                </field>
+                <field
+                        name="pkgname"
+                        type="text"
+                        label="COM_BRAZITRAC_PKGNAME_LABEL"
+                        description="COM_BRAZITRAC_PKGNAME_DESC"
+                        default="Brazitrac Ticket System"
+                >
+
+                </field>
+                <field
+                        name="pkgusers"
+                        type="text"
+                        label="COM_BRAZITRAC_PKGUSERS_LABEL"
+                        description="COM_BRAZITRAC_PKGUSERS_DESC"
+                        default="1"
+                >
+
+                </field>
+                <field
+                        name="agree"
+                        type="text"
+                        label="COM_BRAZITRAC_AGREE_LABEL"
+                        description="COM_BRAZITRAC_AGREE_DESC"
+                        default="0"
+                >
+
+                </field>
+                <field
+                        name="agreei"
+                        type="text"
+                        label="COM_BRAZITRAC_AGREEI_LABEL"
+                        description="COM_BRAZITRAC_AGREEI_DESC"
+                        default=""
+                >
+
+                </field>
+                <field
+                        name="agreelw"
+                        type="text"
+                        label="COM_BRAZITRAC_AGREELW_LABEL"
+                        description="COM_BRAZITRAC_AGREELW_DESC"
+                        default="You must agree to the following terms to use this system"
+                >
+
+                </field>
+                <field
+                        name="agreen"
+                        type="text"
+                        label="COM_BRAZITRAC_AGREEN_LABEL"
+                        description="COM_BRAZITRAC_AGREEN_DESC"
+                        default="agreement"
+                >
+
+                </field>
+                <field
+                        name="agreela"
+                        type="text"
+                        label="COM_BRAZITRAC_AGREELA_LABEL"
+                        description="COM_BRAZITRAC_AGREELA_DESC"
+                        default="If you have read the terms please continue"
+                >
+
+                </field>
+                <field
+                        name="agreeb"
+                        type="text"
+                        label="COM_BRAZITRAC_AGREEB_LABEL"
+                        description="COM_BRAZITRAC_AGREEB_DESC"
+                        default="continue"
+                >
+
+                </field>
+                <field
+                        name="bview"
+                        type="text"
+                        label="COM_BRAZITRAC_BVIEW_LABEL"
+                        description="COM_BRAZITRAC_BVIEW_DESC"
+                        default="a"
+                >
+
+                </field>
+                <field
+                        name="msgboxh"
+                        type="text"
+                        label="COM_BRAZITRAC_MSGBOXH_LABEL"
+                        description="COM_BRAZITRAC_MSGBOXH_DESC"
+                        default="10"
+                >
+
+                </field>
+                <field
+                        name="msgboxw"
+                        type="text"
+                        label="COM_BRAZITRAC_MSGBOXW_LABEL"
+                        description="COM_BRAZITRAC_MSGBOXW_DESC"
+                        default="58"
+                >
+
+                </field>
+                <field
+                        name="msgboxt"
+                        type="text"
+                        label="COM_BRAZITRAC_MSGBOXT_LABEL"
+                        description="COM_BRAZITRAC_MSGBOXT_DESC"
+                        default="1"
+                >
+
+                </field>
+                <field
+                        name="dorganisation"
+                        type="text"
+                        label="COM_BRAZITRAC_DORGANISATION_LABEL"
+                        description="COM_BRAZITRAC_DORGANISATION_DESC"
+                        default="individual"
+                >
+
+                </field>
+                <field
+                        name="copyright"
+                        type="text"
+                        label="COM_BRAZITRAC_COPYRIGHT_LABEL"
+                        description="COM_BRAZITRAC_COPYRIGHT_DESC"
+                        default="individual"
+                >
+
+                </field>
+                <field
+                        name="copyright"
+                        type="text"
+                        label="COM_BRAZITRAC_COPYRIGHT_LABEL"
+                        description="COM_BRAZITRAC_COPYRIGHT_DESC"
+                        default="Brazitrac Ticket System for Mambo and Joomla"
+                >
+
+                </field>
+                <field
+                        name="bdate"
+                        type="text"
+                        label="COM_BRAZITRAC_BDATE_LABEL"
+                        description="COM_BRAZITRAC_BDATE_DESC"
+                        default="j-M-Y (h:i)"
+                >
+
+                </field>
+                <field
+                        name="defaultmsg"
+                        type="text"
+                        label="COM_BRAZITRAC_DEFAULTMSG_LABEL"
+                        description="COM_BRAZITRAC_DEFAULTMSG_DESC"
+                        default="type here..."
+                >
+
+                </field>
+                <field
+                        name="dateshort"
+                        type="text"
+                        label="COM_BRAZITRAC_DATESHORT_LABEL"
+                        description="COM_BRAZITRAC_DATESHORT_DESC"
+                        default="j-M-Y"
+                >
+
+                </field>
+                <field
+                        name="assignname"
+                        type="text"
+                        label="COM_BRAZITRAC_ASSIGNNAME_LABEL"
+                        description="COM_BRAZITRAC_ASSIGNNAME_DESC"
+                        default="Assigned Tickets"
+                >
+
+                </field>
+                <field
+                        name="assigndescription"
+                        type="text"
+                        label="COM_BRAZITRAC_ASSIGNDESCRIPTION_LABEL"
+                        description="COM_BRAZITRAC_ASSIGNDESCRIPTION_DESC"
+                        default="Tickets assigned to you to answer"
+                >
+
+                </field>
+                <field
+                        name="assignimage"
+                        type="text"
+                        label="COM_BRAZITRAC_ASSIGNIMAGE_LABEL"
+                        description="COM_BRAZITRAC_ASSIGNIMAGE_DESC"
+                        default=""
+                >
+
+                </field>
+                <field
+                        name="css"
+                        type="text"
+                        label="COM_BRAZITRAC_CSS_LABEL"
+                        description="COM_BRAZITRAC_CSS_DESC"
+                        default="disable"
+                >
+
+                </field>
+                <field
+                        name="upgrade"
+                        type="text"
+                        label="COM_BRAZITRAC_UPGRADE_LABEL"
+                        description="COM_BRAZITRAC_UPGRADE_DESC"
+                        default="0"
+                >
+
+                </field>
+                <field
+                        name="versionname"
+                        type="text"
+                        label="COM_BRAZITRAC_VERSIONNAME_LABEL"
+                        description="COM_BRAZITRAC_VERSIONNAME_DESC"
+                        default="stable"
+                >
+
+                </field>
+                <field
+                        name="userdefault"
+                        type="text"
+                        label="COM_BRAZITRAC_USERDEFAULT_LABEL"
+                        description="COM_BRAZITRAC_USERDEFAULT_DESC"
+                        default="1"
+                >
+
+                </field>
+                <field
+                        name="usersimport"
+                        type="text"
+                        label="COM_BRAZITRAC_USERSIMPORT_LABEL"
+                        description="COM_BRAZITRAC_USERSIMPORT_DESC"
+                        default="1"
+                >
+
+                </field>
+                <field
+                        name="debug"
+                        type="text"
+                        label="COM_BRAZITRAC_DEBUG_LABEL"
+                        description="COM_BRAZITRAC_DEBUG_DESC"
+                        default="0"
+                >
+
+                </field>
+                <field
+                        name="debugmessage"
+                        type="text"
+                        label="COM_BRAZITRAC_DEBUGMESSAGE_LABEL"
+                        description="COM_BRAZITRAC_DEBUGMESSAGE_DESC"
+                        default="Continue >>"
+                >
+
+                </field>
+                <field
+                        name="versionmajor"
+                        type="text"
+                        label="COM_BRAZITRAC_VERSIONMAJOR_LABEL"
+                        description="COM_BRAZITRAC_VERSIONMAJOR_DESC"
+                        default="0"
+                >
+
+                </field>
+                <field
+                        name="versionminor"
+                        type="text"
+                        label="COM_BRAZITRAC_VERSIONMINOR_LABEL"
+                        description="COM_BRAZITRAC_VERSIONMINOR_DESC"
+                        default="0"
+                >
+
+                </field>
+                <field
+                        name="versionpatch"
+                        type="text"
+                        label="COM_BRAZITRAC_VERSIONPATCH_LABEL"
+                        description="COM_BRAZITRAC_VERSIONPATCH_DESC"
+                        default="0"
+                >
+
+                </field>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+        </fieldset>
+</config>
